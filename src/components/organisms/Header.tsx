@@ -1,5 +1,5 @@
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
-import { FiUser } from 'react-icons/fi';
+import { FaRegCircleUser } from 'react-icons/fa6';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -23,7 +23,7 @@ export const Header = ({ onToggleSidebar, isSidebarOpen }: HeaderProps) => {
         </a>
 
         <a href="/" className="p-2">
-          <FiUser className="h-7 w-7" />
+          <FaRegCircleUser className="h-7 w-7" />
         </a>
       </div>
     </header>
