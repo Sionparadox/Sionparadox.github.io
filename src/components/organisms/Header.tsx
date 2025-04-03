@@ -1,28 +1,12 @@
-import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { Icon } from '../atoms/Icon';
+import { SidebarToggleButton } from '../molecules/SidebarToggleButton';
 
-interface HeaderProps {
-  onToggleSidebar: () => void;
-  isSidebarOpen: boolean;
-}
-
-export const Header = ({ onToggleSidebar, isSidebarOpen }: HeaderProps) => {
+export const Header = () => {
   return (
-    <header className="shadow-md">
+    <header className="border-light-stroke-main dark:border-dark-stroke-main sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-light-bg-card px-4 dark:bg-dark-bg-card">
+      <SidebarToggleButton />
       <div className="flex h-16 items-center justify-between px-4 text-light-text-title hover:text-gray-700 dark:text-dark-text-title dark:hover:text-gray-300">
-        <button onClick={onToggleSidebar} className="rounded-mdfocus:outline-none p-2">
-          {isSidebarOpen ? (
-            <Icon size="lg">
-              <RiCloseLine />
-            </Icon>
-          ) : (
-            <Icon size="lg">
-              <RiMenu3Line />
-            </Icon>
-          )}
-        </button>
-
         <a href="/" className="text-2xl font-bold">
           Sion's Log
         </a>

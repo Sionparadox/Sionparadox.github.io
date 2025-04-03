@@ -4,24 +4,18 @@ import { Sidebar } from '../organisms/Sidebar';
 import { Footer } from '../organisms/Footer';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { sidebarAtom, setSidebarToggleAtom } from '@/atoms/sidebar';
-import { useEffect, useCallback, memo } from 'react';
-
-const SidebarWrapper = memo(({ isOpen }: { isOpen: boolean }) => (
-  <div
-    className={`fixed left-0 top-0 h-full w-64 transform ${
-      isOpen ? 'translate-x-0' : '-translate-x-full'
-    } z-30 transition-transform duration-300 ease-in-out`}
-  >
-    <Sidebar />
-  </div>
-));
+import { useEffect, useCallback, useRef } from 'react';
 
 export const MainLayout = () => {
   const sidebar = useAtomValue(sidebarAtom);
   const setToggle = useSetAtom(setSidebarToggleAtom);
+  const isInitialized = useRef(false);
 
   const initializeToggle = useCallback(() => {
-    setToggle();
+    if (!isInitialized.current) {
+      setToggle();
+      isInitialized.current = true;
+    }
   }, [setToggle]);
 
   useEffect(() => {
@@ -31,7 +25,13 @@ export const MainLayout = () => {
   return (
     <div className="relative min-h-screen">
       {/* 사이드바 */}
-      <SidebarWrapper isOpen={sidebar.isOpen} />
+      <div
+        className={`fixed left-0 top-0 h-full w-64 transform ${
+          sidebar.isOpen ? 'translate-x-0' : '-translate-x-full'
+        } z-30 transition-transform duration-300 ease-in-out`}
+      >
+        <Sidebar />
+      </div>
 
       {/* 메인 콘텐츠 */}
       <div
@@ -41,7 +41,7 @@ export const MainLayout = () => {
       >
         {/* 실제 콘텐츠 */}
         <div className="flex min-h-screen flex-col">
-          <Header onToggleSidebar={sidebar.toggle} isSidebarOpen={sidebar.isOpen} />
+          <Header />
           <main className="flex-1 p-6">
             <Outlet />
           </main>
