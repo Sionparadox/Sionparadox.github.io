@@ -1,9 +1,5 @@
 function Test() {
-  return (
-    <div>
-      <p>테스트</p>
-    </div>
-  );
+  return <div>test</div>;
 }
 
 export default Test;
