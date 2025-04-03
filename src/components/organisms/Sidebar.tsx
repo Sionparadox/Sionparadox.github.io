@@ -1,12 +1,12 @@
 import { FaGithub, FaHome, FaLaptop, FaPuzzlePiece } from 'react-icons/fa';
-import { Icon } from '../atoms/Icon';
-import { MdOutlineLightMode } from 'react-icons/md';
+import IconButton from '../molecules/IconButton';
+import { ThemeToggleButton } from '../molecules/ThemeToggleButton';
 
 export const Sidebar = () => {
   return (
     <aside className="h-screen w-64 overflow-y-auto bg-light-bg-card dark:bg-dark-bg-card">
       <div className="flex flex-col items-center pt-20">
-        <div className="stroke-light-stroke-main dark:stroke-dark-stroke-main mb-4 h-24 w-24 rounded-full bg-white">
+        <div className="mb-4 h-24 w-24 rounded-full bg-white stroke-light-stroke-main dark:stroke-dark-stroke-main">
           {/* 프로필 이미지가 들어갈 자리 */}
         </div>
         <p className="mb-5 text-2xl font-bold text-light-text-title dark:text-dark-text-title">
@@ -22,19 +22,17 @@ export const Sidebar = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon size="lg">
+            <IconButton>
               <FaGithub />
-            </Icon>
+            </IconButton>
           </a>
           <a href="/" className="hover:text-gray-900 dark:hover:text-white">
-            <Icon size="lg">
+            <IconButton>
               <FaHome />
-            </Icon>
+            </IconButton>
           </a>
           <a href="/" className="hover:text-gray-900 dark:hover:text-white">
-            <Icon size="lg">
-              <MdOutlineLightMode />
-            </Icon>
+            <ThemeToggleButton />
           </a>
         </div>
       </div>
@@ -45,18 +43,18 @@ export const Sidebar = () => {
             href="/"
             className="flex items-center gap-3 rounded-md px-2 py-2 hover:text-gray-900 dark:hover:text-white"
           >
-            <Icon>
+            <IconButton>
               <FaPuzzlePiece />
-            </Icon>
+            </IconButton>
             Algorithm
           </a>
           <a
             href="/"
             className="flex items-center gap-3 rounded-md px-2 py-2 hover:text-gray-900 dark:hover:text-white"
           >
-            <Icon>
+            <IconButton>
               <FaLaptop />
-            </Icon>
+            </IconButton>
             ComputerScience
           </a>
         </div>

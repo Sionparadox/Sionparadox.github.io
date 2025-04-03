@@ -1,6 +1,6 @@
 import { FaRegCircleUser } from 'react-icons/fa6';
-import { Icon } from '../atoms/Icon';
 import { SidebarToggleButton } from '../molecules/SidebarToggleButton';
+import IconButton from '../molecules/IconButton';
 
 export const Header = () => {
   return (
@@ -19,9 +19,9 @@ export const Header = () => {
           href="/"
           className="p-2 text-light-text-title hover:text-gray-700 dark:text-dark-text-title dark:hover:text-gray-300"
         >
-          <Icon size="lg">
+          <IconButton onClick={() => {}}>
             <FaRegCircleUser />
-          </Icon>
+          </IconButton>
         </a>
       </div>
     </header>
