@@ -1,6 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       fontFamily: {
@@ -32,10 +34,10 @@ export default {
             sub: '#363636',
           },
           text: {
-            main: '#b5b5b5',
-            title: '#e5e5e5',
+            main: '#B5B5B5',
+            title: '#E5E5E5',
             gray: '#808080',
-            sub: '#a3a3a3',
+            sub: '#A3A3A3',
           },
           stroke: {
             main: '#404040',
@@ -46,3 +48,5 @@ export default {
   },
   plugins: [],
 };
+
+export default config;

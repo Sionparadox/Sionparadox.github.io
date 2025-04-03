@@ -1,22 +1,29 @@
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '../organisms/Header';
 import { Sidebar } from '../organisms/Sidebar';
 import { Footer } from '../organisms/Footer';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { sidebarAtom, setSidebarToggleAtom } from '@/atoms/sidebar';
+import { useEffect, useCallback } from 'react';
 
 export const MainLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebar = useAtomValue(sidebarAtom);
+  const setToggle = useSetAtom(setSidebarToggleAtom);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const initializeToggle = useCallback(() => {
+    setToggle();
+  }, [setToggle]);
+
+  useEffect(() => {
+    initializeToggle();
+  }, [initializeToggle]);
 
   return (
     <div className="relative min-h-screen">
       {/* 사이드바 */}
       <div
         className={`fixed left-0 top-0 h-full w-64 transform ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          sidebar.isOpen ? 'translate-x-0' : '-translate-x-full'
         } z-30 transition-transform duration-300 ease-in-out`}
       >
         <Sidebar />
@@ -25,12 +32,12 @@ export const MainLayout = () => {
       {/* 메인 콘텐츠 */}
       <div
         className={`min-h-screen transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? 'pl-64' : 'pl-0'
+          sidebar.isOpen ? 'pl-64' : 'pl-0'
         }`}
       >
         {/* 실제 콘텐츠 */}
         <div className="flex min-h-screen flex-col">
-          <Header onToggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+          <Header onToggleSidebar={sidebar.toggle} isSidebarOpen={sidebar.isOpen} />
           <main className="flex-1 p-6">
             <Outlet />
           </main>
