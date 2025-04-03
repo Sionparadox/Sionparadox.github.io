@@ -4,7 +4,17 @@ import { Sidebar } from '../organisms/Sidebar';
 import { Footer } from '../organisms/Footer';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { sidebarAtom, setSidebarToggleAtom } from '@/atoms/sidebar';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, memo } from 'react';
+
+const SidebarWrapper = memo(({ isOpen }: { isOpen: boolean }) => (
+  <div
+    className={`fixed left-0 top-0 h-full w-64 transform ${
+      isOpen ? 'translate-x-0' : '-translate-x-full'
+    } z-30 transition-transform duration-300 ease-in-out`}
+  >
+    <Sidebar />
+  </div>
+));
 
 export const MainLayout = () => {
   const sidebar = useAtomValue(sidebarAtom);
@@ -21,13 +31,7 @@ export const MainLayout = () => {
   return (
     <div className="relative min-h-screen">
       {/* 사이드바 */}
-      <div
-        className={`fixed left-0 top-0 h-full w-64 transform ${
-          sidebar.isOpen ? 'translate-x-0' : '-translate-x-full'
-        } z-30 transition-transform duration-300 ease-in-out`}
-      >
-        <Sidebar />
-      </div>
+      <SidebarWrapper isOpen={sidebar.isOpen} />
 
       {/* 메인 콘텐츠 */}
       <div

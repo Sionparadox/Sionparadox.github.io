@@ -1,25 +1,33 @@
 import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 
 interface SidebarState {
   isOpen: boolean;
   toggle: () => void;
 }
 
-export const sidebarAtom = atomWithStorage<SidebarState>('sidebar', {
-  isOpen: false,
+const getInitialState = (): boolean => {
+  const stored = localStorage.getItem('sidebar-open');
+  return stored ? JSON.parse(stored) : false;
+};
+
+export const sidebarAtom = atom<SidebarState>({
+  isOpen: getInitialState(),
   toggle: () => {},
 });
 
 export const setSidebarToggleAtom = atom(null, (get, set) => {
-  const sidebar = get(sidebarAtom);
-  set(sidebarAtom, {
-    ...sidebar,
-    toggle: () => {
-      set(sidebarAtom, {
-        ...sidebar,
-        isOpen: !sidebar.isOpen,
-      });
-    },
-  });
+  const toggle = () => {
+    const currentState = get(sidebarAtom);
+    const newIsOpen = !currentState.isOpen;
+    localStorage.setItem('sidebar-open', JSON.stringify(newIsOpen));
+    set(sidebarAtom, {
+      ...currentState,
+      isOpen: newIsOpen,
+    });
+  };
+
+  set(sidebarAtom, (prev) => ({
+    ...prev,
+    toggle,
+  }));
 });
