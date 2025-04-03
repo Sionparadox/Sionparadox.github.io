@@ -4,14 +4,21 @@ import { SidebarToggleButton } from '../molecules/SidebarToggleButton';
 
 export const Header = () => {
   return (
-    <header className="border-light-stroke-main dark:border-dark-stroke-main sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-light-bg-card px-4 dark:bg-dark-bg-card">
-      <SidebarToggleButton />
-      <div className="flex h-16 items-center justify-between px-4 text-light-text-title hover:text-gray-700 dark:text-dark-text-title dark:hover:text-gray-300">
-        <a href="/" className="text-2xl font-bold">
-          Sion's Log
-        </a>
-
-        <a href="/" className="p-2">
+    <header className="sticky top-0 z-20 flex h-16 items-center px-4 shadow-sm shadow-light-stroke-main dark:shadow-dark-stroke-main">
+      <div className="flex w-full items-center">
+        <SidebarToggleButton />
+        <div className="flex-1 text-center">
+          <a
+            href="/"
+            className="text-2xl font-bold text-light-text-title hover:text-gray-700 dark:text-dark-text-title dark:hover:text-gray-300"
+          >
+            Sion's Log
+          </a>
+        </div>
+        <a
+          href="/"
+          className="p-2 text-light-text-title hover:text-gray-700 dark:text-dark-text-title dark:hover:text-gray-300"
+        >
           <Icon size="lg">
             <FaRegCircleUser />
           </Icon>

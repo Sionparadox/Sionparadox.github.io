@@ -24,6 +24,7 @@ const config: Config = {
           },
           stroke: {
             main: '#D4D4D4',
+            sub: '#E5E7ED',
           },
         },
         // Dark mode colors
@@ -41,6 +42,7 @@ const config: Config = {
           },
           stroke: {
             main: '#404040',
+            sub: '#E5E7EB',
           },
         },
       },

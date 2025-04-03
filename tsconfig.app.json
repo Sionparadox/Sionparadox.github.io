@@ -28,5 +28,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "stories/atoms/Icon.stories.tsx"]
+  "include": ["src", "stories/**/*.stories.tsx"]
 }

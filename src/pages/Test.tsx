@@ -1,4 +1,5 @@
 import { Icon } from '@/components/atoms/Icon';
+import { Button } from '@/components/atoms/Button';
 import { FaGithub } from 'react-icons/fa';
 import { useTheme } from '@/hooks/useTheme';
 function Test() {
@@ -10,6 +11,10 @@ function Test() {
       <Icon size="xl" className="text-yellow-500">
         <FaGithub />
       </Icon>
+
+      <Button fullWidth onClick={() => alert('버튼 클릭')}>
+        버튼
+      </Button>
     </div>
   );
 }
