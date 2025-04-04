@@ -9,5 +9,6 @@ export const themeAtom = atomWithStorage<Theme>('theme', 'light');
 // 테마 토글 atom
 export const toggleThemeAtom = atom(null, (get, set) => {
   const currentTheme = get(themeAtom);
-  set(themeAtom, currentTheme === 'light' ? 'dark' : 'light');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  set(themeAtom, newTheme);
 });

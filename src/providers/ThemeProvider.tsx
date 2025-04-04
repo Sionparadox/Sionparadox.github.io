@@ -1,11 +1,23 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { themeAtom } from '@/atoms/theme';
+
+// 초기 테마 설정
+if (typeof window !== 'undefined') {
+  const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+  const root = window.document.documentElement;
+  if (savedTheme) {
+    root.setAttribute('data-theme', savedTheme);
+  } else {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  }
+}
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const theme = useAtomValue(themeAtom);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = window.document.documentElement;
     root.setAttribute('data-theme', theme);
   }, [theme]);
