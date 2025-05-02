@@ -7,7 +7,7 @@ function Test() {
   return (
     <div>
       <button onClick={toggleTheme}>테마 변경</button>
-      <p>{theme}</p>
+      <p className="text-greyText">{theme}</p>
       <IconButton onClick={toggleTheme}>
         <FaGithub />
       </IconButton>
@@ -15,6 +15,9 @@ function Test() {
       <Button fullWidth onClick={() => alert('버튼 클릭')}>
         버튼
       </Button>
+      <div className="bg-cardBg">
+        <p className="text-title">배경색</p>
+      </div>
     </div>
   );
 }

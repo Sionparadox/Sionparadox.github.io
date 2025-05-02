@@ -4,14 +4,12 @@ import { ThemeToggleButton } from '../molecules/ThemeToggleButton';
 
 export const Sidebar = () => {
   return (
-    <aside className="h-screen w-64 overflow-y-auto bg-light-bg-card dark:bg-dark-bg-card">
+    <aside className="bg-cardBg h-screen w-64 overflow-y-auto">
       <div className="flex flex-col items-center pt-20">
-        <div className="mb-4 h-24 w-24 rounded-full bg-white stroke-light-stroke-main dark:stroke-dark-stroke-main">
+        <div className="stroke-strokeMain mb-4 h-24 w-24 rounded-full bg-white">
           {/* 프로필 이미지가 들어갈 자리 */}
         </div>
-        <p className="mb-5 text-2xl font-bold text-light-text-title dark:text-dark-text-title">
-          Sion's Log
-        </p>
+        <p className="text-title mb-5 text-2xl font-bold">Sion's Log</p>
 
         <p className="mb-4 font-medium">나의 성장 기록</p>
 
@@ -31,13 +29,11 @@ export const Sidebar = () => {
               <FaHome />
             </IconButton>
           </a>
-          <a href="/" className="hover:text-gray-900 dark:hover:text-white">
-            <ThemeToggleButton />
-          </a>
+          <ThemeToggleButton className="hover:text-gray-900 dark:hover:text-white" />
         </div>
       </div>
 
-      <nav className="px-4 text-xl font-semibold text-light-text-title dark:text-dark-text-title">
+      <nav className="text-title px-4 text-xl font-semibold">
         <div className="space-y-1">
           <a
             href="/"

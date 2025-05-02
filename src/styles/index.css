@@ -5,8 +5,30 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: #fafafa;
+    --cardBg: #e5e5e5;
+    --subBg: #ededed;
+    --foreground: #404040;
+    --title: #171717;
+    --greyText: #737373;
+    --subText: #525252;
+    --strokeMain: #d4d4d4;
+  }
+
+  .dark,
+  [data-theme='dark'] {
+    --background: #171717;
+    --cardBg: #262626;
+    --subBg: #363636;
+    --foreground: #b5b5b5;
+    --title: #e5e5e5;
+    --greyText: #808080;
+    --subText: #a3a3a3;
+    --strokeMain: #404040;
+  }
   body {
-    @apply bg-light-bg-main text-light-text-main dark:bg-dark-bg-main dark:text-dark-text-main;
+    @apply bg-background text-foreground;
     font-family:
       'Pretendard',
       -apple-system,

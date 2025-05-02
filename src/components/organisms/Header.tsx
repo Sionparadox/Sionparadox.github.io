@@ -4,21 +4,18 @@ import IconButton from '../molecules/IconButton';
 
 export const Header = () => {
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center px-4 shadow-sm shadow-light-stroke-main dark:shadow-dark-stroke-main">
+    <header className="shadow-strokeMain sticky top-0 z-20 flex h-16 items-center px-4 shadow-sm">
       <div className="flex w-full items-center">
         <SidebarToggleButton />
         <div className="flex-1 text-center">
           <a
             href="/"
-            className="text-2xl font-bold text-light-text-title hover:text-gray-700 dark:text-dark-text-title dark:hover:text-gray-300"
+            className="text-title text-2xl font-bold hover:text-gray-700 dark:hover:text-gray-300"
           >
             Sion's Log
           </a>
         </div>
-        <a
-          href="/"
-          className="p-2 text-light-text-title hover:text-gray-700 dark:text-dark-text-title dark:hover:text-gray-300"
-        >
+        <a href="/" className="text-title p-2 hover:text-gray-700 dark:hover:text-gray-300">
           <IconButton onClick={() => {}}>
             <FaRegCircleUser />
           </IconButton>
