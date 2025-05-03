@@ -45,7 +45,7 @@ export const MainLayout = () => {
           <div className="sticky top-0 z-20">
             <Header />
           </div>
-          <main className="flex-1 p-6">
+          <main className="mx-auto w-[1080px] flex-1 pt-16">
             <Outlet />
           </main>
           <Footer />

@@ -10,7 +10,8 @@ function Todo() {
           <TodoLine title="다크모드" isDone={true} />
           <TodoLine title="프로필 카드" isDone={true} />
           <TodoLine title="헤더 상단 고정 및 오버스크롤 방지" isDone={true} />
-          <TodoLine title="레이아웃 조정(컨텐츠 박스 사이즈)" isDone={false} />
+          <TodoLine title="레이아웃 조정(컨텐츠 박스 사이즈)" isDone={true} />
+          <TodoLine title="반응형 레이아웃 조정" isDone={false} />
         </div>
         <div className="border-strokeMain mt-3 flex w-80 flex-col gap-2 border p-4">
           <h2 className="text-title mb-3 text-3xl font-bold">목록</h2>
