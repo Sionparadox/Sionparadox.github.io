@@ -15,12 +15,14 @@ function Todo() {
         </div>
         <div className="border-strokeMain mt-3 flex w-80 flex-col gap-2 border p-4">
           <h2 className="text-title mb-3 text-3xl font-bold">목록</h2>
-          <TodoLine title="페이지 구현" isDone={false} />
-          <TodoLine title="게시글 데이터 저장" isDone={false} />
+          <TodoLine title="최근 게시글 목록" isDone={true} />
+          <TodoLine title="카테고리 별 게시글 목록" isDone={false} />
+          <TodoLine title="게시글 데이터 저장" isDone={true} />
         </div>
         <div className="border-strokeMain mt-3 flex w-80 flex-col gap-2 border p-4">
           <h2 className="text-title mb-3 text-3xl font-bold">게시글</h2>
           <TodoLine title="페이지 구현" isDone={false} />
+          <TodoLine title="마크다운 스타일 적용" isDone={false} />
           <TodoLine title="플로팅 네비게이터" isDone={false} />
           <TodoLine title="클립보드 복사" isDone={false} />
         </div>

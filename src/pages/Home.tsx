@@ -1,17 +1,10 @@
-import { Link } from 'react-router-dom';
+import RecentPost from '@/components/organisms/RecentPost';
 
 const Home = () => {
   return (
-    <div className="mx-auto max-w-7xl">
-      <h1 className="mb-6 text-3xl font-black">시온시온</h1>
-      <div className="rounded-lg p-6">
-        <Link
-          to="/test"
-          className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
-        >
-          테스트 페이지로 이동
-        </Link>
-      </div>
+    <div >
+      <h2 className="text-3xl font-black text-title mb-7 border-b-2 border-strokeMain pb-7 pt-3">Recent Posts</h2>
+      <RecentPost />
     </div>
   );
 };

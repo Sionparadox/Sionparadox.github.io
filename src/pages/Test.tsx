@@ -1,5 +1,6 @@
 import { Button } from '@/components/atoms/Button';
-import { Profile } from '@/components/organisms/Profile';
+import RecentPost from '@/components/organisms/RecentPost';
+
 import { useTheme } from '@/hooks/useTheme';
 
 function Test() {
@@ -18,9 +19,7 @@ function Test() {
           버튼
         </Button>
       </div>
-      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Profile />
-      </div>
+      <RecentPost />
     </div>
   );
 }
