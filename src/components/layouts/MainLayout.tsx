@@ -24,7 +24,7 @@ export const MainLayout = () => {
   }, [initializeToggle]);
 
   return (
-    <div className="relative min-h-screen overscroll-none">
+    <div className="relative min-h-screen">
       {/* 사이드바 */}
       <div
         className={`fixed left-0 top-0 h-full w-72 transform ${
@@ -33,7 +33,7 @@ export const MainLayout = () => {
       >
         <Sidebar />
       </div>
-
+      <Profile />
       {/* 메인 콘텐츠 */}
       <div
         className={`min-h-screen transition-all duration-300 ease-in-out ${
@@ -50,7 +50,6 @@ export const MainLayout = () => {
           </main>
           <Footer />
         </div>
-        <Profile />
       </div>
     </div>
   );
