@@ -3,6 +3,7 @@ import '@/styles/index.css';
 import { MainLayout } from './components/layouts/MainLayout';
 import Home from './pages/Home';
 import Test from './pages/Test';
+import Todo from './pages/Todo';
 import { ThemeProvider } from './providers/ThemeProvider';
 
 const router = {
@@ -20,6 +21,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/todo" element={<Todo />} />
           </Route>
         </Routes>
       </Router>

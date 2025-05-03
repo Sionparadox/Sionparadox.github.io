@@ -17,11 +17,6 @@ function Test() {
           버튼
         </Button>
       </div>
-      <div className="">
-        <p className="text-title">타이틀</p>
-        <p className="text-subText">서브텍스트</p>
-        <p className="text-greyText">그레이텍스트</p>
-      </div>
     </div>
   );
 }

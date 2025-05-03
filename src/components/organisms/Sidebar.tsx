@@ -1,9 +1,11 @@
 import { FaGithub, FaHome, FaLaptop, FaPuzzlePiece } from 'react-icons/fa';
 import IconButton from '../molecules/IconButton';
 import { ThemeToggleButton } from '../molecules/ThemeToggleButton';
+import { FaList } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 export const Sidebar = () => {
   return (
-    <aside className="bg-cardBg h-screen w-64 overflow-y-auto">
+    <aside className="bg-cardBg h-screen w-72 overflow-y-auto">
       <div className="flex flex-col items-center pt-20">
         <div className="stroke-strokeMain mb-4 h-24 w-24 rounded-full">
           <img
@@ -29,14 +31,18 @@ export const Sidebar = () => {
 
       <nav className="text-title px-4 text-xl font-semibold">
         <div className="space-y-1">
-          <a href="/" className="hover:bg-subBg flex items-center gap-3 rounded-md px-2 py-2">
+          <Link to="/" className="hover:bg-subBg flex items-center gap-3 rounded-md px-2 py-2">
             <IconButton icon={<FaPuzzlePiece />} />
             Algorithm
-          </a>
-          <a href="/" className="hover:bg-subBg flex items-center gap-3 rounded-md px-2 py-2">
+          </Link>
+          <Link to="/" className="hover:bg-subBg flex items-center gap-3 rounded-md px-2 py-2">
             <IconButton icon={<FaLaptop />} />
             ComputerScience
-          </a>
+          </Link>
+          <Link to="/todo" className="hover:bg-subBg flex items-center gap-3 rounded-md px-2 py-2">
+            <IconButton icon={<FaList />} />
+            Todo
+          </Link>
         </div>
       </nav>
     </aside>
