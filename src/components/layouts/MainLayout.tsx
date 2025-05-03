@@ -23,7 +23,7 @@ export const MainLayout = () => {
   }, [initializeToggle]);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overscroll-none">
       {/* 사이드바 */}
       <div
         className={`fixed left-0 top-0 h-full w-72 transform ${
@@ -41,7 +41,9 @@ export const MainLayout = () => {
       >
         {/* 실제 콘텐츠 */}
         <div className="flex min-h-screen flex-col">
-          <Header />
+          <div className="sticky top-0 z-20">
+            <Header />
+          </div>
           <main className="flex-1 p-6">
             <Outlet />
           </main>

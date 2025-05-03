@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply overscroll-none;
+  }
+
   :root {
     --background: #fafafa;
     --cardBg: #e5e5e5;
@@ -28,7 +32,7 @@
     --strokeMain: #404040;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overscroll-none;
     font-family:
       'Pretendard',
       -apple-system,

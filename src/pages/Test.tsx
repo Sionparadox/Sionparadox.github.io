@@ -17,6 +17,28 @@ function Test() {
           버튼
         </Button>
       </div>
+      <div className="flex flex-col gap-2">
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+        <p className="text-3xl">더미 글</p>
+      </div>
     </div>
   );
 }

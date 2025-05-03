@@ -4,7 +4,7 @@ import IconButton from '../molecules/IconButton';
 
 export const Header = () => {
   return (
-    <header className="shadow-strokeMain sticky top-0 z-20 flex h-16 items-center px-4 shadow-md">
+    <header className="shadow-strokeMain bg-background flex h-16 items-center px-4 shadow-md">
       <div className="flex w-full items-center">
         <SidebarToggleButton />
         <div className="flex-1 text-center">
