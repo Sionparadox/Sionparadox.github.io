@@ -12,12 +12,15 @@ const meta: Meta<typeof IconButton> = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl'],
-      description: '아이콘의 크기를 선택합니다.',
+      options: ['sm', 'md', 'lg'],
+      description: '아이콘 버튼의 크기를 선택합니다.',
     },
     disabled: {
       control: 'boolean',
       description: '버튼의 비활성화 상태를 설정합니다.',
+    },
+    icon: {
+      description: '버튼에 표시할 아이콘을 설정합니다.',
     },
     onClick: { action: 'clicked' },
   },
@@ -28,7 +31,7 @@ type Story = StoryObj<typeof IconButton>;
 
 export const Default: Story = {
   args: {
-    children: <FaStar />,
+    icon: <FaStar />,
     onClick: () => console.log('clicked'),
   },
 };
@@ -36,15 +39,15 @@ export const Default: Story = {
 export const Small: Story = {
   args: {
     size: 'sm',
-    children: <FaHouse />,
+    icon: <FaHouse />,
     onClick: () => console.log('clicked'),
   },
 };
 
-export const Disabled: Story = {
+export const Medium: Story = {
   args: {
-    disabled: true,
-    children: <FaMoon />,
+    size: 'md',
+    icon: <FaMoon />,
     onClick: () => console.log('clicked'),
   },
 };
@@ -52,7 +55,15 @@ export const Disabled: Story = {
 export const Large: Story = {
   args: {
     size: 'lg',
-    children: <FaSun />,
+    icon: <FaSun />,
+    onClick: () => console.log('clicked'),
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    icon: <FaStar />,
     onClick: () => console.log('clicked'),
   },
 };
