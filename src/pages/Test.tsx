@@ -1,10 +1,11 @@
 import { Button } from '@/components/atoms/Button';
+import { Profile } from '@/components/organisms/Profile';
 import { useTheme } from '@/hooks/useTheme';
 
 function Test() {
   const { theme, toggleTheme } = useTheme();
   return (
-    <div>
+    <div className="h-full w-full">
       <button onClick={toggleTheme}>테마 변경</button>
       <p className="text-greyText">{theme}</p>
 
@@ -17,27 +18,8 @@ function Test() {
           버튼
         </Button>
       </div>
-      <div className="flex flex-col gap-2">
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
-        <p className="text-3xl">더미 글</p>
+      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Profile />
       </div>
     </div>
   );

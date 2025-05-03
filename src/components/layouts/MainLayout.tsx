@@ -5,6 +5,7 @@ import { Footer } from '../organisms/Footer';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { sidebarAtom, setSidebarToggleAtom } from '@/atoms/sidebar';
 import { useEffect, useCallback, useRef } from 'react';
+import { Profile } from '../organisms/Profile';
 
 export const MainLayout = () => {
   const sidebar = useAtomValue(sidebarAtom);
@@ -49,6 +50,7 @@ export const MainLayout = () => {
           </main>
           <Footer />
         </div>
+        <Profile />
       </div>
     </div>
   );

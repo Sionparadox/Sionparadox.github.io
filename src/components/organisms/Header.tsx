@@ -1,10 +1,14 @@
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { SidebarToggleButton } from '../molecules/SidebarToggleButton';
 import IconButton from '../molecules/IconButton';
+import { useSetAtom } from 'jotai';
+import { setModalAtom } from '@/atoms/modal';
 
 export const Header = () => {
+  const setModal = useSetAtom(setModalAtom);
+
   return (
-    <header className="shadow-strokeMain bg-background flex h-16 items-center px-4 shadow-md">
+    <header className="shadow-strokeMain flex h-16 items-center px-4 shadow-md">
       <div className="flex w-full items-center">
         <SidebarToggleButton />
         <div className="flex-1 text-center">
@@ -12,9 +16,7 @@ export const Header = () => {
             Sion's Log
           </a>
         </div>
-        <a href="/" className="text-title p-2">
-          <IconButton onClick={() => {}} icon={<FaRegCircleUser />} />
-        </a>
+        <IconButton icon={<FaRegCircleUser />} onClick={() => setModal('profile')} />
       </div>
     </header>
   );
