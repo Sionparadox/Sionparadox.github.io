@@ -6,8 +6,11 @@ export const ThemeToggleButton = ({ className }: { className?: string }) => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <IconButton onClick={toggleTheme} aria-label="테마 전환" className={className}>
-      {theme === 'dark' ? <FaSun /> : <FaMoon />}
-    </IconButton>
+    <IconButton
+      onClick={toggleTheme}
+      aria-label="테마 전환"
+      className={className}
+      icon={theme === 'dark' ? <FaSun /> : <FaMoon />}
+    />
   );
 };

@@ -1,22 +1,26 @@
 import { Button } from '@/components/atoms/Button';
-import { FaGithub } from 'react-icons/fa';
 import { useTheme } from '@/hooks/useTheme';
-import IconButton from '@/components/molecules/IconButton';
+
 function Test() {
   const { theme, toggleTheme } = useTheme();
   return (
     <div>
       <button onClick={toggleTheme}>테마 변경</button>
       <p className="text-greyText">{theme}</p>
-      <IconButton onClick={toggleTheme}>
-        <FaGithub />
-      </IconButton>
 
-      <Button fullWidth onClick={() => alert('버튼 클릭')}>
-        버튼
-      </Button>
-      <div className="bg-cardBg">
-        <p className="text-title">배경색</p>
+      <div className="flex gap-2">
+        <Button onClick={() => alert('버튼 클릭')}>버튼</Button>
+        <Button variant="ghost" onClick={() => alert('버튼 클릭')}>
+          버튼
+        </Button>
+        <Button variant="link" onClick={() => alert('버튼 클릭')}>
+          버튼
+        </Button>
+      </div>
+      <div className="">
+        <p className="text-title">타이틀</p>
+        <p className="text-subText">서브텍스트</p>
+        <p className="text-greyText">그레이텍스트</p>
       </div>
     </div>
   );

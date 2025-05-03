@@ -7,8 +7,10 @@ export const SidebarToggleButton = () => {
   const sidebar = useAtomValue(sidebarAtom);
 
   return (
-    <IconButton onClick={sidebar.toggle} size="lg">
-      {sidebar.isOpen ? <RiCloseLine /> : <RiMenu3Line />}
-    </IconButton>
+    <IconButton
+      onClick={sidebar.toggle}
+      size="lg"
+      icon={sidebar.isOpen ? <RiCloseLine /> : <RiMenu3Line />}
+    />
   );
 };

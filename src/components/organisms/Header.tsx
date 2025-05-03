@@ -8,17 +8,12 @@ export const Header = () => {
       <div className="flex w-full items-center">
         <SidebarToggleButton />
         <div className="flex-1 text-center">
-          <a
-            href="/"
-            className="text-title text-2xl font-bold hover:text-gray-700 dark:hover:text-gray-300"
-          >
+          <a href="/" className="text-title text-2xl font-bold hover:text-[26px]">
             Sion's Log
           </a>
         </div>
-        <a href="/" className="text-title p-2 hover:text-gray-700 dark:hover:text-gray-300">
-          <IconButton onClick={() => {}}>
-            <FaRegCircleUser />
-          </IconButton>
+        <a href="/" className="text-title p-2">
+          <IconButton onClick={() => {}} icon={<FaRegCircleUser />} />
         </a>
       </div>
     </header>

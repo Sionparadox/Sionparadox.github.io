@@ -1,8 +1,7 @@
-import { useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { themeAtom } from '@/atoms/theme';
 
-// 초기 테마 설정
 if (typeof window !== 'undefined') {
   const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
   const root = window.document.documentElement;

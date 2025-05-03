@@ -1,30 +1,22 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import { cn } from '@/utils/cn';
-
+import { Button } from '../atoms/Button';
+import { cn } from '@/lib/utils';
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
   size?: 'sm' | 'md' | 'lg';
+  icon: ReactNode;
 }
 
-const IconButton = ({ children, className, size = 'md', ...props }: IconButtonProps) => {
+const SIZE_STYLES = {
+  sm: 'h-8 w-8 text-base',
+  md: 'h-9 w-9 text-xl',
+  lg: 'h-10 w-10 text-2xl',
+} as const;
+
+const IconButton = ({ className, size = 'lg', icon, ...props }: IconButtonProps) => {
   return (
-    <button
-      type="button"
-      className={cn(
-        'inline-flex items-center justify-center rounded-full transition-colors',
-        'hover:bg-cardBg active:bg-subBg',
-        'disabled:cursor-not-allowed disabled:opacity-50',
-        {
-          'p-2 text-lg': size === 'md',
-          'p-1.5 text-base': size === 'sm',
-          'p-2.5 text-xl': size === 'lg',
-        },
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </button>
+    <Button variant="ghost" size="fit" className={cn(SIZE_STYLES[size], className)} {...props}>
+      {icon}
+    </Button>
   );
 };
 
