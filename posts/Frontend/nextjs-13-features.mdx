@@ -1,8 +1,9 @@
 export const metadata = {
-  title: "Next.js 13의 혁신적인 기능들",
-  date: "2024-03-18",
-  tags: ["Next.js", "React", "프론트엔드"],
-  description: "Next.js 13에서 소개된 App Router, Server Components 등 새로운 기능들을 살펴봅니다. (임시파일)"
+  title: 'Next.js 13의 혁신적인 기능들',
+  date: '2024-03-18',
+  tags: ['Next.js', 'React', '프론트엔드'],
+  description:
+    'Next.js 13에서 소개된 App Router, Server Components 등 새로운 기능들을 살펴봅니다. (임시파일)',
 };
 
 # Next.js 13의 혁신적인 기능들
@@ -16,12 +17,12 @@ Next.js 13은 React 애플리케이션 개발에 혁신적인 변화를 가져�
 ```tsx
 // app/page.tsx
 export default function Page() {
-  return <h1>홈페이지</h1>
+  return <h1>홈페이지</h1>;
 }
 
 // app/about/page.tsx
 export default function About() {
-  return <h1>소개 페이지</h1>
+  return <h1>소개 페이지</h1>;
 }
 ```
 
@@ -61,19 +62,11 @@ export default async function Page() {
 import Image from 'next/image';
 
 export default function Page() {
-  return (
-    <Image
-      src="/photo.jpg"
-      alt="설명"
-      width={500}
-      height={300}
-      priority
-    />
-  );
+  return <Image src="/photo.jpg" alt="설명" width={500} height={300} priority />;
 }
 ```
 
 ## 마치며
 
-Next.js 13은 웹 개발의 새로운 패러다임을 제시합니다. 
-이러한 기능들을 활용하여 더 나은 웹 애플리케이션을 만들어보세요. 
+Next.js 13은 웹 개발의 새로운 패러다임을 제시합니다.
+이러한 기능들을 활용하여 더 나은 웹 애플리케이션을 만들어보세요.

@@ -1,8 +1,9 @@
 export const metadata = {
-  title: "React 상태 관리 라이브러리 비교",
-  date: "2024-03-14",
-  tags: ["React", "Redux", "Zustand", "Jotai"],
-  description: "Redux, Zustand, Jotai 등 주요 상태 관리 라이브러리의 특징과 사용 사례를 비교합니다. (임시파일)"
+  title: 'React 상태 관리 라이브러리 비교',
+  date: '2024-03-14',
+  tags: ['React', 'Redux', 'Zustand', 'Jotai'],
+  description:
+    'Redux, Zustand, Jotai 등 주요 상태 관리 라이브러리의 특징과 사용 사례를 비교합니다. (임시파일)',
 };
 
 # React 상태 관리 라이브러리 비교
@@ -18,8 +19,8 @@ export const metadata = {
 const store = configureStore({
   reducer: {
     counter: counterReducer,
-    todos: todosReducer
-  }
+    todos: todosReducer,
+  },
 });
 
 // 컴포넌트에서 사용
@@ -72,14 +73,17 @@ const [text, setText] = useRecoilState(textState);
 ## 각 라이브러리의 장단점
 
 1. Redux
+
    - 장점: 강력한 미들웨어, 큰 생태계
    - 단점: 보일러플레이트가 많음
 
 2. Zustand
+
    - 장점: 간단한 API, 작은 번들 사이즈
    - 단점: 미들웨어 생태계가 제한적
 
 3. Jotai
+
    - 장점: 원자적 상태 관리, 작은 번들 사이즈
    - 단점: 학습 곡선이 있음
 
@@ -89,5 +93,5 @@ const [text, setText] = useRecoilState(textState);
 
 ## 마치며
 
-각 상태 관리 라이브러리는 고유한 장단점을 가지고 있습니다. 
-프로젝트의 요구사항과 규모에 맞는 라이브러리를 선택하는 것이 중요합니다. 
+각 상태 관리 라이브러리는 고유한 장단점을 가지고 있습니다.
+프로젝트의 요구사항과 규모에 맞는 라이브러리를 선택하는 것이 중요합니다.

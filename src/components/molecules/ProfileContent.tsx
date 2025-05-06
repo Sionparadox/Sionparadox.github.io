@@ -7,14 +7,14 @@ export const ProfileContent = () => {
   return (
     <div>
       <div className="flex flex-col items-center">
-        <div className="stroke-strokeMain mb-4 h-24 w-24 rounded-full border">
+        <div className="mb-4 h-24 w-24 rounded-full border stroke-strokeMain">
           <img
             src="https://avatars.githubusercontent.com/u/99112680?v=4"
             alt="profile"
             className="h-full w-full rounded-full"
           />
         </div>
-        <p className="text-title mb-5 text-2xl font-bold">Sion's Log</p>
+        <p className="mb-5 text-2xl font-bold text-title">Sion's Log</p>
 
         <p className="mb-4 font-medium">나의 성장 기록</p>
 

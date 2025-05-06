@@ -4,18 +4,20 @@ import ChipList from './ChipList';
 import { TPost } from '@/types/post';
 
 const SmallPostCard = ({ slug, title, description, tags, date }: Omit<TPost, 'content'>) => {
-  return <div className="m-4 border-strokeMain border rounded-lg p-4 hover:shadow-md transition-shadow">
-    <Link to={`/posts/${slug}`}>
-      <div className="flex flex-col gap-3 w-[480px] p-1">
-        <p className="text-xl font-bold text-title truncate">{title}</p>
-        <p className="text-sm text-subText line-clamp-3 min-h-[60px]">{description}</p>
-        <div className="flex justify-between items-center">
-          <ChipList chips={tags} />
-          <DateLabel date={date} style="dot" withIcon />
+  return (
+    <div className="m-4 rounded-lg border border-strokeMain p-4 transition-shadow hover:shadow-md">
+      <Link to={`/posts/${slug}`}>
+        <div className="flex w-[480px] flex-col gap-3 p-1">
+          <p className="truncate text-xl font-bold text-title">{title}</p>
+          <p className="line-clamp-3 min-h-[60px] text-sm text-subText">{description}</p>
+          <div className="flex items-center justify-between">
+            <ChipList chips={tags} />
+            <DateLabel date={date} style="dot" withIcon />
+          </div>
         </div>
-      </div>
-    </Link>
-  </div>;
+      </Link>
+    </div>
+  );
 };
 
 export default SmallPostCard;

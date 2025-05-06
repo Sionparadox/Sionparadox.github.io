@@ -27,4 +27,4 @@ export const CategoryPost = ({ category }: CategoryPostProps) => {
   );
 };
 
-export default CategoryPost; 
+export default CategoryPost;

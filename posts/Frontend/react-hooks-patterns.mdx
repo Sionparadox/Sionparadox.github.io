@@ -1,8 +1,8 @@
 export const metadata = {
-  title: "React Hooks 패턴과 모범 사례",
-  date: "2024-03-15",
-  tags: ["React", "Hooks", "JavaScript"],
-  description: "React Hooks의 다양한 패턴과 모범 사례에 대해 알아봅니다. (임시파일)"
+  title: 'React Hooks 패턴과 모범 사례',
+  date: '2024-03-15',
+  tags: ['React', 'Hooks', 'JavaScript'],
+  description: 'React Hooks의 다양한 패턴과 모범 사례에 대해 알아봅니다. (임시파일)',
 };
 
 # React Hooks 패턴과 모범 사례
@@ -17,14 +17,14 @@ React Hooks는 함수형 컴포넌트에서 상태 관리와 생명주기 기능
 function useWindowSize() {
   const [size, setSize] = useState({
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
   });
 
   useEffect(() => {
     const handleResize = () => {
       setSize({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       });
     };
 
@@ -45,12 +45,9 @@ function useWindowSize() {
 const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 
 // useCallback을 사용한 함수 메모이제이션
-const memoizedCallback = useCallback(
-  () => {
-    doSomething(a, b);
-  },
-  [a, b],
-);
+const memoizedCallback = useCallback(() => {
+  doSomething(a, b);
+}, [a, b]);
 ```
 
 ## 일반적인 실수와 해결 방법
@@ -61,5 +58,5 @@ const memoizedCallback = useCallback(
 
 ## 마치며
 
-React Hooks는 강력하지만 올바르게 사용하는 것이 중요합니다. 
-이 글에서 배운 패턴과 모범 사례를 활용하여 더 나은 React 코드를 작성해보세요. 
+React Hooks는 강력하지만 올바르게 사용하는 것이 중요합니다.
+이 글에서 배운 패턴과 모범 사례를 활용하여 더 나은 React 코드를 작성해보세요.

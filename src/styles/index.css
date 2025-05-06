@@ -1,4 +1,5 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+@import './prose.css';
 
 @tailwind base;
 @tailwind components;
@@ -32,7 +33,7 @@
     --strokeMain: #404040;
   }
   body {
-    @apply bg-background text-foreground overscroll-none;
+    @apply overscroll-none bg-background text-foreground;
     font-family:
       'Pretendard',
       -apple-system,

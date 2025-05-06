@@ -4,6 +4,7 @@ import { TPost } from '@/types/post';
 import { getPostBySlug } from '@/utils/posts';
 import ChipList from '@/components/molecules/ChipList';
 import DateLabel from '@/components/atoms/DateLabel';
+import '@/styles/prose.css';
 
 const Post = () => {
   const { category, slug } = useParams();
@@ -27,9 +28,9 @@ const Post = () => {
   const Content = post.content;
 
   return (
-    <article className="prose prose-lg dark:prose-invert max-w-none">
-      <h1 className="text-4xl font-black text-title mb-4">{post.title}</h1>
-      <div className="flex items-center gap-4 mb-8">
+    <article className="prose-custom">
+      <h1 className="mb-4 text-4xl font-black text-title">{post.title}</h1>
+      <div className="mb-8 flex items-center gap-4">
         <DateLabel date={post.date} style="dot" withIcon />
         <ChipList chips={post.tags} />
       </div>

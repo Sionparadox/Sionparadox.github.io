@@ -1,8 +1,8 @@
 export const metadata = {
-  title: "CSS Grid Layout 마스터하기",
-  date: "2024-03-15",
-  tags: ["CSS", "Grid", "프론트엔드"],
-  description: "CSS Grid Layout의 기본 개념부터 실전 활용까지 상세히 알아봅니다.(임시파일)"
+  title: 'CSS Grid Layout 마스터하기',
+  date: '2024-03-15',
+  tags: ['CSS', 'Grid', '프론트엔드'],
+  description: 'CSS Grid Layout의 기본 개념부터 실전 활용까지 상세히 알아봅니다.(임시파일)',
 };
 
 # CSS Grid Layout 마스터하기
@@ -28,8 +28,8 @@ Grid 아이템을 원하는 위치에 배치할 수 있습니다:
 
 ```css
 .grid-item {
-  grid-column: 1 / 3;  /* 1번 열부터 3번 열 전까지 */
-  grid-row: 2 / 4;     /* 2번 행부터 4번 행 전까지 */
+  grid-column: 1 / 3; /* 1번 열부터 3번 열 전까지 */
+  grid-row: 2 / 4; /* 2번 행부터 4번 행 전까지 */
 }
 ```
 
@@ -53,18 +53,26 @@ Grid 아이템을 원하는 위치에 배치할 수 있습니다:
 .grid-container {
   display: grid;
   grid-template-areas:
-    "header header header"
-    "sidebar main main"
-    "footer footer footer";
+    'header header header'
+    'sidebar main main'
+    'footer footer footer';
 }
 
-.header { grid-area: header; }
-.sidebar { grid-area: sidebar; }
-.main { grid-area: main; }
-.footer { grid-area: footer; }
+.header {
+  grid-area: header;
+}
+.sidebar {
+  grid-area: sidebar;
+}
+.main {
+  grid-area: main;
+}
+.footer {
+  grid-area: footer;
+}
 ```
 
 ## 마치며
 
-CSS Grid는 현대적인 웹 레이아웃을 만드는 데 필수적인 도구입니다. 
-이 글에서 배운 내용을 바탕으로 더 복잡하고 유연한 레이아웃을 구현해보세요. 
+CSS Grid는 현대적인 웹 레이아웃을 만드는 데 필수적인 도구입니다.
+이 글에서 배운 내용을 바탕으로 더 복잡하고 유연한 레이아웃을 구현해보세요.

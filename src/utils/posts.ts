@@ -11,7 +11,6 @@ interface MDXModule {
   default: any;
 }
 
-
 const POSTS = import.meta.glob<MDXModule>('/posts/**/*.mdx', { eager: true });
 
 export async function getAllPosts(): Promise<TPost[]> {
@@ -49,4 +48,4 @@ export async function getPostsByTag(tag: string): Promise<TPost[]> {
 export async function getPostsByCategory(category: PostCategory): Promise<TPost[]> {
   const posts = await getAllPosts();
   return posts.filter((post) => post.category === category);
-} 
+}

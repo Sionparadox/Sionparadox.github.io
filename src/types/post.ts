@@ -8,4 +8,4 @@ export interface TPost {
   description: string;
   content: string;
   category: PostCategory;
-} 
+}
