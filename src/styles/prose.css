@@ -1,9 +1,9 @@
 .prose-custom {
-  @apply prose prose-lg max-w-none dark:prose-invert;
+  @apply prose max-w-none;
 }
 
 .prose-custom :is(h1, h2, h3, h4, h5, h6) {
-  @apply font-black text-title;
+  @apply font-bold text-title;
 }
 
 .prose-custom p {
@@ -15,7 +15,7 @@
 }
 
 .prose-custom strong {
-  @apply text-title dark:text-title;
+  @apply text-title;
 }
 
 .prose-custom code {

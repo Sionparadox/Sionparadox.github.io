@@ -28,15 +28,25 @@ const Post = () => {
   const Content = post.content;
 
   return (
-    <article className="prose-custom">
-      <h1 className="mb-4 text-4xl font-black text-title">{post.title}</h1>
-      <div className="mb-8 flex items-center gap-4">
-        <DateLabel date={post.date} style="dot" withIcon />
-        <ChipList chips={post.tags} />
+    <article>
+      <div className="flex flex-col gap-5 border-b border-strokeMain px-3 py-3">
+        <h1 className="text-center text-4xl font-black text-title">{post.title}</h1>
+        <p className="min-h-[60px] text-subText">{post.description}</p>
+        <div className="flex items-center justify-between">
+          <ChipList chips={post.tags} />
+          <DateLabel date={post.date} style="dot" withIcon />
+        </div>
       </div>
-      <div className="mt-8">
-        <Content />
+      <div className="flex">
+        <div className="prose-custom mt-8 basis-3/4 p-1">
+          <Content />
+        </div>
+        <div className="basis-1/4"></div>
       </div>
+      <footer className="flex justify-between border-t border-strokeMain p-3">
+        <p>이전 글</p>
+        <p>다음 글</p>
+      </footer>
     </article>
   );
 };
