@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { Header } from '../organisms/Header';
-import { Sidebar } from '../organisms/Sidebar';
-import { Footer } from '../organisms/Footer';
+import { Header } from './Header';
+import { Sidebar } from './Sidebar';
+import { Footer } from './Footer';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { sidebarAtom, setSidebarToggleAtom } from '@/atoms/sidebar';
 import { useEffect, useCallback, useRef } from 'react';
