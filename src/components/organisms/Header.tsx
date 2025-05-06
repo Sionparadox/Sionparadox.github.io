@@ -7,7 +7,7 @@ export const Header = () => {
   const { openProfile } = useModal();
 
   return (
-    <header className="shadow-strokeMain flex h-16 items-center px-4 shadow-md">
+    <header className="shadow-strokeMain flex h-16 items-center px-4 shadow-md bg-background">
       <div className="flex w-full items-center">
         <SidebarToggleButton />
         <div className="flex-1 text-center">

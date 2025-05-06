@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 function Todo() {
   return (
     <div>
+      <h1 className="text-title text-3xl font-bold mb-7 border-b-2 border-strokeMain pb-7">개발 도움을 위한 개발자 페이지</h1>
       <div className="flex gap-8">
         <div className="border-strokeMain mt-3 flex w-80 flex-col gap-2 border p-4">
           <h2 className="text-title mb-3 text-3xl font-bold">메인</h2>
