@@ -25,7 +25,9 @@ function Todo() {
         <div className="mt-3 flex w-80 flex-col gap-2 border border-strokeMain p-4">
           <h2 className="mb-3 text-3xl font-bold text-title">게시글</h2>
           <TodoLine title="단일 데이터 불러오기" isDone={true} />
-          <TodoLine title="페이지 구현" isDone={false} />
+          <TodoLine title="레이아웃 잡기" isDone={true} />
+          <TodoLine title="레이아웃, 포스트 컴포넌트화" isDone={false} />
+          <TodoLine title="footer로 라우팅" isDone={false} />
           <TodoLine title="마크다운 스타일 적용" isDone={false} />
           <TodoLine title="플로팅 네비게이터" isDone={false} />
           <TodoLine title="클립보드 복사" isDone={false} />
