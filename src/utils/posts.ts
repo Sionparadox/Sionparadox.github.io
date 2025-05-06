@@ -1,4 +1,4 @@
-import { Post } from '@/types/post';
+import { Post, PostCategory } from '@/types/post';
 
 interface MDXModule {
   metadata: {
@@ -11,7 +11,8 @@ interface MDXModule {
   default: any;
 }
 
-const POSTS = import.meta.glob<MDXModule>('/posts/*.mdx', { eager: true });
+
+const POSTS = import.meta.glob<MDXModule>('/posts/**/*.mdx', { eager: true });
 
 export async function getAllPosts(): Promise<Post[]> {
   const allPosts: Post[] = [];
@@ -19,6 +20,7 @@ export async function getAllPosts(): Promise<Post[]> {
   for (const path in POSTS) {
     const { metadata, default: content } = POSTS[path];
     const slug = path.replace('/posts/', '').replace('.mdx', '');
+    const category = path.split('/')[2] as PostCategory;
 
     allPosts.push({
       slug,
@@ -27,6 +29,7 @@ export async function getAllPosts(): Promise<Post[]> {
       tags: metadata.tags || [],
       description: metadata.description,
       content: content,
+      category,
     });
   }
 
@@ -41,4 +44,9 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 export async function getPostsByTag(tag: string): Promise<Post[]> {
   const posts = await getAllPosts();
   return posts.filter((post) => post.tags.includes(tag));
+}
+
+export async function getPostsByCategory(category: PostCategory): Promise<Post[]> {
+  const posts = await getAllPosts();
+  return posts.filter((post) => post.category === category);
 } 

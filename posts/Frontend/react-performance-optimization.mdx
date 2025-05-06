@@ -1,0 +1,133 @@
+export const metadata = {
+  title: "React 성능 최적화 가이드",
+  date: "2024-03-12",
+  tags: ["React", "Performance", "Optimization"],
+  description: "React 애플리케이션의 성능을 최적화하는 다양한 기법과 전략을 알아봅니다. (임시파일)"
+};
+
+# React 성능 최적화 가이드
+
+React 애플리케이션의 성능을 향상시키기 위한 다양한 기법들을 살펴보겠습니다. 이 가이드에서는 실제 프로젝트에서 적용할 수 있는 최적화 전략들을 다룹니다.
+
+## React.memo와 useMemo
+
+불필요한 리렌더링을 방지하기 위한 최적화 기법입니다:
+
+```typescript
+// React.memo를 사용한 컴포넌트 메모이제이션
+const MemoizedComponent = React.memo(({ value }) => {
+  return <div>{value}</div>;
+});
+
+// useMemo를 사용한 계산 결과 메모이제이션
+const memoizedValue = useMemo(() => {
+  return expensiveComputation(a, b);
+}, [a, b]);
+```
+
+## 가상화(Virtualization)
+
+대량의 데이터를 렌더링할 때 성능을 개선하는 기법입니다:
+
+```typescript
+import { FixedSizeList } from 'react-window';
+
+const VirtualizedList = () => {
+  const items = Array.from({ length: 1000 }, (_, i) => i);
+
+  return (
+    <FixedSizeList
+      height={400}
+      width={300}
+      itemCount={items.length}
+      itemSize={50}
+    >
+      {({ index, style }) => (
+        <div style={style}>
+          Item {items[index]}
+        </div>
+      )}
+    </FixedSizeList>
+  );
+};
+```
+
+## 코드 스플리팅
+
+번들 크기를 줄이고 초기 로딩 시간을 개선하는 기법입니다:
+
+```typescript
+// React.lazy를 사용한 동적 임포트
+const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+```
+
+## 이미지 최적화
+
+이미지 로딩 성능을 개선하는 기법들:
+
+```typescript
+// 이미지 지연 로딩
+<img
+  loading="lazy"
+  src="image.jpg"
+  alt="Lazy loaded image"
+/>
+
+// 반응형 이미지
+<picture>
+  <source
+    media="(min-width: 800px)"
+    srcSet="large.jpg"
+  />
+  <source
+    media="(min-width: 400px)"
+    srcSet="medium.jpg"
+  />
+  <img
+    src="small.jpg"
+    alt="Responsive image"
+  />
+</picture>
+```
+
+## 성능 모니터링
+
+React 애플리케이션의 성능을 측정하고 모니터링하는 방법:
+
+```typescript
+// React Profiler 사용
+<Profiler id="App" onRender={onRenderCallback}>
+  <App />
+</Profiler>
+
+function onRenderCallback(
+  id,
+  phase,
+  actualDuration,
+  baseDuration,
+  startTime,
+  commitTime
+) {
+  console.log({
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime
+  });
+}
+```
+
+## 마치며
+
+React 애플리케이션의 성능 최적화는 지속적인 과정입니다. 
+이 가이드에서 소개한 기법들을 상황에 맞게 적용하여 더 나은 사용자 경험을 제공해보세요. 

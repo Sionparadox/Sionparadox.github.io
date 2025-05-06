@@ -1,16 +1,9 @@
 import { Link } from 'react-router-dom';
 import DateLabel from '../atoms/DateLabel';
 import ChipList from './ChipList';
+import { Post } from '@/types/post';
 
-interface SmallPostCardProps {
-  slug: string;
-  title: string;
-  description: string;
-  tags: string[];
-  date: string;
-}
-
-const SmallPostCard = ({ slug, title, description, tags, date }: SmallPostCardProps) => {
+const SmallPostCard = ({ slug, title, description, tags, date }: Omit<Post, 'content'>) => {
   return <div className="m-4 border-strokeMain border rounded-lg p-4 hover:shadow-md transition-shadow">
     <Link to={`/posts/${slug}`}>
       <div className="flex flex-col gap-3 w-[480px] p-1">

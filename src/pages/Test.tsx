@@ -1,14 +1,9 @@
 import { Button } from '@/components/atoms/Button';
-import RecentPost from '@/components/organisms/RecentPost';
-
-import { useTheme } from '@/hooks/useTheme';
+import CategoryPost from '@/components/organisms/CategoryPost';
 
 function Test() {
-  const { theme, toggleTheme } = useTheme();
   return (
     <div className="h-full w-full">
-      <button onClick={toggleTheme}>테마 변경</button>
-      <p className="text-greyText">{theme}</p>
 
       <div className="flex gap-2">
         <Button onClick={() => alert('버튼 클릭')}>버튼</Button>
@@ -19,7 +14,7 @@ function Test() {
           버튼
         </Button>
       </div>
-      <RecentPost />
+      <CategoryPost category="Frontend" />
     </div>
   );
 }

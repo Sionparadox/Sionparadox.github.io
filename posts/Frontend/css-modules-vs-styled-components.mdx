@@ -1,0 +1,93 @@
+export const metadata = {
+  title: "CSS Modules vs Styled Components",
+  date: "2024-03-13",
+  tags: ["CSS", "React", "Styled Components"],
+  description: "CSS Modules와 Styled Components의 장단점을 비교하고 각각의 사용 사례를 알아봅니다. (임시파일)"
+};
+
+# CSS Modules vs Styled Components
+
+React 애플리케이션에서 스타일링을 위한 두 가지 주요 접근 방식을 비교해보겠습니다. 각각의 장단점과 적절한 사용 사례를 살펴보겠습니다.
+
+## CSS Modules
+
+CSS Modules는 CSS 파일을 모듈화하여 스타일 충돌을 방지합니다:
+
+```css
+/* Button.module.css */
+.button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+```
+
+```typescript
+// Button.tsx
+import styles from './Button.module.css';
+
+const Button = () => (
+  <button className={styles.button}>
+    Click me
+  </button>
+);
+```
+
+## Styled Components
+
+Styled Components는 CSS-in-JS 방식으로 컴포넌트와 스타일을 함께 관리합니다:
+
+```typescript
+import styled from 'styled-components';
+
+const Button = styled.button`
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+```
+
+## 주요 비교 포인트
+
+### 1. 스타일 격리 방식
+- CSS Modules: 파일 단위로 격리
+- Styled Components: 컴포넌트 단위로 격리
+
+### 2. 성능
+- CSS Modules: 정적 CSS 생성
+- Styled Components: 런타임에 스타일 생성
+
+### 3. 개발 경험
+- CSS Modules: 기존 CSS 작성 방식 유지
+- Styled Components: JavaScript/TypeScript 문법 활용
+
+### 4. 유지보수성
+- CSS Modules: 파일 분리로 관리 용이
+- Styled Components: 컴포넌트와 스타일 통합 관리
+
+## 사용 사례
+
+### CSS Modules가 적합한 경우
+- 기존 CSS 지식 활용
+- 정적 스타일링
+- 번들 사이즈 최적화
+
+### Styled Components가 적합한 경우
+- 동적 스타일링
+- 테마 관리
+- 컴포넌트 기반 개발
+
+## 마치며
+
+두 접근 방식 모두 장단점이 있으며, 프로젝트의 요구사항에 따라 적절한 방식을 선택하는 것이 중요합니다. 
+대규모 프로젝트에서는 두 방식을 혼합하여 사용하는 것도 좋은 전략이 될 수 있습니다. 
