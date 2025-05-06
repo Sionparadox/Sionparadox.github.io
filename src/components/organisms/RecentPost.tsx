@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Post } from '@/types/post';
+import { TPost } from '@/types/post';
 import { getAllPosts } from '@/utils/posts';
 import SmallPostCard from '../molecules/SmallPostCard';
 
 
 export const RecentPost = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<TPost[]>([]);
 
     useEffect(() => {
         const loadPosts = async () => {

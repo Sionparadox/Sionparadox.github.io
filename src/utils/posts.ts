@@ -1,4 +1,4 @@
-import { Post, PostCategory } from '@/types/post';
+import { TPost, PostCategory } from '@/types/post';
 
 interface MDXModule {
   metadata: {
@@ -14,8 +14,8 @@ interface MDXModule {
 
 const POSTS = import.meta.glob<MDXModule>('/posts/**/*.mdx', { eager: true });
 
-export async function getAllPosts(): Promise<Post[]> {
-  const allPosts: Post[] = [];
+export async function getAllPosts(): Promise<TPost[]> {
+  const allPosts: TPost[] = [];
 
   for (const path in POSTS) {
     const { metadata, default: content } = POSTS[path];
@@ -36,17 +36,17 @@ export async function getAllPosts(): Promise<Post[]> {
   return allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
+export async function getPostBySlug(slug: string): Promise<TPost | null> {
   const posts = await getAllPosts();
   return posts.find((post) => post.slug === slug) || null;
 }
 
-export async function getPostsByTag(tag: string): Promise<Post[]> {
+export async function getPostsByTag(tag: string): Promise<TPost[]> {
   const posts = await getAllPosts();
   return posts.filter((post) => post.tags.includes(tag));
 }
 
-export async function getPostsByCategory(category: PostCategory): Promise<Post[]> {
+export async function getPostsByCategory(category: PostCategory): Promise<TPost[]> {
   const posts = await getAllPosts();
   return posts.filter((post) => post.category === category);
 } 

@@ -1,6 +1,6 @@
 export type PostCategory = 'Algorithm' | 'Computerscience' | 'Frontend';
 
-export interface Post {
+export interface TPost {
   slug: string;
   title: string;
   date: string;

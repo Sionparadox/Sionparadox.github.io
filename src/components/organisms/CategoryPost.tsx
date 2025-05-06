@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Post, PostCategory } from '@/types/post';
+import { TPost, PostCategory } from '@/types/post';
 import { getPostsByCategory } from '@/utils/posts';
 import WidePostCard from '../molecules/WidePostCard';
 
@@ -8,7 +8,7 @@ interface CategoryPostProps {
 }
 
 export const CategoryPost = ({ category }: CategoryPostProps) => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<TPost[]>([]);
 
   useEffect(() => {
     const loadPosts = async () => {

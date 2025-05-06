@@ -22,6 +22,7 @@ function Todo() {
         </div>
         <div className="border-strokeMain mt-3 flex w-80 flex-col gap-2 border p-4">
           <h2 className="text-title mb-3 text-3xl font-bold">게시글</h2>
+          <TodoLine title="단일 데이터 불러오기" isDone={true} />
           <TodoLine title="페이지 구현" isDone={false} />
           <TodoLine title="마크다운 스타일 적용" isDone={false} />
           <TodoLine title="플로팅 네비게이터" isDone={false} />
