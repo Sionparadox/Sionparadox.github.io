@@ -1,5 +1,5 @@
 import { Button } from '@/components/atoms/Button';
-import CategoryPost from '@/components/organisms/CategoryPost';
+import FloatingWidget from '@/components/organisms/FloatingWiget';
 
 function Test() {
   return (
@@ -13,7 +13,7 @@ function Test() {
           버튼
         </Button>
       </div>
-      <CategoryPost category="Frontend" />
+      <FloatingWidget />
     </div>
   );
 }

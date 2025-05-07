@@ -15,6 +15,7 @@ function Todo() {
           <TodoLine title="헤더 상단 고정 및 오버스크롤 방지" isDone={true} />
           <TodoLine title="레이아웃 조정(컨텐츠 박스 사이즈)" isDone={true} />
           <TodoLine title="반응형 레이아웃 조정" isDone={false} />
+          <TodoLine title="ESC 입력 시 모달 닫기" isDone={false} />
         </div>
         <div className="mt-3 flex w-80 flex-col gap-2 border border-strokeMain p-4">
           <h2 className="mb-3 text-3xl font-bold text-title">목록</h2>
@@ -27,9 +28,9 @@ function Todo() {
           <TodoLine title="단일 데이터 불러오기" isDone={true} />
           <TodoLine title="레이아웃 잡기" isDone={true} />
           <TodoLine title="레이아웃, 포스트 컴포넌트화" isDone={false} />
-          <TodoLine title="footer로 라우팅" isDone={false} />
+          <TodoLine title="footer로 라우팅" isDone={true} />
           <TodoLine title="마크다운 스타일 적용" isDone={false} />
-          <TodoLine title="플로팅 네비게이터" isDone={false} />
+          <TodoLine title="플로팅 위젯" isDone={true} />
           <TodoLine title="클립보드 복사" isDone={false} />
         </div>
       </div>

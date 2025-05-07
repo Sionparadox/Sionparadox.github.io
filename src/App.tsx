@@ -3,6 +3,7 @@ import '@/styles/index.css';
 import { MainLayout } from './components/layouts/MainLayout';
 import { Home, Test, Todo, Posts, Post } from './pages';
 import { ThemeProvider } from './providers/ThemeProvider';
+import ScrollToTop from './components/atoms/ScrollToTop';
 
 const router = {
   future: {
@@ -15,6 +16,7 @@ function App() {
   return (
     <ThemeProvider>
       <Router future={router.future}>
+        <ScrollToTop />
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />

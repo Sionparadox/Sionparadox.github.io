@@ -25,7 +25,6 @@ export const MainLayout = () => {
 
   return (
     <div className="relative min-h-screen">
-      {/* 사이드바 */}
       <div
         className={`fixed left-0 top-0 h-full w-72 transform ${
           sidebar.isOpen ? 'translate-x-0' : '-translate-x-full'
@@ -34,13 +33,11 @@ export const MainLayout = () => {
         <Sidebar />
       </div>
       <Profile />
-      {/* 메인 콘텐츠 */}
       <div
         className={`min-h-screen transition-all duration-300 ease-in-out ${
           sidebar.isOpen ? 'pl-72' : 'pl-0'
         }`}
       >
-        {/* 실제 콘텐츠 */}
         <div className="flex min-h-screen flex-col">
           <div className="sticky top-0 z-20">
             <Header />

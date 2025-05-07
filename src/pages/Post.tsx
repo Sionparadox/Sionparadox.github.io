@@ -5,6 +5,8 @@ import { getPostBySlug } from '@/utils/posts';
 import ChipList from '@/components/molecules/ChipList';
 import DateLabel from '@/components/atoms/DateLabel';
 import '@/styles/prose.css';
+import FloatingWidget from '@/components/organisms/FloatingWiget';
+import PostFooter from '@/components/organisms/PostFooter';
 
 const Post = () => {
   const { category, slug } = useParams();
@@ -41,12 +43,11 @@ const Post = () => {
         <div className="prose-custom mt-8 basis-3/4 p-1">
           <Content />
         </div>
-        <div className="basis-1/4"></div>
+        <div className="basis-1/4 pt-10">
+          <FloatingWidget />
+        </div>
       </div>
-      <footer className="flex justify-between border-t border-strokeMain p-3">
-        <p>이전 글</p>
-        <p>다음 글</p>
-      </footer>
+      <PostFooter />
     </article>
   );
 };

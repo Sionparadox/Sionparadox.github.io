@@ -49,3 +49,20 @@ export async function getPostsByCategory(category: PostCategory): Promise<TPost[
   const posts = await getAllPosts();
   return posts.filter((post) => post.category === category);
 }
+
+export const getAdjacentPosts = async (currentSlug: string) => {
+  const posts = await getAllPosts();
+  const currentIndex = posts.findIndex((post) => post.slug === currentSlug);
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null };
+  }
+
+  const prev = currentIndex > 0 ? posts[currentIndex - 1] : null;
+  const next = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
+
+  return {
+    prev: prev ? { title: prev.title, slug: prev.slug } : null,
+    next: next ? { title: next.title, slug: next.slug } : null,
+  };
+};
