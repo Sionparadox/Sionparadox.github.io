@@ -29,7 +29,7 @@ function Todo() {
           <TodoLine title="레이아웃 잡기" isDone={true} />
           <TodoLine title="레이아웃, 포스트 컴포넌트화" isDone={false} />
           <TodoLine title="footer로 라우팅" isDone={true} />
-          <TodoLine title="마크다운 스타일 적용" isDone={false} />
+          <TodoLine title="마크다운 스타일 적용" isDone={true} />
           <TodoLine title="플로팅 위젯" isDone={true} />
           <TodoLine title="클립보드 복사" isDone={false} />
         </div>

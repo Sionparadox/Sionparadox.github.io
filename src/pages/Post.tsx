@@ -7,6 +7,7 @@ import DateLabel from '@/components/atoms/DateLabel';
 import '@/styles/prose.css';
 import FloatingWidget from '@/components/organisms/FloatingWiget';
 import PostFooter from '@/components/organisms/PostFooter';
+import { components } from '@/components/mdx/MDXComponents';
 
 const Post = () => {
   const { category, slug } = useParams();
@@ -40,8 +41,8 @@ const Post = () => {
         </div>
       </div>
       <div className="flex">
-        <div className="prose-custom mt-8 basis-3/4 p-1">
-          <Content />
+        <div className="mt-8 basis-3/4 p-1">
+          <Content components={components} />
         </div>
         <div className="basis-1/4 pt-10">
           <FloatingWidget />

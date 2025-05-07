@@ -1,3 +1,5 @@
+import { ComponentType } from 'react';
+import { MDXProvidedComponents } from '@/components/mdx/MDXComponents';
 export type PostCategory = 'Algorithm' | 'Computerscience' | 'Frontend';
 
 export type TPost = {
@@ -6,7 +8,7 @@ export type TPost = {
   date: string;
   tags: string[];
   description: string;
-  content: string;
+  content: ComponentType<{ components?: MDXProvidedComponents }>;
   category: PostCategory;
 };
 

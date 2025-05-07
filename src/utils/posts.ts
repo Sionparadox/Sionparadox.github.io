@@ -1,5 +1,6 @@
 import { TPost, PostCategory } from '@/types/post';
-
+import React from 'react';
+import { MDXProvidedComponents } from '@/components/mdx/MDXComponents';
 interface MDXModule {
   metadata: {
     title: string;
@@ -7,8 +8,7 @@ interface MDXModule {
     tags: string[];
     description: string;
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  default: any;
+  default: React.ComponentType<{ components?: MDXProvidedComponents }>;
 }
 
 const POSTS = import.meta.glob<MDXModule>('/posts/**/*.mdx', { eager: true });
@@ -27,7 +27,7 @@ export async function getAllPosts(): Promise<TPost[]> {
       date: metadata.date,
       tags: metadata.tags || [],
       description: metadata.description,
-      content: content,
+      content,
       category,
     });
   }
