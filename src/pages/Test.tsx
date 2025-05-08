@@ -1,4 +1,5 @@
 import { Button } from '@/components/atoms/Button';
+import { AnimatedSidebarToggleButton } from '@/components/molecules/AnimatedSidebarToggleButton';
 import { motion } from 'framer-motion';
 
 function Test() {
@@ -35,6 +36,8 @@ function Test() {
           긴 텍스트를 넣어서 테스트를 해보는중
         </motion.div>
       </div>
+
+      <AnimatedSidebarToggleButton />
     </div>
   );
 }
