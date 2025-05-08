@@ -22,6 +22,7 @@ const config: Config = {
         greyText: 'var(--greyText)',
         subText: 'var(--subText)',
         strokeMain: 'var(--strokeMain)',
+        mint: 'var(--mint)',
       },
     },
   },

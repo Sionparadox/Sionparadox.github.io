@@ -4,7 +4,6 @@ import { TPost } from '@/types/post';
 import { getPostBySlug } from '@/utils/posts';
 import ChipList from '@/components/molecules/ChipList';
 import DateLabel from '@/components/atoms/DateLabel';
-import '@/styles/prose.css';
 import FloatingWidget from '@/components/organisms/FloatingWiget';
 import PostFooter from '@/components/organisms/PostFooter';
 import { components } from '@/components/mdx/MDXComponents';

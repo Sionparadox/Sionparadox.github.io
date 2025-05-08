@@ -29,7 +29,7 @@ const FloatingWidget = () => {
                 'truncate text-left hover:font-semibold',
                 heading.level === 2 && '',
                 heading.level === 3 && 'ml-2',
-                activeId === heading.id && 'text-blue-600 dark:text-blue-400'
+                activeId === heading.id && 'text-mint'
               )}
             >
               {heading.text}

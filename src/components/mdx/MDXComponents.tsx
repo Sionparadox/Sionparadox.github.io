@@ -54,7 +54,7 @@ export const components = {
   ol: (props: ListProps) => <ol className="mb-4 list-decimal pl-5 text-foreground" {...props} />,
   li: (props: ListItemProps) => <li className="mb-2 text-foreground" {...props} />,
   a: ({ href, children, ...props }: AnchorProps) => {
-    const className = 'text-blue-600 dark:text-blue-400 hover:underline';
+    const className = 'text-mint hover:underline';
     const isExternal = href && !href.startsWith('/');
 
     return (

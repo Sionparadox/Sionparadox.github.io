@@ -30,7 +30,7 @@ function Todo() {
           <h2 className="mb-3 text-3xl font-bold text-title">UX 개선</h2>
           <TodoLine title="ESC 입력 시 모달 닫기" isDone={true} />
           <TodoLine title="애니메이션 추가" isDone={false} />
-          <TodoLine title="임시 색상 커스텀 컬러로 변경" isDone={false} />
+          <TodoLine title="임시 색상 커스텀 컬러로 변경" isDone={true} />
           <TodoLine title="반응형 레이아웃 조정" isDone={false} />
         </div>
         <div className="mt-3 flex w-80 flex-col gap-2 border border-strokeMain p-4">
