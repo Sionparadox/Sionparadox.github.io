@@ -7,6 +7,7 @@ import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typesc
 import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
 import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
 import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import CopyButton from '../molecules/CopyButton';
 
 SyntaxHighlighter.registerLanguage('jsx', jsx);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
@@ -35,20 +36,25 @@ export const CodeBlock = ({ children, className, ...props }: CodeBlockProps) => 
   const code = String(children).replace(/\n$/, '');
 
   return (
-    <div className="mb-4 overflow-x-auto">
-      {/* @ts-expect-error SyntaxHighlighter not used in JSX at React 18 */}
-      <SyntaxHighlighter
-        lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
-        wrapLines={true}
-        language={language}
-        style={vscDarkPlus}
-        customStyle={{
-          margin: 0,
-          borderRadius: '0.5rem',
-        }}
-      >
-        {code}
-      </SyntaxHighlighter>
+    <div className="group relative mb-4">
+      <div className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100">
+        <CopyButton size="sm" type="text" text={code} />
+      </div>
+      <div className="overflow-x-auto">
+        {/* @ts-expect-error SyntaxHighlighter not used in JSX at React 18 */}
+        <SyntaxHighlighter
+          lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+          wrapLines={true}
+          language={language}
+          style={vscDarkPlus}
+          customStyle={{
+            margin: 0,
+            borderRadius: '0.5rem',
+          }}
+        >
+          {code}
+        </SyntaxHighlighter>
+      </div>
     </div>
   );
 };

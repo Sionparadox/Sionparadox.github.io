@@ -4,7 +4,7 @@ function Todo() {
   return (
     <div>
       <h1 className="mb-7 border-b-2 border-strokeMain pb-7 text-3xl font-bold text-title">
-        개발 도움을 위한 개발자 페이지
+        개발 도움을 위한 개발자 페이지 진행도 90%
       </h1>
       <div className="flex gap-8">
         <div className="mt-3 flex w-80 flex-col gap-2 border border-strokeMain p-4">
@@ -27,11 +27,11 @@ function Todo() {
           <h2 className="mb-3 text-3xl font-bold text-title">게시글</h2>
           <TodoLine title="단일 데이터 불러오기" isDone={true} />
           <TodoLine title="레이아웃 잡기" isDone={true} />
-          <TodoLine title="레이아웃, 포스트 컴포넌트화" isDone={false} />
+          <TodoLine title="포스트 컴포넌트화" isDone={true} />
           <TodoLine title="footer로 라우팅" isDone={true} />
           <TodoLine title="마크다운 스타일 적용" isDone={true} />
           <TodoLine title="플로팅 위젯" isDone={true} />
-          <TodoLine title="클립보드 복사" isDone={false} />
+          <TodoLine title="클립보드 복사" isDone={true} />
         </div>
       </div>
       <Link to="/test">테스트 페이지로 이동</Link>

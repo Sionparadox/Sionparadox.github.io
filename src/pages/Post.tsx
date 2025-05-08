@@ -46,7 +46,7 @@ const Post = () => {
             <Content components={components} />
           </div>
         </div>
-        <div className="basis-1/4 pt-10">
+        <div className="basis-1/4 py-10">
           <FloatingWidget />
         </div>
       </div>

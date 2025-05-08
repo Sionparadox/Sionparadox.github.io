@@ -1,11 +1,10 @@
-import IconButton from '../molecules/IconButton';
 import { ThemeToggleButton } from '../molecules/ThemeToggleButton';
 import ScrollToTop from '../atoms/ScrollToTop';
-import { LuLink } from 'react-icons/lu';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { cn } from '@/utils/cn';
 import { useLocation } from 'react-router-dom';
 import { useHeaderScroll } from '@/hooks/useHeaderScroll';
+import CopyButton from '../molecules/CopyButton';
 
 const FloatingWidget = () => {
   const isFixed = useScrollPosition(100);
@@ -39,7 +38,7 @@ const FloatingWidget = () => {
         </div>
       </div>
       <div className="flex items-center justify-between rounded-b-md bg-cardBg p-4">
-        <IconButton icon={<LuLink />} />
+        <CopyButton type="link" text={location.pathname} size="lg" />
         <ScrollToTop expose />
         <ThemeToggleButton />
       </div>
