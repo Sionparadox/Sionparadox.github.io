@@ -8,11 +8,47 @@ type ListItemProps = ComponentPropsWithoutRef<'li'>;
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 
+const generateId = (text: string) => {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+};
+
 export const components = {
-  h1: (props: HeadingProps) => <h1 className="my-5 text-2xl font-bold text-title" {...props} />,
-  h2: (props: HeadingProps) => <h2 className="my-3 text-2xl font-bold text-title" {...props} />,
-  h3: (props: HeadingProps) => <h3 className="my-3 text-xl font-semibold text-title" {...props} />,
-  h4: (props: HeadingProps) => <h4 className="my-2 text-xl font-semibold text-title" {...props} />,
+  h1: ({ children, ...props }: HeadingProps) => {
+    const id = generateId(children as string);
+    return (
+      <h1 id={id} className="my-5 text-2xl font-bold text-title" {...props}>
+        {children}
+      </h1>
+    );
+  },
+  h2: ({ children, ...props }: HeadingProps) => {
+    const id = generateId(children as string);
+    return (
+      <h2 id={id} className="my-3 text-2xl font-bold text-title" {...props}>
+        {children}
+      </h2>
+    );
+  },
+  h3: ({ children, ...props }: HeadingProps) => {
+    const id = generateId(children as string);
+    return (
+      <h3 id={id} className="my-3 text-xl font-semibold text-title" {...props}>
+        {children}
+      </h3>
+    );
+  },
+  h4: ({ children, ...props }: HeadingProps) => {
+    const id = generateId(children as string);
+    return (
+      <h4 id={id} className="my-2 text-xl font-semibold text-title" {...props}>
+        {children}
+      </h4>
+    );
+  },
   p: (props: ParagraphProps) => <p className="mb-4 leading-relaxed text-foreground" {...props} />,
   ul: (props: ListProps) => <ul className="mb-4 list-disc pl-5 text-foreground" {...props} />,
   ol: (props: ListProps) => <ol className="mb-4 list-decimal pl-5 text-foreground" {...props} />,

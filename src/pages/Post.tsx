@@ -42,7 +42,9 @@ const Post = () => {
       </div>
       <div className="flex">
         <div className="mt-8 basis-3/4 p-1">
-          <Content components={components} />
+          <div className="mdx-content">
+            <Content components={components} />
+          </div>
         </div>
         <div className="basis-1/4 pt-10">
           <FloatingWidget />

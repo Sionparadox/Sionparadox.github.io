@@ -1,5 +1,4 @@
 import { Button } from '@/components/atoms/Button';
-import FloatingWidget from '@/components/organisms/FloatingWiget';
 
 function Test() {
   return (
@@ -13,7 +12,6 @@ function Test() {
           버튼
         </Button>
       </div>
-      <FloatingWidget />
     </div>
   );
 }
