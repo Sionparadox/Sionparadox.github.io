@@ -20,7 +20,7 @@ export const components = {
   h1: ({ children, ...props }: HeadingProps) => {
     const id = generateId(children as string);
     return (
-      <h1 id={id} className="my-5 text-2xl font-bold text-title" {...props}>
+      <h1 id={id} className="my-5 text-3xl font-bold text-title" {...props}>
         {children}
       </h1>
     );
@@ -44,7 +44,7 @@ export const components = {
   h4: ({ children, ...props }: HeadingProps) => {
     const id = generateId(children as string);
     return (
-      <h4 id={id} className="my-2 text-xl font-semibold text-title" {...props}>
+      <h4 id={id} className="my-2 text-lg font-semibold text-title" {...props}>
         {children}
       </h4>
     );
@@ -55,8 +55,16 @@ export const components = {
   li: (props: ListItemProps) => <li className="mb-2 text-foreground" {...props} />,
   a: ({ href, children, ...props }: AnchorProps) => {
     const className = 'text-blue-600 dark:text-blue-400 hover:underline';
+    const isExternal = href && !href.startsWith('/');
+
     return (
-      <a href={href} className={className} {...props}>
+      <a
+        href={href}
+        className={className}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        {...props}
+      >
         {children}
       </a>
     );

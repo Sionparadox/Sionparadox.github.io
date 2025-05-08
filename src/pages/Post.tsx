@@ -40,13 +40,13 @@ const Post = () => {
           <DateLabel date={post.date} style="dot" withIcon />
         </div>
       </div>
-      <div className="flex">
+      <div className="flex pb-10">
         <div className="mt-8 basis-3/4 p-1">
           <div className="mdx-content">
             <Content components={components} />
           </div>
         </div>
-        <div className="basis-1/4 py-10">
+        <div className="basis-1/4 pt-10">
           <FloatingWidget />
         </div>
       </div>

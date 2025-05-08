@@ -23,7 +23,7 @@ const PostFooter = () => {
   }, [category, slug]);
 
   return (
-    <footer className="flex w-full justify-between border-t border-strokeMain pt-3">
+    <footer className="mt-10 flex w-full justify-between border-t border-strokeMain pt-5">
       <PostNavigation simplePost={adjacentPosts.prev} align="left" />
       <div className="w-1/5"></div>
       <PostNavigation simplePost={adjacentPosts.next} align="right" />
