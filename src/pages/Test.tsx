@@ -1,5 +1,5 @@
 import { Button } from '@/components/atoms/Button';
-import { AnimatedSidebarToggleButton } from '@/components/molecules/AnimatedSidebarToggleButton';
+import NoContentIcon from '@/components/atoms/NoContentIcon';
 import { motion } from 'framer-motion';
 
 function Test() {
@@ -36,8 +36,33 @@ function Test() {
           긴 텍스트를 넣어서 테스트를 해보는중
         </motion.div>
       </div>
+      <div className="flex items-center justify-center">
+        <NoContentIcon />
+      </div>
 
-      <AnimatedSidebarToggleButton />
+      <div className="flex items-center justify-center">
+        <motion.svg width="40" height="40" viewBox="0 0 40 40">
+          <motion.circle
+            cx="20"
+            cy="20"
+            r="18"
+            fill="none"
+            stroke="#2DD4BF"
+            strokeWidth="4"
+            strokeDasharray="113.1"
+            strokeDashoffset="20"
+            transform="rotate(-90 20 20)"
+            animate={{
+              rotate: 360,
+            }}
+            transition={{
+              duration: 1,
+              repeat: 1,
+              ease: 'linear',
+            }}
+          />
+        </motion.svg>
+      </div>
     </div>
   );
 }
