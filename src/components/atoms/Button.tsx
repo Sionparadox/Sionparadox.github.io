@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 
 const VARIANT_STYLES = {
   default: 'bg-cardBg hover:bg-subBg',

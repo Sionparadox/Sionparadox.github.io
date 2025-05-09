@@ -8,7 +8,12 @@ interface DateLabelProps {
 }
 
 const DateLabel = ({ date, style, withIcon = false }: DateLabelProps) => {
-  const [year, month, day] = date.split('-');
+  const d = new Date(date);
+  const [year, month, day] = [
+    d.getFullYear(),
+    String(d.getMonth() + 1).padStart(2, '0'),
+    String(d.getDate()).padStart(2, '0'),
+  ];
   let dateString = '';
   if (style === 'dot') {
     dateString = `${year}.${month}.${day}`;

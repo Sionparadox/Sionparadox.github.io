@@ -1,9 +1,9 @@
 export const metadata = {
-  title: '개인 블로그 프로젝트 회고1 - 디자인',
-  date: '2025-05-08',
-  tags: ['React', '디자인', '회고'],
+  title: '개인 블로그 프로젝트 회고1 - 초기 설계',
+  date: '2025-05-08 16:00:00',
+  tags: ['회고', '디자인', 'React', 'GithubPages'],
   description:
-    '개인 블로그를 제작하며 겪은 고민과 배움, 그리고 색상 선택에 대한 인사이트를 정리한 회고록',
+    '개인 블로그 초기 설계 과정에서 마주한 어려움 디자인과 기술 선택에 대한 인사이트를 담은 회고록',
 };
 
 ## 시작하며
@@ -14,7 +14,6 @@ export const metadata = {
 
 이 회고는 1차 목표인 개인 블로그 프로젝트를 진행하며 <u>겪은 어려움, 떠오른 생각</u>에 대한 이야기다.
 
-<br />
 <br />
 <br />
 ## 디자인
@@ -51,3 +50,24 @@ export const metadata = {
 
 [참고 사이트 : uxmovement](https://uxmovement.com/content/why-you-should-never-use-pure-black-for-text-or-backgrounds/)  
 [참고 사이트 : velog](https://velog.io/@woody_59/UXUI-%EC%99%9C-%EC%9B%B9-%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88%EB%93%A4%EC%9D%80-%EA%B2%80%EC%A0%95%EC%83%89-%EB%8C%80%EC%8B%A0-000000%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C)
+
+<br />
+<br />
+## 기술 스택 선정
+
+가장 먼저 이번 프로젝트를 위한 프레임워크/라이브러리를 고민했다.  
+후보는 React, Next.js, Vue 3가지였다.
+Next.js는 프로젝트를 2개나 진행해봤기 때문에 익숙했고 React는 배워본 적은 있어도 React만으로 프로젝트를 진행해본 경험은 없었다. 마지막으로 Vue는 완전히 처음부터 배워야했다.  
+우선 빠르게 블로그 만들어서 사용하기 위해 아예 처음해보는 Vue는 후보에서 제외시켰다.  
+주로 생각했던 기능이 단순한 글 포스팅뿐이기에 Next.js보다 상대적으로 가볍고 단순하게 개발할 수 있는 React가 더 적합하다고 판단했다.
+
+<br /> 선택 기준을 나타낸 표
+
+| 항목          | React | Next.js | Vue  |
+| ------------- | ----- | ------- | ---- |
+| 경험          | 적음  | 많음    | 없음 |
+| 러닝커브      | 중간  | 중간    | 높음 |
+| 블로그 적합도 | 적합  | 과함    | 적합 |
+
+이후 배포 플랫폼을 정했는데 후보가 vercel, netlify, github pages 3개였다.  
+간단한 프로젝트이기 때문에 React를 선택한 것 처럼 간편하게 배포할 수 있고, 무료인 github pages를 선택했다.

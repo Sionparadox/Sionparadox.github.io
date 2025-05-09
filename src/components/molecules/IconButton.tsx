@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { Button } from '../atoms/Button';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
   icon: ReactNode;

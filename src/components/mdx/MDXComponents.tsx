@@ -88,10 +88,10 @@ export const components = {
     <hr className="my-8 border-strokeMain" {...props} />
   ),
   table: (props: ComponentPropsWithoutRef<'table'>) => (
-    <table className="mb-4 w-full border-collapse border-strokeMain" {...props} />
+    <table className="mb-4 w-full table-fixed border-collapse border-strokeMain" {...props} />
   ),
   th: (props: ComponentPropsWithoutRef<'th'>) => (
-    <th className="border border-strokeMain bg-subBg px-4 py-2 text-left text-title" {...props} />
+    <th className="border border-strokeMain bg-subBg px-4 py-2 text-title" {...props} />
   ),
   td: (props: ComponentPropsWithoutRef<'td'>) => (
     <td className="border border-strokeMain px-4 py-2" {...props} />
