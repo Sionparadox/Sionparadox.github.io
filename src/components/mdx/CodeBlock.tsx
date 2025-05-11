@@ -1,13 +1,14 @@
 import { ComponentPropsWithoutRef } from 'react';
 import { cn } from '@/utils/cn';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
-import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
-import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
-import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
-import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import jsx from 'react-syntax-highlighter/dist/esm/languages/hljs/xml';
+import typescript from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript';
+import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
+import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
+import bash from 'react-syntax-highlighter/dist/esm/languages/hljs/bash';
 import CopyButton from '../molecules/CopyButton';
+import { useTheme } from '@/hooks/useTheme';
+import { a11yDark, a11yLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 SyntaxHighlighter.registerLanguage('jsx', jsx);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
@@ -20,6 +21,7 @@ interface CodeBlockProps extends ComponentPropsWithoutRef<'code'> {
 }
 
 export const CodeBlock = ({ children, className, ...props }: CodeBlockProps) => {
+  const { theme } = useTheme();
   const match = /language-(\w+)/.exec(className || '');
   if (!match) {
     return (
@@ -40,16 +42,17 @@ export const CodeBlock = ({ children, className, ...props }: CodeBlockProps) => 
       <div className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100">
         <CopyButton size="sm" type="text" text={code} />
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-lg border border-strokeMain">
         {/* @ts-expect-error SyntaxHighlighter not used in JSX at React 18 */}
         <SyntaxHighlighter
           lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
           wrapLines={true}
           language={language}
-          style={vscDarkPlus}
+          style={theme === 'dark' ? a11yDark : a11yLight}
           customStyle={{
             margin: 0,
             borderRadius: '0.5rem',
+            fontSize: '0.875rem',
           }}
         >
           {code}

@@ -28,7 +28,7 @@ export const components = {
   h2: ({ children, ...props }: HeadingProps) => {
     const id = generateId(children as string);
     return (
-      <h2 id={id} className="my-3 text-2xl font-bold text-title" {...props}>
+      <h2 id={id} className="mb-3 mt-12 text-2xl font-bold text-title" {...props}>
         {children}
       </h2>
     );
@@ -36,7 +36,7 @@ export const components = {
   h3: ({ children, ...props }: HeadingProps) => {
     const id = generateId(children as string);
     return (
-      <h3 id={id} className="my-3 text-xl font-semibold text-title" {...props}>
+      <h3 id={id} className="mb-3 mt-8 text-xl font-semibold text-title" {...props}>
         {children}
       </h3>
     );
@@ -77,7 +77,7 @@ export const components = {
   ),
   code: CodeBlock,
   pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => (
-    <pre className="mb-4 overflow-x-auto p-4 text-foreground" {...props}>
+    <pre className="mb-4 overflow-x-auto px-4 text-foreground" {...props}>
       {children}
     </pre>
   ),
