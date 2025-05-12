@@ -71,7 +71,7 @@ export const components = {
   },
   blockquote: (props: BlockquoteProps) => (
     <blockquote
-      className="border-l-4 border-strokeMain bg-subBg px-4 py-2 [&>p]:mb-0 [&>p]:text-foreground"
+      className="border-l-4 border-mint bg-subBg px-4 py-2 [&>p]:mb-0 [&>p]:text-foreground"
       {...props}
     />
   ),

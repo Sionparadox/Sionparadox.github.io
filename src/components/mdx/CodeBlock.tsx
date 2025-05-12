@@ -25,7 +25,10 @@ export const CodeBlock = ({ children, className, ...props }: CodeBlockProps) => 
   const match = /language-(\w+)/.exec(className || '');
   if (!match) {
     return (
-      <code className={cn('rounded bg-subBg px-1.5 py-0.5 text-mint', className)} {...props}>
+      <code
+        className={cn('rounded bg-subBg px-1.5 py-0.5 font-sans text-mint', className)}
+        {...props}
+      >
         {children}
       </code>
     );
