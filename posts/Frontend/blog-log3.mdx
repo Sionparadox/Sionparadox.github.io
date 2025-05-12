@@ -1,0 +1,90 @@
+export const metadata = {
+  title: '개인 블로그 프로젝트 회고3 - 다크모드',
+  date: '2025-05-12 14:40:00',
+  tags: ['회고', '다크모드', 'React', 'useLayoutEffect'],
+  description: '다크모드 구현 과정과 함께 깜빡임(FOUC) 문제의 원인과 해결 과정을 담은 회고',
+};
+
+## 다크모드 토글 시 깜빡임 현상 발생
+
+다크모드 및 테마 토글 기능을 구현하면서, 토글 시 화면이 한 번씩 깜빡거리는 문제가 발생했다.
+이번 글에서는 다크모드 구현 과정과, 이 깜빡임(Fouc, Flash of Unstyled Content) 문제를 어떻게 해결했는지 정리해본다.
+
+## 다크모드 구현
+
+블로그에 다크모드를 적용할 때 다음 두 가지 조건이 있었다.
+
+**1. 새로고침을 해도 이전 테마 상태가 반드시 유지되어야함  
+2. 초기에는 사용자의 시스템 설정에 따른 테마를 보여줘야함**
+
+먼저 1번을 해결하기 위해 theme 상태를 전역에서 관리해야 했고 상태관리 라이브러리로는 jotai를 선택했다. 또한 theme을 localStorage에 저장해 새로고침 시에도 유지되게 했다.
+
+```typescript
+// theme.ts
+import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
+
+export type Theme = 'light' | 'dark';
+
+export const themeAtom = atomWithStorage<Theme>('theme', 'light');
+
+export const toggleThemeAtom = atom(null, (get, set) => {
+  const currentTheme = get(themeAtom);
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  set(themeAtom, newTheme);
+});
+```
+
+위 atom을 활용하는 커스텀 훅(`useTheme.ts`)을 만들어 사용했고 `ThemeProvider.tsx`를 통해 App 전체를 감싸서 테마를 적용했다.
+TailwindCSS의 variant를 활용해 테마별 색상을 지정하고 html 태그에 'dark-theme' attribute를 넣어서 테마를 적용하도록 했다.
+
+## 시스템 테마 적용
+
+초기 테마는 사용자의 시스템 설정을 반영해야 했다.  
+이를 위해 css 미디어 쿼리(prefers-color-scheme: dark)를 활용해 사용자의 선호 테마를 감지하고, 초기 테마로 적용했다.
+
+```typescript
+//ThemeProvider.ts
+if (typeof window !== 'undefined') {
+  const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+  const root = window.document.documentElement;
+  if (savedTheme) {
+    root.setAttribute('data-theme', savedTheme);
+  } else {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  }
+}
+```
+
+## FOUC 문제
+
+이렇게 다크모드를 적용한 후 테스트해보니, 화면이 잠깐 라이트모드로 보였다가 다크모드로 전환되는 깜빡임 현상(FOUC)이 발생했다.  
+원인을 파악해보니 브라우저가 DOM을 먼저 그리고 나서야 script가 실행되어 테마가 변경되기 때문이었다.  
+즉, 초기에는 기본 테마(라이트모드)가 잠깐 보이고, 이후 다크모드가 적용되어 화면이 바뀌는 것이다.
+이 FOUC (Flash Of Unstyled Content) 문제를 해결하기 위해 `ThemeProvider`에서 테마를 적용하는 코드를 기존의 `useEffect`에서 `useLayoutEffect`로 변경했다.
+
+```typescript
+//ThemeProvider.ts
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const theme = useAtomValue(themeAtom);
+
+  useLayoutEffect(() => {
+    const root = window.document.documentElement;
+    root.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  return <>{children}</>;
+};
+```
+
+## 왜 useLayoutEffect를 사용해야할까?
+
+`useEffect`와 `useLayoutEffect`는 실행 시점에 차이가 있다.  
+아래는 React 훅의 실행 순서를 보여주는 다이어그램이다.
+![react-hook dialog](/postImage/hook-flow.png)
+[출처 : donavon](https://github.com/donavon/hook-flow)
+
+`useLayoutEffect`는 렌더 이후 paint 전에 동기적으로 실행되고 `useEffect`는 paint 이후 비동기적으로 실행된다.  
+따라서 다크모드 적용에 **useEffect**를 사용하면 이전 상태(라이트모드)가 잠깐 보였다가 다크모드로 전환되어 FOUC 문제가 발생한다.  
+반면, **useLayoutEffect**를 사용하여 개선할 경우 paint 되기전에 동기적으로 테마가 전환되기 때문에 깜빡임 현상이 사라진다.
