@@ -6,6 +6,7 @@ import typescript from 'react-syntax-highlighter/dist/esm/languages/hljs/typescr
 import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
 import bash from 'react-syntax-highlighter/dist/esm/languages/hljs/bash';
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import CopyButton from '../molecules/CopyButton';
 import { useTheme } from '@/hooks/useTheme';
 import { a11yDark, a11yLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -15,6 +16,7 @@ SyntaxHighlighter.registerLanguage('typescript', typescript);
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('css', css);
 SyntaxHighlighter.registerLanguage('bash', bash);
+SyntaxHighlighter.registerLanguage('python', python);
 
 interface CodeBlockProps extends ComponentPropsWithoutRef<'code'> {
   children: string;
