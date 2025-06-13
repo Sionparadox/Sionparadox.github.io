@@ -1,6 +1,6 @@
 import { FaLaptop, FaPuzzlePiece } from 'react-icons/fa';
 import IconButton from '../molecules/IconButton';
-import { FaCode, FaList } from 'react-icons/fa6';
+import { FaCode, FaPalette } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { ProfileContent } from '../molecules/ProfileContent';
 export const Sidebar = () => {
@@ -30,12 +30,15 @@ export const Sidebar = () => {
             to="/posts/Frontend"
             className="flex items-center gap-3 rounded-md px-2 py-2 hover:bg-subBg"
           >
-            <IconButton icon={<FaCode />} />
+            <IconButton icon={<FaPalette />} />
             FrontEnd
           </Link>
-          <Link to="/todo" className="flex items-center gap-3 rounded-md px-2 py-2 hover:bg-subBg">
-            <IconButton icon={<FaList />} />
-            Todo
+          <Link
+            to="/posts/Problems"
+            className="flex items-center gap-3 rounded-md px-2 py-2 hover:bg-subBg"
+          >
+            <IconButton icon={<FaCode />} />
+            SolvedProblems
           </Link>
         </div>
       </nav>
