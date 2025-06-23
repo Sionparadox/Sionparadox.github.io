@@ -1,0 +1,84 @@
+export const metadata = {
+  title: '[Gold V] 0 만들기 - 7490',
+  date: '2025-06-23 09:39:01',
+  tags: ['구현', '문자열', '브루트포스 알고리즘', '백트래킹'],
+  description: '[Gold V] 0 만들기 - 7490',
+};
+
+# [Gold V] 0 만들기 - 7490 
+
+[문제 링크](https://www.acmicpc.net/problem/7490) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 56 ms
+
+### 분류
+
+구현, 문자열, 브루트포스 알고리즘, 백트래킹
+
+### 제출 일자
+
+2025년 6월 23일 18:38:45
+
+### 문제 설명
+
+1부터 N까지의 수를 오름차순으로 쓴 수열 1 2 3 ... N을 생각하자.
+
+그리고 '+'나 '-', 또는 ' '(공백)을 숫자 사이에 삽입하자(+는 더하기, -는 빼기, 공백은 숫자를 이어 붙이는 것을 뜻한다). 이렇게 만든 수식의 값을 계산하고 그 결과가 0이 될 수 있는지를 살피자.
+
+N이 주어졌을 때 수식의 결과가 0이 되는 모든 수식을 찾는 프로그램을 작성하라.
+
+### 입력 
+
+ 첫 번째 줄에 테스트 케이스의 개수가 주어진다(
+
+각 테스트 케이스엔 자연수 N이 주어진다(3 
+
+### 출력 
+
+ 각 테스트 케이스에 대해 ASCII 순서에 따라 결과가 0이 되는 모든 수식을 출력한다. 각 테스트 케이스의 결과는 한 줄을 띄워 구분한다.
+
+### 풀이
+```python
+import sys
+sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
+
+def calc(exp):
+    exp = exp.replace(' ','')
+    res = 0
+    pm = 1
+    temp = 0
+    for c in exp:
+        if c.isalnum():
+            temp = temp*10 + int(c)
+        else:
+            res += pm*temp
+            temp = 0
+            if c == '+':
+                pm = 1
+            else:
+                pm = -1
+    res += pm*temp
+    return res
+
+def backTrack(k, exp):
+    if k == N+1:
+        if calc(exp) == 0:
+            result.append(exp)
+        return
+    
+    backTrack(k+1, f'{exp}+{k}')
+    backTrack(k+1, f'{exp}-{k}')
+    backTrack(k+1, f'{exp} {k}')
+
+T = int(input())
+for _ in range(T):
+    N = int(input())
+    result = []
+    backTrack(2, '1')
+    result.sort()
+    print('\n'.join(result))
+    print()
+```
