@@ -1,6 +1,6 @@
 export const metadata = {
   title: '[Gold V] MooTube (Silver) - 15591',
-  date: '2025-06-27 09:21:01',
+  date: '2025-06-27 09:21:48',
   tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '깊이 우선 탐색'],
   description: '[Gold V] MooTube (Silver) - 15591',
 };
@@ -11,7 +11,7 @@ export const metadata = {
 
 ### 성능 요약
 
-메모리: 34944 KB, 시간: 3448 ms
+메모리: 34456 KB, 시간: 60 ms
 
 ### 분류
 
@@ -19,7 +19,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2025년 6월 27일 18:20:40
+2025년 6월 27일 18:21:33
 
 ### 문제 설명
 
@@ -45,6 +45,35 @@ export const metadata = {
 
 ### 풀이
 ```python
+import sys
+input = sys.stdin.readline
+
+N, Q = map(int, input().split())
+
+parent = [x for x in range(N+1)]
+size = [1]*(N+1)
+
+def find(node):
+    if node == parent[node]:
+        return node
+    parent[node] = find(parent[node])
+    return parent[node]
+
+def union(u, v):
+    rootU = find(u)
+    rootV = find(v)
+    if rootU == rootV:
+        return
+    if size[rootU] =k:
+        _, a, b = graph[idx]
+        union(a, b)
+        idx += 1
+    answer[i] += size[find(v)] -1
+    
+for ans in answer:
+    print(ans)   
+
+'''
 import sys
 from collections import defaultdict, deque
 input = sys.stdin.readline
@@ -76,31 +105,5 @@ for _ in range(Q):
     k, v = map(int, input().split())
     print(BFS(k, v))
 
-# import sys
-# input = sys.stdin.readline
-
-# N, Q = map(int, input().split())
-
-# parent = [x for x in range(N+1)]
-# size = [1]*(N+1)
-
-# def find(node):
-    # if node == parent[node]:
-        # return node
-    # parent[node] = find(parent[node])
-    # return parent[node]
-
-# def union(u, v):
-    # rootU = find(u)
-    # rootV = find(v)
-    # if rootU == rootV:
-        # return
-    # if size[rootU] =k:
-        # _, a, b = graph[idx]
-        # union(a, b)
-        # idx += 1
-    # answer[i] += size[find(v)] -1
-    
-# for ans in answer:
-    # print(ans)
+'''
 ```
