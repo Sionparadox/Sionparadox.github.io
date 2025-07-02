@@ -1,6 +1,6 @@
 export const metadata = {
   title: '[Gold I] 수영장 만들기 - 1113',
-  date: '2025-07-02 05:31:07',
+  date: '2025-07-02 05:44:20',
   tags: ['구현', '그래프 이론', '그래프 탐색', '시뮬레이션', '너비 우선 탐색', '격자 그래프'],
   description: '[Gold I] 수영장 만들기 - 1113',
 };
@@ -11,7 +11,7 @@ export const metadata = {
 
 ### 성능 요약
 
-메모리: 34984 KB, 시간: 68 ms
+메모리: 35508 KB, 시간: 52 ms
 
 ### 분류
 
@@ -19,7 +19,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2025년 7월 2일 14:30:42
+2025년 7월 2일 14:43:58
 
 ### 문제 설명
 
@@ -46,49 +46,54 @@ export const metadata = {
 ### 풀이
 ```python
 import sys
-from collections import deque
+import heapq
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
 pool = [list(map(int, input().strip())) for _ in range(N)]
 
+visited = [[False]*M for _ in range(N)]
+pq = []
+for r in range(N):
+    for c in range(M):
+        if r == 0 or r == N-1 or c == 0 or c == M-1:
+            heapq.heappush(pq, (pool[r][c], r, c))
+            visited[r][c] = True
+
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-
-def BFS(r, c, height):
-    visited[r][c] = True
-    queue = deque([(r, c)])
-    canFill = True
-    res = 0
-    
-    while queue:
-        r, c = queue.popleft()
-        res += height-pool[r][c]
-        pool[r][c] = height
-        for dr, dc in directions:
-            nr, nc = r+dr, c+dc
-            if nr = N or nc = M:
-                canFill = False
-                continue
-            if not visited[nr][nc] and pool[nr][nc] < height:
-                queue.append((nr, nc))
-                visited[nr][nc] = True
-    
-    return res if canFill else 0
-
 answer = 0
-for h in range(2, 10):
-    visited = [[False]*M for _ in range(N)]
-    for i in range(N):
-        for j in range(M):
-            if pool[i][j] < h and not visited[i][j]:
-                answer += BFS(i, j, h)
+while pq:
+    h, r, c = heapq.heappop(pq)
+    
+    for dr, dc in directions:
+        nr, nc = r+dr, c+dc
+        if nr=N or nc=M:
+            continue
+        if not visited[nr][nc]:
+            visited[nr][nc] = True
+            if pool[nr][nc] = N or nc = M:
+                # canFill = False
+                # continue
+            # if not visited[nr][nc] and pool[nr][nc] < height:
+                # queue.append((nr, nc))
+                # visited[nr][nc] = True
+    
+    # return res if canFill else 0
 
-print(answer)
+# answer = 0
+# for h in range(2, 10):
+    # visited = [[False]*M for _ in range(N)]
+    # for i in range(N):
+        # for j in range(M):
+            # if pool[i][j] < h and not visited[i][j]:
+                # answer += BFS(i, j, h)
+
+# print(answer)
         
 
-'''
-일단 2~9의 높이로 높여가며 채우기
-채울 때는 N*M번돌긴해야해 같은 그룹의 수영장인지는 BFS로 체크
+# '''
+# 일단 2~9의 높이로 높여가며 채우기
+# 채울 때는 N*M번돌긴해야해 같은 그룹의 수영장인지는 BFS로 체크
 
-'''
+# '''
 ```
