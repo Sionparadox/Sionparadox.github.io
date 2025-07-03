@@ -1,6 +1,6 @@
 export const metadata = {
   title: '[Gold II] 닭싸움 팀 정하기 - 1765',
-  date: '2025-07-03 07:10:41',
+  date: '2025-07-03 07:24:22',
   tags: ['그래프 이론', '자료 구조', '그래프 탐색', '분리 집합'],
   description: '[Gold II] 닭싸움 팀 정하기 - 1765',
 };
@@ -11,7 +11,7 @@ export const metadata = {
 
 ### 성능 요약
 
-메모리: 34976 KB, 시간: 284 ms
+메모리: 34976 KB, 시간: 272 ms
 
 ### 분류
 
@@ -19,7 +19,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2025년 7월 3일 16:10:12
+2025년 7월 3일 16:24:07
 
 ### 문제 설명
 
@@ -57,9 +57,6 @@ input = sys.stdin.readline
 N = int(input())
 M = int(input())
 
-enemy = defaultdict(list)
-parent = [x for x in range(N+1)]
-
 def find(node):
     if node == parent[node]:
         return node
@@ -70,7 +67,9 @@ def union(u, v):
     rootU, rootV = find(u), find(v)
     if rootU != rootV:
         parent[rootV] = rootU
-
+        
+enemy = defaultdict(list)
+parent = [x for x in range(N+1)]
 for _ in range(M):
     type, u, v = input().split()
     u, v = int(u), int(v)
