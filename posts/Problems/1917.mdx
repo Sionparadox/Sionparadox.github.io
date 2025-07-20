@@ -1,0 +1,116 @@
+export const metadata = {
+  title: '[Gold I] 정육면체 전개도 - 1917',
+  date: '2025-07-20 09:26:08',
+  tags: ['구현', '시뮬레이션'],
+  description: '[Gold I] 정육면체 전개도 - 1917',
+};
+
+# [Gold I] 정육면체 전개도 - 1917 
+
+[문제 링크](https://www.acmicpc.net/problem/1917) 
+
+### 성능 요약
+
+메모리: 35068 KB, 시간: 60 ms
+
+### 분류
+
+구현, 시뮬레이션
+
+### 제출 일자
+
+2025년 7월 20일 18:25:38
+
+### 문제 설명
+
+여섯 개의 정사각형 모양의 종이가 있으면, 이를 적절히 이어 붙여서 정육면체의 전개도를 만들 수 있다. 정육면체의 전개도라는 것은, 선을 따라 종이를 적절히 접었을 때 정육면체를 완성할 수 있는 경우를 말한다.
+
+예를 들면 아래의 모양은 정육면체의 전개도가 될 수 있다.
+
+![그림](https://upload.acmicpc.net/8447549a-a7b4-45bb-ae14-7d9ea8348a7a/-/preview/)
+
+하지만 모든 경우에 정육면체를 만들 수 있는 것은 아니다. 예를 들어 다음과 같은 모양의 전개도는 여섯 개의 정사각형으로 이루어 있기는 하나 정육면체를 만들 수는 없다.
+
+![그림](https://upload.acmicpc.net/a852ac4b-ccaa-4c16-8924-4c2a962d02c7/-/preview/)
+
+여섯 개의 정사각형으로 이루어진 전개도가 주어졌을 때, 이것이 정육면체의 전개도가 될 수 있는지 없는지를 가려내는 프로그램을 작성하시오.
+
+### 입력 
+
+ 세 개의 입력 데이터가 주어지며, 각각의 입력 데이터는 여섯 개의 줄로 이루어져 있다. 각 데이터는 여섯 개의 줄에 걸쳐 여섯 개의 숫자가 빈 칸을 사이에 두고 주어진다. 숫자는 0 또는 1로 이루어지며, 36개의 숫자 중 1은 정확히 6개가 있다. 0은 공백을 나타내며 1은 정사각형을 나타낸다. (즉 전체의 그림이 전개도를 나타낸다고 보면 된다.) 정사각형들이 서로 떨어져 있는 경우는 없다.
+
+### 출력 
+
+ 세 개의 줄에 걸쳐, 입력된 순서대로 전개도가 정육면체의 전개도이면 yes를, 아니면 no를 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+class Dice():
+    def __init__(self):
+        #TOP, FRONT, LEFT, BACK, RIGHT, BOTTOM
+        self.pos = [0,1,2,3,4,5]
+    
+    def roll(self, dir):
+        top, front, left, back, right, bottom = self.pos
+        if dir == 0: # U
+            self.pos = [front, bottom, left, top, right, back]
+        elif dir == 1: # D
+            self.pos = [back, top, left, bottom, right, front]
+        elif dir == 2: # L
+            self.pos = [right, front, top, back, bottom, left]
+        elif dir == 3: # R
+            self.pos = [left, front, bottom, back, top, right]
+    
+    def copy(self):
+        d = Dice()
+        d.pos = self.pos[:]
+        return d
+        
+        
+directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] #UDLR
+def isDice(arr):
+    queue = deque()
+    visited = set()
+    used = [False]*6
+    dice = Dice()
+    
+    for p in range(36):
+        r, c = divmod(p, 6)
+        if arr[r][c] == 1:
+            queue.append((r, c, dice))
+            visited.add((r, c))
+            used[5] = True
+            break
+    
+    while queue:
+        r, c, dice = queue.popleft()
+        for d in range(4):
+            dr, dc = directions[d]
+            nr, nc = r+dr, c+dc
+            if nr5 or nc 5:
+                continue
+            if (nr, nc) in visited or arr[nr][nc] == 0:
+                continue
+            
+            ndice = dice.copy()
+            ndice.roll(d)
+            bottom = ndice.pos[5]
+            if used[bottom]:
+                return False
+            queue.append((nr, nc, ndice))
+            visited.add((nr, nc))
+            used[bottom] = True
+
+    return len(visited) == 6            
+
+for _ in range(3):
+    board = [list(map(int, input().split())) for _ in range(6)]
+    if isDice(board):
+        print('yes')
+    else:
+        print('no')
+```
