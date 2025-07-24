@@ -1,0 +1,110 @@
+export const metadata = {
+  title: '[Gold II] 주사위 윷놀이 - 17825',
+  date: '2025-07-24 06:09:24',
+  tags: ['구현', '브루트포스 알고리즘', '시뮬레이션', '백트래킹'],
+  description: '[Gold II] 주사위 윷놀이 - 17825',
+};
+
+# [Gold II] 주사위 윷놀이 - 17825 
+
+[문제 링크](https://www.acmicpc.net/problem/17825) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 404 ms
+
+### 분류
+
+구현, 브루트포스 알고리즘, 시뮬레이션, 백트래킹
+
+### 제출 일자
+
+2025년 7월 24일 15:08:39
+
+### 문제 설명
+
+주사위 윷놀이는 다음과 같은 게임판에서 하는 게임이다.
+
+![그림](https://upload.acmicpc.net/43409ac6-54bf-4a21-b542-e01a8211e59f/-/preview/)
+
+	처음에는 시작 칸에 말 4개가 있다.
+	말은 게임판에 그려진 화살표의 방향대로만 이동할 수 있다. 말이 파란색 칸에서 이동을 시작하면 파란색 화살표를 타야 하고, 이동하는 도중이거나 파란색이 아닌 칸에서 이동을 시작하면 빨간색 화살표를 타야 한다. 말이 도착 칸으로 이동하면 주사위에 나온 수와 관계 없이 이동을 마친다.
+	게임은 10개의 턴으로 이루어진다. 매 턴마다 1부터 5까지 한 면에 하나씩 적혀있는 5면체 주사위를 굴리고, 도착 칸에 있지 않은 말을 하나 골라 주사위에 나온 수만큼 이동시킨다.
+	말이 이동을 마치는 칸에 다른 말이 있으면 그 말은 고를 수 없다. 단, 이동을 마치는 칸이 도착 칸이면 고를 수 있다.
+	말이 이동을 마칠 때마다 칸에 적혀있는 수가 점수에 추가된다.
+
+주사위에서 나올 수 10개를 미리 알고 있을 때, 얻을 수 있는 점수의 최댓값을 구해보자.
+
+### 입력 
+
+ 첫째 줄에 주사위에서 나올 수 10개가 순서대로 주어진다.
+
+### 출력 
+
+ 얻을 수 있는 점수의 최댓값을 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+dice = list(map(int, input().split()))
+
+next_cell = {x:[x+1] for x in range(20)}
+next_cell[5].append(21)
+next_cell[10].append(24)
+next_cell[15].append(26)
+for idx in (21,22,24,26,27,28,29,30):
+    next_cell[idx] = [idx+1]
+next_cell[23], next_cell[25], next_cell[31], next_cell[20] = [29], [29], [20], [-1]
+next_cell[-1] = [-1]
+score = {x:x*2 for x in range(21)}
+score[21], score[22], score[23] = 13,16,19
+score[24], score[25] = 22,24
+score[26], score[27], score[28] = 28, 27, 26
+score[29], score[30], score[31] = 25, 30, 35
+
+visited = [False]*32
+
+def move(idx, k, shortcut=0):
+    if idx == -1:
+        return -1
+    if k == 1:
+        return next_cell[idx][shortcut]
+    return move(next_cell[idx][shortcut], k-1)
+
+answer = 0
+def backTrack(d, val, pos):
+    global answer
+    if d == 10:
+        answer = max(answer, val)
+        return
+    
+    dist = dice[d]
+    for mipple in range(4):
+        idx = pos[mipple]
+        if idx == -1:
+            continue
+        
+        sc = 1 if idx in (5,10,15) else 0
+        next_idx = move(idx, dist, sc)
+        
+        if next_idx == -1:
+            visited[idx] = False
+            pos[mipple] = next_idx
+            backTrack(d+1, val, pos)
+            pos[mipple] = idx
+            visited[idx] = True
+            
+        elif not visited[next_idx]:
+            visited[idx] = False
+            visited[next_idx] = True
+            pos[mipple] = next_idx
+            backTrack(d+1, val+score[next_idx], pos)
+            visited[idx] = True
+            visited[next_idx] = False
+            pos[mipple] = idx
+    
+backTrack(0, 0, [0,0,0,0])
+print(answer)
+```
