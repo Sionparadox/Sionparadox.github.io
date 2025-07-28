@@ -1,0 +1,90 @@
+export const metadata = {
+  title: '[Gold II] 색종이 붙이기 - 17136',
+  date: '2025-07-28 06:45:27',
+  tags: ['브루트포스 알고리즘', '백트래킹'],
+  description: '[Gold II] 색종이 붙이기 - 17136',
+};
+
+# [Gold II] 색종이 붙이기 - 17136 
+
+[문제 링크](https://www.acmicpc.net/problem/17136) 
+
+### 성능 요약
+
+메모리: 32424 KB, 시간: 824 ms
+
+### 분류
+
+브루트포스 알고리즘, 백트래킹
+
+### 제출 일자
+
+2025년 7월 28일 15:44:53
+
+### 문제 설명
+
+과 같이 정사각형 모양을 한 다섯 종류의 색종이가 있다. 색종이의 크기는 1×1, 2×2, 3×3, 4×4, 5×5로 총 다섯 종류가 있으며, 각 종류의 색종이는 5개씩 가지고 있다.
+
+![그림](https://upload.acmicpc.net/496452ae-ce36-4d77-93f7-19d7f3f9ce28/-/preview/)
+
+색종이를 크기가 10×10인 종이 위에 붙이려고 한다. 종이는 1×1 크기의 칸으로 나누어져 있으며, 각각의 칸에는 0 또는 1이 적혀 있다. 1이 적힌 칸은 모두 색종이로 덮여져야 한다. 색종이를 붙일 때는 종이의 경계 밖으로 나가서는 안되고, 겹쳐도 안 된다. 또, 칸의 경계와 일치하게 붙여야 한다. 0이 적힌 칸에는 색종이가 있으면 안 된다.
+
+종이가 주어졌을 때, 1이 적힌 모든 칸을 붙이는데 필요한 색종이의 최소 개수를 구해보자.
+
+### 입력 
+
+ 총 10개의 줄에 종이의 각 칸에 적힌 수가 주어진다.
+
+### 출력 
+
+ 모든 1을 덮는데 필요한 색종이의 최소 개수를 출력한다. 1을 모두 덮는 것이 불가능한 경우에는 -1을 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+board = [list(map(int, input().split())) for _ in range(10)]
+visited = [[False]*10 for _ in range(10)]
+papers = {1:5, 2:5, 3:5, 4:5, 5:5}
+
+answer = float('inf')
+
+def checkSize(r, c, size):
+    if r+size>10 or c+size>10:
+        return False
+    
+    for i in range(r, r+size):
+        for j in range(c, c+size):
+            if board[i][j] == 0 or visited[i][j]:
+                return False
+    return True
+            
+def backTrack(pos, k):
+    global answer
+    if pos >= 100:
+        answer = min(answer, k)
+        return
+    
+    if k >= answer: return
+    
+    r, c = divmod(pos, 10)
+    if board[r][c] == 0 or visited[r][c]:
+        backTrack(pos+1, k)
+        return
+    
+    for size in range(5, 0, -1):
+        if papers[size]>0 and checkSize(r, c, size):
+            for i in range(r, r+size):
+                for j in range(c, c+size):
+                    visited[i][j] = True
+            papers[size] -= 1
+            backTrack(pos+size, k+1)
+            papers[size] += 1
+            for i in range(r, r+size):
+                for j in range(c, c+size):
+                    visited[i][j] = False
+
+backTrack(0, 0)
+print(answer if answer != float('inf') else -1)
+```
