@@ -1,0 +1,243 @@
+export const metadata = {
+  title: '[Gold I] 다리 만들기 2 - 17472',
+  date: '2025-07-31 08:54:20',
+  tags: ['구현', '그래프 이론', '브루트포스 알고리즘', '그래프 탐색', '너비 우선 탐색', '깊이 우선 탐색', '최소 스패닝 트리'],
+  description: '[Gold I] 다리 만들기 2 - 17472',
+};
+
+# [Gold I] 다리 만들기 2 - 17472 
+
+[문제 링크](https://www.acmicpc.net/problem/17472) 
+
+### 성능 요약
+
+메모리: 35204 KB, 시간: 60 ms
+
+### 분류
+
+구현, 그래프 이론, 브루트포스 알고리즘, 그래프 탐색, 너비 우선 탐색, 깊이 우선 탐색, 최소 스패닝 트리
+
+### 제출 일자
+
+2025년 7월 31일 17:53:53
+
+### 문제 설명
+
+섬으로 이루어진 나라가 있고, 모든 섬을 다리로 연결하려고 한다. 이 나라의 지도는 N×M 크기의 이차원 격자로 나타낼 수 있고, 격자의 각 칸은 땅이거나 바다이다.
+
+섬은 연결된 땅이 상하좌우로 붙어있는 덩어리를 말하고, 아래 그림은 네 개의 섬으로 이루어진 나라이다. 색칠되어있는 칸은 땅이다.
+
+![그림](https://upload.acmicpc.net/38cb578e-b289-4b72-841e-422a1458d617/-/preview/)
+
+다리는 바다에만 건설할 수 있고, 다리의 길이는 다리가 격자에서 차지하는 칸의 수이다. 다리를 연결해서 모든 섬을 연결하려고 한다. 섬 A에서 다리를 통해 섬 B로 갈 수 있을 때, 섬 A와 B를 연결되었다고 한다. 다리의 양 끝은 섬과 인접한 바다 위에 있어야 하고, 한 다리의 방향이 중간에 바뀌면 안된다. 또, 다리의 길이는 2 이상이어야 한다.
+
+다리의 방향이 중간에 바뀌면 안되기 때문에, 다리의 방향은 가로 또는 세로가 될 수 밖에 없다. 방향이 가로인 다리는 다리의 양 끝이 가로 방향으로 섬과 인접해야 하고, 방향이 세로인 다리는 다리의 양 끝이 세로 방향으로 섬과 인접해야 한다.
+
+섬 A와 B를 연결하는 다리가 중간에 섬 C와 인접한 바다를 지나가는 경우에 섬 C는 A, B와 연결되어있는 것이 아니다. 
+
+아래 그림은 섬을 모두 연결하는 올바른 2가지 방법이고, 다리는 회색으로 색칠되어 있다. 섬은 정수, 다리는 알파벳 대문자로 구분했다.
+
+	
+		
+			
+
+![그림](https://upload.acmicpc.net/41f71ecc-97b4-4351-b741-4b8336576246/-/preview/)
+
+			
+
+![그림](https://upload.acmicpc.net/3b158fdf-74ba-47d7-a224-9e5b753b8453/-/preview/)
+
+		
+		
+			
+			다리의 총 길이: 13
+
+			D는 2와 4를 연결하는 다리이고, 3과는 연결되어 있지 않다.
+			
+			
+			다리의 총 길이: 9 (최소)
+			
+		
+	
+
+다음은 올바르지 않은 3가지 방법이다
+
+	
+		
+			
+
+![그림](https://upload.acmicpc.net/c7c663a1-4ebb-4c89-9a6a-4157513c1a30/-/preview/)
+
+			
+
+![그림](https://upload.acmicpc.net/390361f9-0647-4ff8-9709-7c1de26c0929/-/preview/)
+
+			
+
+![그림](https://upload.acmicpc.net/2a1d4415-0a0d-4508-8a14-1956fdf650ec/-/preview/)
+
+		
+		
+			C의 방향이 중간에 바뀌었다
+			D의 길이가 1이다.
+			가로 다리인 A가 1과 가로로 연결되어 있지 않다.
+		
+	
+
+다리가 교차하는 경우가 있을 수도 있다. 교차하는 다리의 길이를 계산할 때는 각 칸이 각 다리의 길이에 모두 포함되어야 한다. 아래는 다리가 교차하는 경우와 기타 다른 경우에 대한 2가지 예시이다.
+
+	
+		
+			
+
+![그림](https://upload.acmicpc.net/b6f340e2-8248-4385-9a6a-546e7a2648e4/-/preview/)
+
+			
+
+![그림](https://upload.acmicpc.net/dd98ec33-6796-455d-a612-8db31a9806f0/-/preview/)
+
+		
+		
+			
+			A의 길이는 4이고, B의 길이도 4이다.
+
+			총 다리의 총 길이: 4 + 4 + 2 = 10
+			
+			
+			다리 A: 2와 3을 연결 (길이 2)
+
+			다리 B: 3과 4를 연결 (길이 3)
+
+			다리 C: 2와 5를 연결 (길이 5)
+
+			다리 D: 1과 2를 연결 (길이 2)
+
+			총 길이: 12
+			
+		
+	
+
+나라의 정보가 주어졌을 때, 모든 섬을 연결하는 다리 길이의 최솟값을 구해보자.
+
+### 입력 
+
+ 첫째 줄에 지도의 세로 크기 N과 가로 크기 M이 주어진다. 둘째 줄부터 N개의 줄에 지도의 정보가 주어진다. 각 줄은 M개의 수로 이루어져 있으며, 수는 0 또는 1이다. 0은 바다, 1은 땅을 의미한다.
+
+### 출력 
+
+ 모든 섬을 연결하는 다리 길이의 최솟값을 출력한다. 모든 섬을 연결하는 것이 불가능하면 -1을 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+board = [list(map(int, input().split())) for _ in range(N)]
+visited = [[False]*M for _ in range(N)]
+directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+def BFS(r, c):
+    queue = deque([(r, c)])
+    visited[r][c] = True
+    res = set([(r, c)])
+    while queue:
+        r, c = queue.popleft()
+        for dr, dc in directions:
+            nr, nc = r+dr, c+dc
+            if nr=N or nc=M:
+                continue
+            if visited[nr][nc] or board[nr][nc] == 0:
+                continue
+            
+            visited[nr][nc] = True
+            queue.append((nr, nc))
+            res.add((nr, nc))
+    
+    return res
+
+def distance(x, y):
+    A = islands[x]
+    B = islands[y]
+    res = float('inf')
+    
+    min_r1 = min(r for r,_ in A)
+    max_r1 = max(r for r,_ in A)
+    min_c1 = min(c for _,c in A)
+    max_c1 = max(c for _,c in A)
+    
+    min_r2 = min(r for r,_ in B)
+    max_r2 = max(r for r,_ in B)
+    min_c2 = min(c for _,c in B)
+    max_c2 = max(c for _,c in B)
+    
+    start_r = max(min_r1, min_r2)
+    end_r = min(max_r1, max_r2)
+    start_c = max(min_c1, min_c2)
+    end_c = min(max_c1, max_c2)
+    
+    if start_r 2:
+                        s, e = sorted([c1, c2])
+                        if all(board[row][col] == 0 for col in range(s+1, e)):
+                            res = min(res, e-s-1)
+    
+    if start_c 2:
+                        s, e = sorted([r1, r2])
+                        if all(board[row][col] == 0 for row in range(s+1, e)):
+                            res = min(res, e-s-1)
+    
+    return res
+    
+def find(node):
+    if parent[node] == node:
+        return node
+    parent[node] = find(parent[node])
+    return parent[node]
+
+def union(u, v):
+    u = find(u)
+    v = find(v)
+    if u == v:
+        return False
+    parent[v] = u
+    return True
+
+islands = []
+for i in range(N):
+    for j in range(M):
+        if not visited[i][j] and board[i][j] == 1:
+            island = BFS(i, j)
+            islands.append(island)
+
+K = len(islands)
+bridges = []
+for i in range(K-1):
+    for j in range(i+1, K):
+        d = distance(i, j)
+        if d != float('inf'):
+            bridges.append((d, i, j))
+
+bridges.sort()
+parent = [x for x in range(K)]
+answer = 0
+cnt = 0
+for d, u, v in bridges:
+    if union(u, v):
+        answer += d
+        cnt += 1
+        if cnt == K-1:
+            break
+
+print(answer if cnt == K-1 else -1)
+
+'''
+BFS로 섬을 찾아서 좌표를 모아서 섬을 인덱싱
+이후 두 섬간의 거리를 구함.
+row, col 각각 최대, 최소를 저장해서 겹치는지 구한 후 겹친다면 중간에 섬이 없는지 해당 행,열에 대해 검사.
+2보다 큰 최소거리를 반환
+이후 거리 순으로 오름차순 정렬하고
+union-find활용해서 모든 다리에 대해 탐색
+연결 횟수를 저장해서 K-1인지 비교
+'''
+```
