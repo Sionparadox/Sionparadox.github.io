@@ -1,6 +1,6 @@
 export const metadata = {
   title: '[Gold IV] 배열 돌리기 4 - 17406',
-  date: '2025-07-31 07:01:42',
+  date: '2025-07-31 07:21:10',
   tags: ['구현', '브루트포스 알고리즘', '백트래킹'],
   description: '[Gold IV] 배열 돌리기 4 - 17406',
 };
@@ -11,7 +11,7 @@ export const metadata = {
 
 ### 성능 요약
 
-메모리: 33432 KB, 시간: 168 ms
+메모리: 33432 KB, 시간: 160 ms
 
 ### 분류
 
@@ -19,7 +19,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2025년 7월 31일 16:01:10
+2025년 7월 31일 16:20:30
 
 ### 문제 설명
 
@@ -150,18 +150,18 @@ def rotate(r, c, depth, ar):
 
 def DFS(arr, visit):
     global answer
-    if len(visit) == K:
+    if visit == (1<<K)-1:
         answer = min(answer, min(sum(row) for row in arr))
         return
     
     copied = [row[:] for row in arr]
     for i in range(K):
-        if str(i) in visit:
+        if (1<<i) & visit:
             continue
         r, c, depth = cmd[i]
-        DFS(rotate(r, c, depth, copied), visit+str(i))
+        DFS(rotate(r, c, depth, copied), visit | (1<<i))
     
 answer = float('inf')   
-DFS(board, '')
+DFS(board, 0)
 print(answer)
 ```
