@@ -1,0 +1,69 @@
+export const metadata = {
+  title: '[Gold I] 이항 계수 3 - 11401',
+  date: '2025-08-01 05:30:50',
+  tags: ['수학', '정수론', '조합론', '분할 정복을 이용한 거듭제곱', '모듈로 곱셈 역원', '페르마의 소정리'],
+  description: '[Gold I] 이항 계수 3 - 11401',
+};
+
+# [Gold I] 이항 계수 3 - 11401 
+
+[문제 링크](https://www.acmicpc.net/problem/11401) 
+
+### 성능 요약
+
+메모리: 190336 KB, 시간: 1084 ms
+
+### 분류
+
+수학, 정수론, 조합론, 분할 정복을 이용한 거듭제곱, 모듈로 곱셈 역원, 페르마의 소정리
+
+### 제출 일자
+
+2025년 8월 1일 14:29:34
+
+### 문제 설명
+
+자연수 과 정수 가 주어졌을 때 이항 계수 를 1,000,000,007로 나눈 나머지를 구하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 과 가 주어진다. (1 ≤  ≤ 4,000,000, 0 ≤  ≤ )
+
+### 출력 
+
+  를 1,000,000,007로 나눈 나머지를 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+MOD = 1_000_000_007
+
+N, K = map(int, input().split())
+factorial = [1]*(N+1)
+for i in range(1, N+1):
+    factorial[i] = (factorial[i-1]*i)%MOD
+
+def solve(n, exp):
+    if exp == 1:
+        return n
+    
+    half = solve(n, exp//2)
+    half = (half**2) % MOD
+    if exp % 2 == 1:
+        half = (half*n) % MOD
+    return half
+    
+
+def modinv(n):
+    return solve(n, MOD-2)
+
+answer = factorial[N] * modinv(factorial[K]) % MOD
+answer = answer * modinv(factorial[N - K]) % MOD
+print(answer)
+
+'''
+nCk = n!/k!(n-k)!
+nCk % MOD = n! * k!^-1 * (n-k)!^-1 %MOD
+'''
+```
