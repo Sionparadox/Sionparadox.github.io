@@ -1,0 +1,74 @@
+export const metadata = {
+  title: '[Gold II] 교환 - 1039',
+  date: '2025-08-05 06:26:43',
+  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색'],
+  description: '[Gold II] 교환 - 1039',
+};
+
+# [Gold II] 교환 - 1039 
+
+[문제 링크](https://www.acmicpc.net/problem/1039) 
+
+### 성능 요약
+
+메모리: 34952 KB, 시간: 84 ms
+
+### 분류
+
+그래프 이론, 그래프 탐색, 너비 우선 탐색
+
+### 제출 일자
+
+2025년 8월 5일 15:25:57
+
+### 문제 설명
+
+0으로 시작하지 않는 정수 N이 주어진다. 이때, M을 정수 N의 자릿수라고 했을 때, 다음과 같은 연산을 K번 수행한다.
+
+1 ≤ i 
+
+위의 연산을 K번 했을 때, 나올 수 있는 수의 최댓값을 구하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 정수 N과 K가 주어진다. N은 1,000,000보다 작거나 같은 자연수이고, K는 10보다 작거나 같은 자연수이다.
+
+### 출력 
+
+ 첫째 줄에 문제에 주어진 연산을 K번 했을 때, 만들 수 있는 가장 큰 수를 출력한다. 만약 연산을 K번 할 수 없으면 -1을 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N, K = map(int, input().split())
+nums = list(str(N))
+M = len(nums)
+
+visited = [set() for _ in range(K+1)]
+n = str(N)
+queue = deque([(n, 0)])
+visited[0].add(n)
+
+answer = -1
+while queue:
+    n, cnt = queue.popleft()
+    if cnt == K:
+        answer = max(answer, int(n))
+        continue
+    
+    for i in range(M-1):
+        for j in range(i+1, M):
+            arr = list(n)
+            if i == 0 and arr[j] == '0':
+                continue
+            arr[i], arr[j] = arr[j], arr[i]
+            new_n = ''.join(arr)
+            if new_n not in visited[cnt+1]:
+                visited[cnt+1].add(new_n)
+                queue.append((new_n, cnt+1))
+
+print(answer)
+```
