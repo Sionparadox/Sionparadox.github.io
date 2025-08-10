@@ -1,0 +1,124 @@
+export const metadata = {
+  title: '[Gold II] 로고 - 3108',
+  date: '2025-08-10 07:32:45',
+  tags: ['자료 구조', '기하학', '분리 집합'],
+  description: '[Gold II] 로고 - 3108',
+};
+
+# [Gold II] 로고 - 3108 
+
+[문제 링크](https://www.acmicpc.net/problem/3108) 
+
+### 성능 요약
+
+메모리: 33432 KB, 시간: 148 ms
+
+### 분류
+
+자료 구조, 기하학, 분리 집합
+
+### 제출 일자
+
+2025년 8월 10일 16:32:29
+
+### 문제 설명
+
+로고는 주로 교육용에 쓰이는 프로그래밍 언어이다. 로고의 가장 큰 특징은 거북이 로봇인데, 사용자는 이 거북이 로봇을 움직이는 명령을 입력해 화면에 도형을 그릴 수 있다.
+
+거북이는 위치와 각도로 표현할 수 있다. 거북이는 입에 연필을 물고 있는데, 연필을 내리면 움직일 때 화면에 선을 그리고, 올리면 선을 그리지 않고 그냥 지나가기만 한다.
+
+제일 처음에 거북이는 (0,0)에 있고, 거북이가 보고 있는 방향은 y축이 증가하는 방향이다. 또한 연필은 내리고 있다.
+
+사용자는 다음과 같은 다섯가지 명령으로 거북이를 조정할 수 있다.
+
+	FD x: 거북이를 x만큼 앞으로 전진
+	LT a: 거북이를 반시계 방향으로 a도 만큼 회전
+	RT a: 거북이를 시계 방향으로 a도 만큼 회전
+	PU: 연필을 올린다
+	PD: 연필을 내린다.
+
+축에 평행한 직사각형 N개가 주어졌을 때, 이 직사각형을 그리는데 필요한 PU 명령의 최솟값을 구하는 프로그램을 작성하시오.
+
+거북이는 같은 선을 여러 번 그릴 수 있지만, 문제에 주어진 직사각형 N개를 제외한 어떤 것도 그릴 수 없다. 거북이의 크기는 아주 작아서 좌표 평면의 한 점이라고 생각하면 된다. 직사각형의 변은 축에 평행하다.
+
+### 입력 
+
+ 첫째 줄에 직사각형의 개수 N이 주어진다. (1 ≤ N ≤ 1000)
+
+다음 N개의 줄에는 직사각형의 좌표 x1, y1, x2, y2가 주어진다. (−500 ≤ x1 
+
+### 출력 
+
+ N개의 직사각형을 그리는 필요한 PU명령의 최솟값을 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+squares = []
+for _ in range(N):
+    x1, y1, x2, y2 = map(int, input().split())
+    if x2<x1:
+        x1, x2 = x2, x1
+    if y2<y1:
+        y1, y2 = y2, y1
+    squares.append((x1, y1, x2, y2))
+
+parent = [x for x in range(N)]
+is_zero = 0
+
+def find(node):
+    if node == parent[node]:
+        return node
+    parent[node] = find(parent[node])
+    return parent[node]
+
+def union(u, v):
+    u, v = find(u), find(v)
+    if u != v:
+        parent[v] = u
+
+def cross_zero(idx):
+    x1, y1, x2, y2 = squares[idx]
+    if x1 == 0 or x2 == 0:
+        if y1*y2 <= 0 :
+            return True
+    if y1 == 0 or y2 == 0:
+        if x1*x2 <= 0:
+            return True
+    return False
+
+def is_cross(i, j):
+    x1, y1, x2, y2 = squares[i]
+    x3, y3, x4, y4 = squares[j]
+    if x1 < x3 and x4 < x2 and y1 < y3 and y4 < y2:
+        return False
+    if x3 < x1 and x2 < x4 and y3 < y1 and y2 < y4:
+        return False
+    return not (x2 < x3 or x4 < x1 or y2 < y3 or y4 < y1)
+    
+for i in range(N):
+    if cross_zero(i):
+        is_zero = 1
+        break
+
+for i in range(N-1):
+    for j in range(i+1, N):
+        if is_cross(i, j):
+            union(i, j)
+           
+tmp = set() 
+for i in range(N):
+    tmp.add(find(i))
+answer = len(tmp) + (1-is_zero) -1
+print(answer)
+
+'''
+겹치지 않는 직사각형 그룹이 몇개
++ 직사각형중 하나가 원점을 지나가는지
+원점 지나려면 x,y중 하나가 0이어야하고 다른 하나는 곱이 0이하여야함.
+두 사각형이 겹치려면 포함관계 X + 좌표가 하나라도 겹쳐야함.
+'''
+```
