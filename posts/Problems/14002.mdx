@@ -1,0 +1,75 @@
+export const metadata = {
+  title: '[Gold IV] 가장 긴 증가하는 부분 수열 4 - 14002',
+  date: '2025-08-12 06:05:58',
+  tags: ['다이나믹 프로그래밍', '역추적'],
+  description: '[Gold IV] 가장 긴 증가하는 부분 수열 4 - 14002',
+};
+
+# [Gold IV] 가장 긴 증가하는 부분 수열 4 - 14002 
+
+[문제 링크](https://www.acmicpc.net/problem/14002) 
+
+### 성능 요약
+
+메모리: 34608 KB, 시간: 36 ms
+
+### 분류
+
+다이나믹 프로그래밍, 역추적
+
+### 제출 일자
+
+2025년 8월 12일 15:05:31
+
+### 문제 설명
+
+수열 A가 주어졌을 때, 가장 긴 증가하는 부분 수열을 구하는 프로그램을 작성하시오.
+
+예를 들어, 수열 A = {10, 20, 10, 30, 20, 50} 인 경우에 가장 긴 증가하는 부분 수열은 A = {10, 20, 10, 30, 20, 50} 이고, 길이는 4이다.
+
+### 입력 
+
+ 첫째 줄에 수열 A의 크기 N (1 ≤ N ≤ 1,000)이 주어진다.
+
+둘째 줄에는 수열 A를 이루고 있는 Ai가 주어진다. (1 ≤ Ai ≤ 1,000)
+
+### 출력 
+
+ 첫째 줄에 수열 A의 가장 긴 증가하는 부분 수열의 길이를 출력한다.
+
+둘째 줄에는 가장 긴 증가하는 부분 수열을 출력한다. 그러한 수열이 여러가지인 경우 아무거나 출력한다.
+
+### 풀이
+```python
+import sys
+import bisect
+input = sys.stdin.readline
+
+N = int(input())
+arr = list(map(int, input().split()))
+
+dp = []
+pos = []
+parent = [-1]*N
+for i in range(N):
+    idx = bisect.bisect_left(dp, arr[i])
+    
+    if idx==len(dp):
+        dp.append(arr[i])
+        pos.append(i)
+    else:
+        dp[idx] = arr[i]
+        pos[idx] = i
+    if idx > 0:
+        parent[i] = pos[idx-1]
+
+L = len(dp)
+answer = []
+curr = pos[-1]
+while curr != -1:
+    answer.append(arr[curr])
+    curr = parent[curr]
+answer.reverse()
+print(L)
+print(*answer)
+```
