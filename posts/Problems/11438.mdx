@@ -1,0 +1,79 @@
+export const metadata = {
+  title: '[Platinum V] LCA 2 - 11438',
+  date: '2025-08-21 07:59:47',
+  tags: ['자료 구조', '트리', '최소 공통 조상', '희소 배열'],
+  description: '[Platinum V] LCA 2 - 11438',
+};
+
+# [Platinum V] LCA 2 - 11438 
+
+[문제 링크](https://www.acmicpc.net/problem/11438) 
+
+### 성능 요약
+
+메모리: 84184 KB, 시간: 1360 ms
+
+### 분류
+
+자료 구조, 트리, 최소 공통 조상, 희소 배열
+
+### 제출 일자
+
+2025년 8월 21일 16:58:45
+
+### 문제 설명
+
+N(2 ≤ N ≤ 100,000)개의 정점으로 이루어진 트리가 주어진다. 트리의 각 정점은 1번부터 N번까지 번호가 매겨져 있으며, 루트는 1번이다.
+
+두 노드의 쌍 M(1 ≤ M ≤ 100,000)개가 주어졌을 때, 두 노드의 가장 가까운 공통 조상이 몇 번인지 출력한다.
+
+### 입력 
+
+ 첫째 줄에 노드의 개수 N이 주어지고, 다음 N-1개 줄에는 트리 상에서 연결된 두 정점이 주어진다. 그 다음 줄에는 가장 가까운 공통 조상을 알고싶은 쌍의 개수 M이 주어지고, 다음 M개 줄에는 정점 쌍이 주어진다.
+
+### 출력 
+
+ M개의 줄에 차례대로 입력받은 두 정점의 가장 가까운 공통 조상을 출력한다.
+
+### 풀이
+```python
+import sys
+sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
+
+N = int(input())
+graph = [[] for _ in range(N)]
+for _ in range(N-1):
+    u, v = map(int, input().split())
+    graph[u-1].append(v-1)
+    graph[v-1].append(u-1)
+
+L = 1
+while 2**L = 2**i:
+            u = parent[i][u]
+
+    if u == v:
+        return u
+    
+    for i in range(L-1, -1, -1):
+        if parent[i][u] != parent[i][v]:
+            u = parent[i][u]
+            v = parent[i][v]
+    
+    return parent[0][u]
+
+for _ in range(M):
+    u, v = map(int, input().split())
+    print(LCA(u-1, v-1)+1)
+
+'''
+부모를 기록해서 희소배열로 탐색
+
+1
+2 3
+4 5 6  / 7 8
+9 10 / 11 12 / / 13 14
+/ 15
+
+'''
+```
