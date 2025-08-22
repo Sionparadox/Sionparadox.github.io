@@ -1,0 +1,76 @@
+export const metadata = {
+  title: '[Gold III] 별자리 만들기 - 4386',
+  date: '2025-08-22 04:52:46',
+  tags: ['그래프 이론', '최소 스패닝 트리'],
+  description: '[Gold III] 별자리 만들기 - 4386',
+};
+
+# [Gold III] 별자리 만들기 - 4386 
+
+[문제 링크](https://www.acmicpc.net/problem/4386) 
+
+### 성능 요약
+
+메모리: 35508 KB, 시간: 48 ms
+
+### 분류
+
+그래프 이론, 최소 스패닝 트리
+
+### 제출 일자
+
+2025년 8월 22일 13:52:33
+
+### 문제 설명
+
+도현이는 우주의 신이다. 이제 도현이는 아무렇게나 널브러져 있는 n개의 별들을 이어서 별자리를 하나 만들 것이다. 별자리의 조건은 다음과 같다.
+
+	별자리를 이루는 선은 서로 다른 두 별을 일직선으로 이은 형태이다.
+	모든 별들은 별자리 위의 선을 통해 서로 직/간접적으로 이어져 있어야 한다.
+
+별들이 2차원 평면 위에 놓여 있다. 선을 하나 이을 때마다 두 별 사이의 거리만큼의 비용이 든다고 할 때, 별자리를 만드는 최소 비용을 구하시오.
+
+### 입력 
+
+ 첫째 줄에 별의 개수 n이 주어진다. (1 ≤ n ≤ 100)
+
+둘째 줄부터 n개의 줄에 걸쳐 각 별의 x, y좌표가 실수 형태로 주어지며, 최대 소수점 둘째자리까지 주어진다. 좌표는 1000을 넘지 않는 양의 실수이다.
+
+### 출력 
+
+ 첫째 줄에 정답을 출력한다. 절대/상대 오차는 10-2까지 허용한다.
+
+### 풀이
+```python
+import sys
+import heapq
+input = sys.stdin.readline
+
+N = int(input())
+stars = [tuple(map(float, input().split())) for _ in range(N)]
+
+distance = [[0.0]*N for _ in range(N)]
+def calc(a, b):
+    x1, y1 = stars[a]
+    x2, y2 = stars[b]
+    return ((x2-x1)**2 + (y2-y1)**2)**(0.5)
+
+for i in range(N-1):
+    for j in range(i+1, N):
+        distance[i][j] = distance[j][i] = calc(i, j)
+
+visited = [False]*N
+pq = []
+heapq.heappush(pq, (distance[0][0], 0))
+answer = 0
+while pq:
+    d, node = heapq.heappop(pq)
+    if visited[node] : continue
+    visited[node] = True
+    answer += d
+    for nxt in range(N):
+        if visited[nxt]: continue
+        heapq.heappush(pq, (distance[node][nxt], nxt))
+
+print(answer)
+```
