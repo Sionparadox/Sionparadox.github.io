@@ -1,0 +1,73 @@
+export const metadata = {
+  title: '[Gold I] 합성함수와 쿼리 - 17435',
+  date: '2025-08-25 10:04:02',
+  tags: ['자료 구조', '희소 배열'],
+  description: '[Gold I] 합성함수와 쿼리 - 17435',
+};
+
+# [Gold I] 합성함수와 쿼리 - 17435 
+
+[문제 링크](https://www.acmicpc.net/problem/17435) 
+
+### 성능 요약
+
+메모리: 100492 KB, 시간: 2748 ms
+
+### 분류
+
+자료 구조, 희소 배열
+
+### 제출 일자
+
+2025년 8월 25일 19:03:18
+
+### 문제 설명
+
+함수 f : {1, 2, ..., m}→{1, 2, ..., m}이 있다. 이때 fn : {1, 2, ..., m}→{1, 2, ..., m}을 다음과 같이 정의하자.
+
+	f1(x) = f(x)
+	fn+1(x) = f(fn(x))
+
+예를 들어 f4(1) = f(f(f(f(1))))이다.
+
+n과 x가 주어질 때 fn(x)를 계산하는 쿼리를 수행하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫 줄에 정수 m이 주어진다. (1 ≤ m ≤ 200,000)
+
+다음 줄에 f(1), f(2), ..., f(m)이 차례대로 주어진다.
+
+다음 줄에 쿼리의 개수 Q가 주어진다. (1 ≤ Q ≤ 200,000)
+
+다음 Q개의 줄에 각각 정수 n과 x가 주어진다. (1 ≤ n ≤ 500,000; 1 ≤ x ≤ m)
+
+### 출력 
+
+ 주어지는 n, x마다 fn(x)를 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+M = int(input())
+nums = [x-1 for x in list(map(int, input().split()))]
+Q = int(input())
+queries = []
+for _ in range(Q):
+    n, x = map(int, input().split())
+    queries.append((n, x-1))
+
+arr = [[-1]*M for _ in range(21)]
+arr[0] = nums
+for i in range(1, 21):
+    for j in range(M):
+        arr[i][j] = arr[i-1][arr[i-1][j]]
+
+for n, x in queries:
+    for i in range(20, -1, -1):
+        if n & (1<<i):
+            x = arr[i][x]
+    print(x+1)
+```
