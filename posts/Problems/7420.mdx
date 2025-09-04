@@ -1,0 +1,93 @@
+export const metadata = {
+  title: '[Platinum IV] 맹독 방벽 - 7420',
+  date: '2025-09-04 08:42:40',
+  tags: ['기하학', '볼록 껍질'],
+  description: '[Platinum IV] 맹독 방벽 - 7420',
+};
+
+# [Platinum IV] 맹독 방벽 - 7420 
+
+[문제 링크](https://www.acmicpc.net/problem/7420) 
+
+### 성능 요약
+
+메모리: 34536 KB, 시간: 36 ms
+
+### 분류
+
+기하학, 볼록 껍질
+
+### 제출 일자
+
+2025년 9월 4일 17:42:24
+
+### 문제 설명
+
+![그림](https://upload.acmicpc.net/e8b1d57d-ee8e-4e2d-bf2b-6e788776c553/-/preview/)
+
+화학 제국의 왕 성준이는 계속되는 이웃나라의 침범으로부터 자유로워지기 위해 자국의 자랑 화학 방벽을 건설하기로 마음먹었다. 이 방벽은 근처에 다가오는 생명체에게 해로운 독성을 내뿜어서 더이상 다른 나라들이 얼씬도 못하게 만들 것이다!
+
+그러나 이 방벽은 만들기 까다롭기에 가능한 한 적게 지어야 하며, 자국민들에게도 악영향을 끼칠 수 있으므로 자국의 모든 건물들로부터 L 이상의 거리를 유지해야만 한다.
+
+자국의 건물들의 좌표가 주어졌을 때, 모든 건물들로부터 L 이상의 거리를 두면서 모든 건물을 한번에 두르는 방벽의 최소 길이를 구하시오.
+
+### 입력 
+
+ 첫 번째 줄에 건물의 수 N과 거리 L이 주어진다. (3 ≤ N ≤ 1000, 1 ≤ L ≤ 1000, N과 L은 정수)
+
+다음 N개의 줄에 거쳐 건물의 좌표 Xi와 Yi가 정수로 주어진다. (-10000 ≤ Xi, Yi ≤ 10000) 모든 건물의 좌표는 다르며, 건물은 충분히 작아서 점과 같다고 생각해도 좋다. 방벽은 자신들끼리 교차해서는 안 되며 끊어져서도 안 된다.
+
+### 출력 
+
+ 첫째 줄에 답을 정수 단위로 반올림하여 출력한다.
+
+### 풀이
+```python
+import sys
+import math
+input = sys.stdin.readline
+
+N, L = map(int, input().split())
+buildings = [tuple(map(int, input().split())) for _ in range(N)]
+buildings.sort()
+
+def CCW(i, j, k):
+    x1, y1 = buildings[i]
+    x2, y2 = buildings[j]
+    x3, y3 = buildings[k]
+    return (x2-x1)*(y3-y1) - (x3-x1)*(y2-y1)
+
+def convex_hull():
+    lower = []
+    for i in range(N):
+        while len(lower)>=2:
+            if CCW(lower[-2], lower[-1], i) =2:
+            if CCW(upper[-2], upper[-1], i)<=0:
+                upper.pop()
+            else: break
+        upper.append(i)
+    
+    return lower[:-1] + upper[:-1]
+
+def distance(i, j):
+    x1, y1 = buildings[i]
+    x2, y2 = buildings[j]
+    return ((x1-x2)**2 + (y1-y2)**2)**(0.5)
+
+hull = convex_hull()
+H = len(hull)
+
+answer = 0
+
+for i in range(H):
+    answer += distance(hull[i], hull[(i+1)%H])
+
+answer += 2*L*math.pi
+print(round(answer))
+
+'''
+Convex Hull로 외곽을 이루는 점을 구함.
+N각형일 경우 원형으로 이루어진 부분: 2pi
+즉 문제의 요구사항 = 볼록껍질의 둘레 + 2pi
+'''
+```
