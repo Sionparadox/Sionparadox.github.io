@@ -1,0 +1,74 @@
+export const metadata = {
+  title: '[Platinum V] 이항 계수와 쿼리 - 13977',
+  date: '2025-09-06 09:49:09',
+  tags: ['수학', '정수론', '조합론', '분할 정복을 이용한 거듭제곱', '모듈로 곱셈 역원', '페르마의 소정리'],
+  description: '[Platinum V] 이항 계수와 쿼리 - 13977',
+};
+
+# [Platinum V] 이항 계수와 쿼리 - 13977 
+
+[문제 링크](https://www.acmicpc.net/problem/13977) 
+
+### 성능 요약
+
+메모리: 191660 KB, 시간: 2908 ms
+
+### 분류
+
+수학, 정수론, 조합론, 분할 정복을 이용한 거듭제곱, 모듈로 곱셈 역원, 페르마의 소정리
+
+### 제출 일자
+
+2025년 9월 6일 18:43:47
+
+### 문제 설명
+
+개의 자연수 과 정수 가 주어졌을 때 이항 계수 를 1,000,000,007로 나눈 나머지를 구하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 이 주어진다. (1 ≤  ≤ 100,000)
+
+둘째 줄부터 개의 줄에 과 가 주어진다. (1 ≤  ≤ 4,000,000, 0 ≤  ≤ )
+
+### 출력 
+
+ 총 개의 줄에 를 1,000,000,007로 나눈 나머지를 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+MOD = 1_000_000_007
+
+def inverse(n, exp):
+    if exp == 1:
+        return n
+    
+    half = inverse(n, exp//2)
+    half = (half**2) % MOD
+    if exp % 2 == 1:
+        half = (half*n) % MOD
+    return half
+    
+
+def modinv(n):
+    return inverse(n, MOD-2)
+
+factorial = [1]*(4_000_001)
+for i in range(1, 4_000_001):
+    factorial[i] = (factorial[i-1]*i)%MOD
+
+M = int(input())
+for _ in range(M):
+    N, K = map(int, input().split())
+    ans = factorial[N]
+    ans = ans * modinv(factorial[K]) % MOD
+    ans = ans * modinv(factorial[N - K]) % MOD
+    print(ans)
+
+'''
+nCk = n!/k!(n-k)!
+nCk % MOD = n! * k!^-1 * (n-k)!^-1 %MOD
+'''
+```
