@@ -1,0 +1,67 @@
+export const metadata = {
+  title: '[Gold V] 무한 수열 - 1351',
+  date: '2026-02-22 06:45:35',
+  tags: ['다이나믹 프로그래밍', '자료 구조', '집합과 맵', '해시를 사용한 집합과 맵'],
+  description: '[Gold V] 무한 수열 - 1351',
+};
+
+# [Gold V] 무한 수열 - 1351 
+
+[문제 링크](https://www.acmicpc.net/problem/1351) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 36 ms
+
+### 분류
+
+다이나믹 프로그래밍, 자료 구조, 집합과 맵, 해시를 사용한 집합과 맵
+
+### 제출 일자
+
+2026년 2월 22일 15:45:12
+
+### 문제 설명
+
+무한 수열 A는 다음과 같다.
+
+	A0 = 1
+	Ai = A⌊i/P⌋ + A⌊i/Q⌋ (i ≥ 1)
+
+N, P와 Q가 주어질 때, AN을 구하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 3개의 정수 N, P, Q가 주어진다.
+
+### 출력 
+
+ 첫째 줄에 AN을 출력한다.
+
+### 풀이
+```python
+import sys
+sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
+
+N, P, Q = map(int, input().split())
+if Q>P : P,Q = Q,P
+
+dp = {0:1}
+def solve(n):
+    if n in dp: 
+        return dp[n]
+    l, r = n//P, n//Q
+    L = solve(l)
+    R = solve(r)
+    dp[n] = L+R
+    return dp[n]
+
+print(solve(N))
+
+'''
+divide and conquer with dp
+N//P, N//Q
+
+'''
+```
