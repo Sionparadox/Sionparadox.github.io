@@ -1,6 +1,6 @@
 export const metadata = {
   title: '[Silver I] 오르막 수 - 11057',
-  date: '2026-02-24 07:08:18',
+  date: '2026-02-24 07:10:52',
   tags: ['다이나믹 프로그래밍'],
   description: '[Silver I] 오르막 수 - 11057',
 };
@@ -11,7 +11,7 @@ export const metadata = {
 
 ### 성능 요약
 
-메모리: 33432 KB, 시간: 48 ms
+메모리: 32412 KB, 시간: 40 ms
 
 ### 분류
 
@@ -19,7 +19,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2026년 2월 24일 16:07:53
+2026년 2월 24일 16:10:28
 
 ### 문제 설명
 
@@ -44,15 +44,24 @@ input = sys.stdin.readline
 MOD = 10007
 
 N = int(input())
-dp = [[0]*10 for _ in range(N+1)]
-dp[1] = [1]*10
+dp = [1]*10
 
-for n in range(2, N+1):
-    dp[n][0] = 1
+for _ in range(N-1):
     for k in range(1, 10):
-        dp[n][k] = (dp[n-1][k] + dp[n][k-1]) % MOD
+        dp[k] = (dp[k] + dp[k-1])%MOD
 
-print(sum(dp[N]) % MOD)
+print(sum(dp)%MOD)
+
+# 2차원 dp
+# dp = [[0]*10 for _ in range(N+1)]
+# dp[1] = [1]*10
+
+# for n in range(2, N+1):
+    # dp[n][0] = 1
+    # for k in range(1, 10):
+        # dp[n][k] = (dp[n-1][k] + dp[n][k-1]) % MOD
+
+# print(sum(dp[N]) % MOD)
 
 '''
 끝자리 수에 따라 다음 올 수 있는 수가 달라짐.
