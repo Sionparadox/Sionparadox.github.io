@@ -1,0 +1,107 @@
+export const metadata = {
+  title: '[Gold I] 카탄의 개척자 - 3678',
+  date: '2026-03-01 10:06:00',
+  tags: ['구현', '시뮬레이션'],
+  description: '[Gold I] 카탄의 개척자 - 3678',
+};
+
+# [Gold I] 카탄의 개척자 - 3678 
+
+[문제 링크](https://www.acmicpc.net/problem/3678) 
+
+### 성능 요약
+
+메모리: 33432 KB, 시간: 48 ms
+
+### 분류
+
+구현, 시뮬레이션
+
+### 제출 일자
+
+2026년 3월 1일 19:05:45
+
+### 문제 설명
+
+"카탄의 개척자"는 많은 사람들이 즐기는 보드게임이다. 게임을 시작하려면, 먼저 게임판을 랜덤으로 만들어야 한다. 게임판은 육각형 타일로 이루어져 있으며, 각 타일은 자원을 하나씩 포함하고 있다. 자원은 총 다섯 가지 종류가 있으며, 점토, 재목, 양모, 곡물, 광석이다. 각 자원은 1부터 5까지 순서로 나타낼 수 있다.
+
+랜덤을 이용해서 게임판을 만들면, 같은 자원이 인접한 타일에 있는 경우가 있을 수도 있다. 이런 배치를 매우 싫어하는 사람이 많다. 따라서, 다음과 같은 과정으로 게임판을 만들려고 한다. 먼저, 게임판의 중앙에서 만들기를 시작하고, 나선 형태로 진행한다.
+
+	새로운 타일은 이미 채워진 인접한 타일에 들어있는 자원과 다른 자원이어야 한다.
+	가능한 자원이 여러 가지인 경우에는, 보드에 가장 적게 나타난 자원을 선택한다.
+	그러한 경우도 여러 가지라면, 번호가 작은 것을 선택한다.
+
+아래 그림은 어떻게 나선 형태로 진행하는지와, 어떤 자원을 선택하는지를 나타낸 그림이다. n번째로 채우는 타일에 어떤 자원을 선택하는지 고르는 프로그램을 작성하시오. (n은 1부터 시작한다)
+
+![그림](https://www.acmicpc.net/upload/images/settler.png)
+
+### 입력 
+
+ 첫째 줄에 테스트 케이스의 개수 c (1 ≤ c ≤ 200)가 주어진다. 각 테스트 케이스는 한 줄로 이루어져 있으며, 정수 n이 주어진다. (1 ≤ n ≤ 10000)
+
+### 출력 
+
+ n번째 타일에 들어있는 자원을 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+arr = [int(input()) for _ in range(T)]
+K = max(arr)
+
+directions = [(1, -1), (0, -1), (-1, 0), (-1, 1), (0, 1), (1, 0)]
+hexagon = {}
+
+counts = [0]*6
+answer = [0]*(K+1)
+
+idx = 1
+x, y = 1, 1
+hexagon[(x, y)] = 1
+answer[1] = 1
+counts[1] = 1
+depth = 1
+
+def set_resource(x, y, idx):
+    
+    near = set()
+    for dx, dy in directions:
+        nx, ny = x+dx, y+dy
+        if (nx, ny) in hexagon:
+            near.add(hexagon[(nx, ny)])
+    
+    selected = -1
+    min_cnt = 10000
+    for i in range(1, 6):
+        if i in near:
+            continue
+        if counts[i]= K:
+                break
+            x, y = x+dx, y+dy
+            idx += 1
+            set_resource(x, y, idx)
+    
+    for _ in range(depth):
+        if idx >= K:
+            break
+        dx, dy = directions[0]
+        x, y = x+dx, y+dy
+        idx += 1
+        set_resource(x, y, idx)
+    
+    depth += 1
+
+for n in arr:
+    print(answer[n])
+
+'''
+axial coordinate로 육각형을 표현
+depth = max(abs(q), abs(r), abs(q+r))
+
+외곽 육각형(ring)의 수 : depth*6 (0:1)
+순서 : d[0] 1번, d[1] depth-1번 d[2]~d[5]~d[0] depth번씩 움직임
+'''
+```
