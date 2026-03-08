@@ -1,0 +1,68 @@
+export const metadata = {
+  title: '[Gold V] 멀티버스 Ⅱ - 18869',
+  date: '2026-03-08 07:14:17',
+  tags: ['정렬', '값 / 좌표 압축'],
+  description: '[Gold V] 멀티버스 Ⅱ - 18869',
+};
+
+# [Gold V] 멀티버스 Ⅱ - 18869 
+
+[문제 링크](https://www.acmicpc.net/problem/18869) 
+
+### 성능 요약
+
+메모리: 72064 KB, 시간: 628 ms
+
+### 분류
+
+정렬, 값 / 좌표 압축
+
+### 제출 일자
+
+2026년 3월 8일 16:13:14
+
+### 문제 설명
+
+M개의 우주가 있고, 각 우주에는 1부터 N까지 번호가 매겨진 행성이 N개 있다. 행성의 크기를 알고 있을때, 균등한 우주의 쌍이 몇 개인지 구해보려고 한다. 구성이 같은데 순서만 다른 우주의 쌍은 한 번만 센다.
+
+두 우주 A와 B가 있고, 우주 A에 있는 행성의 크기는 A1, A2, ..., AN, 우주 B에 있는 행성의 크기는 B1, B2, ..., BN라고 하자. 두 우주의 행성 크기가 모든 1 ≤ i, j ≤ N에 대해서 아래와 같은 조건을 만족한다면, 두 우주를 균등하다고 한다.
+
+	Ai j → Bi j
+	Ai = Aj → Bi = Bj
+	Ai > Aj → Bi > Bj
+
+### 입력 
+
+ 첫째 줄에 우주의 개수 M과 각 우주에 있는 행성의 개수 N이 주어진다. 둘째 줄부터 M개의 줄에 공백으로 구분된 행성의 크기가 한 줄에 하나씩 1번 우주부터 차례대로 주어진다.
+
+### 출력 
+
+ 첫째 줄에 균등한 우주의 쌍의 개수를 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+M, N = map(int, input().split())
+
+def sorted_planet(arr):
+    sorted_arr = sorted(set(arr))
+    indexes = {v:i for i, v in enumerate(sorted_arr)}
+    return tuple(indexes[x] for x in arr)
+
+planet_idx = [sorted_planet(list(map(int, input().split()))) for _ in range(M)]
+
+counter = {}
+for t in planet_idx:
+    if t in counter:
+        counter[t] += 1
+    else:
+        counter[t] = 1
+
+answer = 0
+for value in counter.values():
+    answer += value*(value-1)//2
+
+print(answer)
+```
