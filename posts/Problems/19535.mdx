@@ -1,0 +1,101 @@
+export const metadata = {
+  title: '[Gold III] ㄷㄷㄷㅈ - 19535',
+  date: '2026-03-20 07:20:57',
+  tags: ['수학', '트리', '조합론'],
+  description: '[Gold III] ㄷㄷㄷㅈ - 19535',
+};
+
+# [Gold III] ㄷㄷㄷㅈ - 19535 
+
+[문제 링크](https://www.acmicpc.net/problem/19535) 
+
+### 성능 요약
+
+메모리: 89600 KB, 시간: 1096 ms
+
+### 분류
+
+수학, 트리, 조합론
+
+### 제출 일자
+
+2026년 3월 20일 16:20:14
+
+### 문제 설명
+
+어느 날, 트리를 물끄러미 보고 있던 동현이는 엄청난 사실을 하나 발견했다. 바로 정점이 네 개인 트리는 ‘ㄷ’과 ‘ㅈ’의 두 종류밖에 없다는 사실이다!
+
+![그림](https://upload.acmicpc.net/255cb1ee-1778-4c09-bdd9-202f25422d24/-/preview/)
+
+정점이 네 개 이상 있는 임의의 트리에 대해, 그 트리에서 정점 네 개로 이루어진 집합을 고르자. 전체 트리의 간선들 중 집합에 속한 두 정점을 잇는 간선만을 남겼을 때, 네 개의 정점이 하나의 트리 형태로 이어지게 된다면 ‘ㄷ’ 모양이거나 ‘ㅈ’ 모양일 것이다. 트리에서 ‘ㄷ’의 개수와 ‘ㅈ’의 개수를 각각 트리에서 ‘ㄷ’ 모양, ‘ㅈ’ 모양을 이루는 정점 네 개짜리 집합의 개수라고 하자.
+
+이제, 동현이는 세상의 모든 트리를 다음과 같은 세 종류로 나누었다.
+
+	D-트리 : ‘ㄷ’이 ‘ㅈ’의 배보다 많은 트리
+	G-트리 : ‘ㄷ’이 ‘ㅈ’의 배보다 적은 트리
+	DUDUDUNGA-트리 : ‘ㄷ’이 ‘ㅈ’의 정확히 배만큼 있는 트리
+
+신이 난 동현이는 트리만 보이면 그 트리에 있는 ‘ㄷ’과 ‘ㅈ’이 몇 개인지 세고 다니기 시작했다. 하지만 곧 정점이 만 개나 있는 트리가 동현이 앞에 나타났고, 동현이는 그만 정신을 잃고 말았다. 동현이를 대신해 주어진 트리가 D-트리인지 G-트리인지 아니면 DUDUDUNGA-트리인지 알려주자!
+
+### 입력 
+
+ 첫 번째 줄에 트리의 정점 수 이 주어진다. ()
+
+두 번째 줄부터 개의 줄에 트리의 각 간선이 잇는 두 정점의 번호 , 가 주어진다. ()
+
+### 출력 
+
+ 첫 번째 줄에 주어진 트리가 D-트리라면 D, G-트리라면 G, DUDUDUNGA-트리라면 DUDUDUNGA를 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N = int(input())
+tree = [[] for _ in range(N)]
+for _ in range(N-1):
+    u, v = map(int, input().split())
+    tree[u-1].append(v-1)
+    tree[v-1].append(u-1)
+
+G_sum = 0
+D_sum = 0
+visited = [False]*N
+visited[0] = True
+queue = deque([0])
+
+while queue:
+    node = queue.popleft()
+    l = len(tree[node])
+    if l >=3:
+        G_sum += l*(l-1)*(l-2)//6
+    
+    for nxt in tree[node]:
+        if visited[nxt]:
+            continue
+        visited[nxt] = True
+        queue.append(nxt)
+        nl = len(tree[nxt])
+        D_sum += (l-1)*(nl-1)
+
+G_sum *= 3
+if G_sum > D_sum:
+    print('G')
+elif G_sum < D_sum:
+    print('D')
+else:
+    print('DUDUDUNGA')
+'''
+G-Tree의 수 : 정점이 3개 이상 연결된 노드에 대해 xC3의 합
+D-Tree의 수 : 인접한 두 노드에 대해 (x-1)*(y-1) 의 합
+1-2-3-4-5
+      6
+1234, 2345, 2346, 4
+
+2-3-4-5
+  1 6
+2345,2346, 1345, 1346, 3, 4
+'''
+```
