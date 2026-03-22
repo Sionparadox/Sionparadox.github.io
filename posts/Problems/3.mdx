@@ -1,112 +1,83 @@
 export const metadata = {
-  title: '[Platinum IV] 2-SAT - 3 - 11280',
-  date: '2025-08-31 06:41:29',
-  tags: ['그래프 이론', '강한 연결 요소', '2-sat'],
-  description: '[Platinum IV] 2-SAT - 3 - 11280',
+  title: '[Platinum IV] 1-3 트리 - 25561',
+  date: '2026-03-22 09:56:43',
+  tags: ['애드 혹', '트리'],
+  description: '[Platinum IV] 1-3 트리 - 25561',
 };
 
-# [Platinum IV] 2-SAT - 3 - 11280 
+# [Platinum IV] 1-3 트리 - 25561 
 
-[문제 링크](https://www.acmicpc.net/problem/11280) 
+[문제 링크](https://www.acmicpc.net/problem/25561) 
 
 ### 성능 요약
 
-메모리: 45328 KB, 시간: 232 ms
+메모리: 158300 KB, 시간: 1404 ms
 
 ### 분류
 
-그래프 이론, 강한 연결 요소, 2-sat
+애드 혹, 트리
 
 ### 제출 일자
 
-2025년 8월 31일 15:40:39
+2026년 3월 22일 18:56:10
 
 ### 문제 설명
 
-2-SAT은 N개의 불리언 변수 가 있을 때, 2-CNF 식을 true로 만들기위해 를 어떤 값으로 정해야하는지를 구하는 문제이다.
+윤화는 친구 형건이에게서 트리를 선물로 받았다. 이 트리에는 특징이 하나 있는데, 각각의 정점의 차수가  또는 이라는 것이다. 트리의 구조를 잘 기억하기 위해 윤화는 다음과 같은 방법을 쓰기로 했다.
 
-2-CNF식은  와 같은 형태이다. 여기서 괄호로 묶인 식을 절(clause)라고 하는데, 절은 2개의 변수를 한 것으로 이루어져 있다. 는 OR, 는 AND, 은 NOT을 나타낸다.
+	트리에서 차수가  이하인 정점을 모두 골라서 각각의 정점에 정수 을 적는다. 그런 다음 고른 정점들 및 인접한 간선을 트리에서 제거한다.
+	트리에서 차수가  이하인 정점을 모두 골라서 각각의 정점에 정수 를 적는다. 그런 다음 고른 정점들 및 인접한 간선을 트리에서 제거한다.
+	트리에서 차수가  이하인 정점을 모두 골라서 각각의 정점에 정수 을 적는다. 그런 다음 고른 정점들 및 인접한 간선을 트리에서 제거한다.
+	정점이 모두 제거될 때까지 같은 과정을 반복한다. 번째 과정에서 제거되는 정점에 적히는 수는 이며, 마지막으로 제거된 정점에 적히는 수는 이다.
+	모든 정점이 제거되었다면, 부터 까지의 정수가 정점에 적힌 횟수 을 구한다.
 
-변수의 개수 N과 절의 개수 M, 그리고 식 가 주어졌을 때, 식 를 true로 만들 수 있는지 없는지를 구하는 프로그램을 작성하시오.
+안타깝게도 트리에 정점이 너무 많아서 윤화는 횟수를 제대로 셌는지 알 수 없었다. 윤화를 도와 주어진 값들이 유효한지 알려주자!
 
-예를 들어, N = 3, M = 4이고,  인 경우에 을 false, 을 false, 를 true로 정하면 식 를 true로 만들 수 있다. 하지만, N = 1, M = 2이고, 인 경우에는 에 어떤 값을 넣어도 식 f를 true로 만들 수 없다.
+간선에 방향이 없는 트리에서 정점의 차수는 그 정점과 연결된 간선의 개수를 의미한다.
 
 ### 입력 
 
- 첫째 줄에 변수의 개수 N (1 ≤ N ≤ 10,000)과 절의 개수 M (1 ≤ M ≤ 100,000)이 주어진다. 둘째 줄부터 M개의 줄에는 절이 주어진다. 절은 두 정수 i와 j (1 ≤ |i|, |j| ≤ N)로 이루어져 있으며, i와 j가 양수인 경우에는 각각 , 를 나타내고, 음수인 경우에는 , 를 나타낸다.
+ 첫째 줄에 테스트 케이스의 수 가 입력된다. 
+
+각각의 테스트 케이스는 두 줄로 이루어져 있다.
+
+테스트 케이스의 첫째 줄에는 마지막으로 제거된 정점에 적힌 수 이 입력된다. 
+
+테스트 케이스의 둘째 줄에는 개의 정수 이 공백으로 구분되어 입력된다. 
+
+입력 파일 하나에 존재하는 모든 테스트 케이스의 의 합은 을 넘지 않는다.
 
 ### 출력 
 
- 첫째 줄에 식 를 true로 만들 수 있으면 1을, 없으면 0을 출력한다.
+ 각각의 테스트 케이스에 대해 주어진 값들로 복원할 수 있는 트리가 하나라도 존재한다면 YES, 아니면 NO를 한 줄에 하나씩 출력한다.
 
 ### 풀이
 ```python
 import sys
-sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
-N, M = map(int, input().split())
-def trans_idx(i):
-    if i>0: return i-1
-    else: return -i-1+N
+T = int(input())
 
-graph = [[] for _ in range(2*N)]
-for _ in range(M):
-    u, v = map(int, input().split())
-    graph[trans_idx(-u)].append(trans_idx(v))
-    graph[trans_idx(-v)].append(trans_idx(u))
-
-labels = [0]*(2*N)
-label = 0
-visited = [False]*(2*N)
-stack = []
-groups = []
-group_id = [-1]*(2*N)
-group_num = 0
-def DFS(node):
-    global label, group_num
-    label += 1
-    labels[node] = label
-    parent = label
-    stack.append(node)
-    visited[node] = True
-    for nxt in graph[node]:
-        if labels[nxt] == 0:
-            parent = min(parent, DFS(nxt))
-        elif visited[nxt]:
-            parent = min(parent, labels[nxt])
+def solve():
+    if arr[N-1] > 2:
+        return False
     
-    if parent == labels[node]:
-        group = []
-        while stack:
-            cur = stack.pop()
-            visited[cur] = False
-            group.append(cur)
-            group_id[cur] = group_num
-            if cur == node:
-                break
-        groups.append(group)
-        group_num += 1
-    return parent
+    left = arr[0]
+    for i in range(1, N):
+        left -= 2*arr[i]
+        if left arr[i-1]:
+            return False
+        
+        left += arr[i]
+    
+    if N>1 and arr[-2] 남는 간선에 노드를 배치할 때 반복문 돌아야함 : 불가능
+ 
+k번 노드는 k미만 노드와 2개 연결되어야함. (k==N일때 동일 노드 연결 가능 그 외 상위 노드와 연결)
+1번 노드부터 2개씩 상위 노드에 연결.
+연결 못한 노드는 개수 저장해둠.
+이후 2번 노드를 연결 필요한 노드 수에 더하고 3에 대해 적용
+최상위에서 4 2 혹은 3 1로 남으면 성공
+-> left == 2
 
-for i in range(2*N):
-    if not labels[i]:
-        DFS(i)
-
-answer = 1
-for i in range(N):
-    if group_id[i] == group_id[i+N]:
-        answer = 0
-        break
-
-print(answer)
-
-'''
-각 변수들 사이 edge로 표현 가능
-A or B : not A -> B or not B -> A
-
-서로 연관관계가 있는 변수끼리 묶어서
-반드시 False가 나오는 그룹이 하나라도 존재하면 0
-아니면 1
 '''
 ```
