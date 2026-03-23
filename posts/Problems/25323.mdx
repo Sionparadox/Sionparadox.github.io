@@ -1,0 +1,64 @@
+export const metadata = {
+  title: '[Platinum V] 수 정렬하기, 근데 이제 제곱수를 곁들인 - 25323',
+  date: '2026-03-23 09:58:18',
+  tags: ['수학', '정렬', '애드 혹', '정수론'],
+  description: '[Platinum V] 수 정렬하기, 근데 이제 제곱수를 곁들인 - 25323',
+};
+
+# [Platinum V] 수 정렬하기, 근데 이제 제곱수를 곁들인 - 25323 
+
+[문제 링크](https://www.acmicpc.net/problem/25323) 
+
+### 성능 요약
+
+메모리: 101012 KB, 시간: 780 ms
+
+### 분류
+
+수학, 정렬, 애드 혹, 정수론
+
+### 제출 일자
+
+2026년 3월 23일 18:57:28
+
+### 문제 설명
+
+양의 정수로 이루어진 길이가  인 수열 이 존재할 때, 다음 행동을 원하는 만큼 반복할 수 있다.
+
+이면서 가 제곱수인 , 를 선택해, 와 의 값을 바꾼다.
+
+위 행동을 원하는 만큼 반복하여 수열 을 비내림차순, 즉 가 되도록 정렬할 수 있는지 판단하시오.
+
+### 입력 
+
+ 첫 번째 줄에 이 주어진다. 
+
+두 번째 줄에 정수 이 공백으로 구분되어 주어진다. 
+
+### 출력 
+
+ 위 행동을 원하는 만큼 반복하여 수열을 비내림차순으로 정렬할 수 있으면 YES, 아니면 NO를 출력하시오.
+
+### 풀이
+```python
+import sys, math
+input = sys.stdin.readline
+
+N = int(input())
+arr = list(map(int, input().split()))
+sorted_arr = sorted(arr)
+
+flag = True
+for i in range(N):
+    k = arr[i]*sorted_arr[i]
+    if math.isqrt(k) ** 2 != k:
+        flag = False
+        break
+
+print("YES" if flag else "NO")
+
+'''
+정렬된 배열과 원래 배열을 곱해 제곱수가 나오는지 판단
+m*k^2 모양에서 m이 같으면 원래수를 곱하면 제곱수가 나옴
+'''
+```
