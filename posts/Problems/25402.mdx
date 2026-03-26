@@ -1,6 +1,6 @@
 export const metadata = {
   title: '[Platinum V] 트리와 쿼리 - 25402',
-  date: '2026-03-26 09:00:27',
+  date: '2026-03-26 09:09:53',
   tags: ['자료 구조', '그래프 이론', '그래프 탐색', '트리', '깊이 우선 탐색', '분리 집합'],
   description: '[Platinum V] 트리와 쿼리 - 25402',
 };
@@ -11,7 +11,7 @@ export const metadata = {
 
 ### 성능 요약
 
-메모리: 94628 KB, 시간: 1516 ms
+메모리: 118736 KB, 시간: 2516 ms
 
 ### 분류
 
@@ -19,7 +19,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2026년 3월 26일 17:58:53
+2026년 3월 26일 18:05:18
 
 ### 문제 설명
 
@@ -61,6 +61,7 @@ export const metadata = {
 ```python
 import sys
 from collections import deque
+sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
 N = int(input())
@@ -94,7 +95,7 @@ def find(node):
 def union(u, v):
     u, v = find(u), find(v)
     if u == v:
-        pass
+        return
     if size[u] > size[v]:
         u, v = v, u
     parent[v] = u
@@ -126,7 +127,6 @@ for i in range(Q):
 
     print(answer)
     rollback(S)
-    
     
 
 '''
