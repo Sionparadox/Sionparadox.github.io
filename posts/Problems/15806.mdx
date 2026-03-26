@@ -1,0 +1,104 @@
+export const metadata = {
+  title: '[Platinum V] 영우의 기숙사 청소 - 15806',
+  date: '2026-03-26 07:01:11',
+  tags: ['구현', '그래프 이론', '그래프 탐색', '너비 우선 탐색', '홀짝성'],
+  description: '[Platinum V] 영우의 기숙사 청소 - 15806',
+};
+
+# [Platinum V] 영우의 기숙사 청소 - 15806 
+
+[문제 링크](https://www.acmicpc.net/problem/15806) 
+
+### 성능 요약
+
+메모리: 62404 KB, 시간: 1060 ms
+
+### 분류
+
+구현, 그래프 이론, 그래프 탐색, 너비 우선 탐색, 홀짝성
+
+### 제출 일자
+
+2026년 3월 26일 16:00:44
+
+### 문제 설명
+
+통학이 너무나도 하기 싫었던 영우는 결국 학교의 기숙사에 들어갔다. 통학의 고통에서 해방된 기쁨도 잠시, 학교 기숙사에서는 일정 기간마다 청소 검사를 한다는 사실을 알게 되었다. 청소 검사에서 나쁜 점수를 받으면 벌점을 받게 되고, 벌점이 많이 쌓이면 기숙사에서 퇴사 해야 한다. 영우는 어떤 경우에 벌점을 받는지 궁금하여 기숙사에서 진행하는 청소 검사 시스템에 대해 자세히 조사해 보았다. 기숙사 청소 검사 시스템은 오늘로부터 정확히 t 일이 지나고 검사를 하며, 검사 시간 단축을 위해 방의 특정 부분만 검사한다. 하지만 검사하는 특정 부분 중 한 곳이라도 더럽다면 영우는 벌점을 받게 된다. 영우가 사는 방은 N * N 정사각형 방이며, 기숙사 방바닥에는 곰팡이가 서식하고 있다. 곰팡이는 1 일이 지날 때마다 특이한 방식으로 증식하는데, 그림 1(a)의 곰팡이는 1 일이 지나면 그림 1(b)와 같이 8 군데로 증식되고, 원래의 곰팡이는 사라진다. 만약 곰팡이가 증식해야 하는 부분이 벽으로 막혀 있다면, 그곳으로는 증식하지 못한다. 그림 2 는 두 군데의 곰팡이가 1 일이 지난 후 모습이다.
+
+![그림](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/15806/1.png)
+
+그림 1(a)                                                                     그림 1(b)
+
+![그림](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/15806/2.png)
+
+그림 2(a)                                                                   그림 2(b)
+
+대학원을 준비하느라 바쁜 영우는 청소 검사에서 벌점을 받지 않는다면, 굳이 청소하지 않으려고 한다. 바쁜 영우를 위해 여러분이 영우가 청소를 해야 하는지 아닌지를 알려주자.
+
+### 입력 
+
+ 프로그램의 입력은 표준 입력으로 받는다. 첫 줄에 영우의 방의 크기, 방에 있는 곰팡이의 개수, 청소 검사 시스템이 검사하는 방바닥 좌표의 개수, 청소 검사가 실시 되기까지 남은 일수인 N M K t 가 주어진다. (1 ≤ N ≤ 300, 0 ≤ M ≤ N2, 0 ≤ K ≤ N2, 1 ≤ t ≤ 10000)
+
+둘째 줄부터 M 개의 줄에 걸쳐 영우의 방에 있는 곰팡이의 위치인 Mx My가 주어진다.(1 ≤ Mx, My ≤ N)
+
+다음 줄부터 K 개의 줄에 걸쳐 검사관이 검사하는 방바닥의 위치인 Kx Ky가 주어진다.(1 ≤ Kx, Ky ≤ N)
+
+### 출력 
+
+ 프로그램의 출력은 표준 출력으로 한다. 영우가 청소를 해야 한다면 ‘YES’, 청소를 하지 않아도 된다면 ‘NO’를 출력하자.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N, M, K, T = map(int, input().split())
+start = [tuple(map(int, input().split())) for _ in range(M)]
+area = [tuple(map(int, input().split())) for _ in range(K)]
+
+visited = [[[-1]*2 for _ in range(N+1)] for _ in range(N+1)]
+directions = [(-2, 1), (-2, -1), (2, 1), (2, -1), (-1, 2), (-1, -2), (1, 2), (1, -2)]
+
+queue = deque()
+for r, c in start:
+    queue.append((r, c, 0))
+
+while queue:
+    r, c, t = queue.popleft()
+    if t == T:
+        continue
+    p = (t+1)%2
+    for dr, dc in directions:
+        nr, nc = r+dr, c+dc
+        if nrN or ncN:
+            continue
+        if visited[nr][nc][p] == -1:
+            visited[nr][nc][p] = t+1
+            queue.append((nr, nc, t+1))
+
+flag = False
+p = T%2
+for r, c in area:
+    if visited[r][c][p] != -1:
+        flag = True
+        break
+
+print("YES" if flag else "NO")
+
+'''
+BFS? 9만 * 만 -> 시간초과
+1) 중앙칸은 0,2일차에 더러움.
+ + 1일차에 더러운칸은 3일차에도 더러움
+
+2) 중앙칸은 계속 더러움
+ + 1일차에 더러운 칸은 그 이후에도 계속 더러움
+
+-> 한번 방문한 이후에는 같은 홀/짝에 대해 같은 값 유지.
+-> 홀수일때 방문 : 그 이후 홀수 다 방문됨
+-> 짝수일때도 방문 : 그 이후 짝수 다 방문됨
+visited[r][c][p] : r행, c열, p(홀/짝)로 방문
+
+visited[r][c][0]  1x1 (1,1) 같은 곰팡이가 번식 못하고 사라지는 반례 존재
+'''
+```
