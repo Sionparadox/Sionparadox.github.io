@@ -1,0 +1,54 @@
+export const metadata = {
+  title: '[Bronze III] Koehandel - 35202',
+  date: '2026-03-27 08:25:56',
+  tags: ['수학', '사칙연산'],
+  description: '[Bronze III] Koehandel - 35202',
+};
+
+# [Bronze III] Koehandel - 35202 
+
+[문제 링크](https://www.acmicpc.net/problem/35202) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 36 ms
+
+### 분류
+
+수학, 사칙연산
+
+### 제출 일자
+
+2026년 3월 27일 17:25:29
+
+### 문제 설명
+
+You are playing a game of Betting and Purchasing Cows (BAPC), and Old MacDonald wants to buy one of your cows using a bid-off. This works as follows.
+
+He bets some number of BAPC coins, which he puts in a cup that he places upside down on the table. You then openly bet some number of your own coins. The cup is removed to reveal MacDonald's bet. The bets are exchanged: you receive the bet from MacDonald and he receives your bet. The player that bet the most BAPC coins receives one cow from the opponent, regardless of who started the bidding. In case of a tie, no cows are exchanged.
+
+You love the cows in the game, so your primary goal is to have the most possible cows after the trade. Your secondary goal is to have the highest possible number of coins after the trade. You pay close attention when Old MacDonald is secretly putting their coins in the cup, and by listening very carefully, you have determined the exact number of coins that he put in the cup. Given this information and the number of coins you have, how many coins should you bet?
+
+### 입력 
+
+ The input consists of:
+
+One line with two integers  and  (), the number of BAPC coins in Old MacDonald's cup and the number of coins that you have.
+
+### 출력 
+
+ Output the number of coins that you should bet, keeping your goals in mind.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+N, M = map(int,input().split())
+if M<N:
+    print(0)
+elif M == N:
+    print(M)
+else:
+    print(N+1)
+```
