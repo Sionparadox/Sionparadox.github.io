@@ -1,0 +1,129 @@
+export const metadata = {
+  title: '[Platinum IV] 도로 네트워크 - 3176',
+  date: '2026-03-31 09:10:28',
+  tags: ['자료 구조', '트리', '최소 공통 조상', '희소 배열'],
+  description: '[Platinum IV] 도로 네트워크 - 3176',
+};
+
+# [Platinum IV] 도로 네트워크 - 3176 
+
+[문제 링크](https://www.acmicpc.net/problem/3176) 
+
+### 성능 요약
+
+메모리: 107568 KB, 시간: 2432 ms
+
+### 분류
+
+자료 구조, 트리, 최소 공통 조상, 희소 배열
+
+### 제출 일자
+
+2026년 3월 31일 18:09:42
+
+### 문제 설명
+
+N개의 도시와 그 도시를 연결하는 N-1개의 도로로 이루어진 도로 네트워크가 있다. 
+
+모든 도시의 쌍에는 그 도시를 연결하는 유일한 경로가 있고, 각 도로의 길이는 입력으로 주어진다.
+
+총 K개의 도시 쌍이 주어진다. 이때, 두 도시를 연결하는 경로 상에서 가장 짧은 도로의 길이와 가장 긴 도로의 길이를 구하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 N이 주어진다. (2 ≤ N ≤ 100,000)
+
+다음 N-1개 줄에는 도로를 나타내는 세 정수 A, B, C가 주어진다. A와 B사이에 길이가 C인 도로가 있다는 뜻이다. 도로의 길이는 1,000,000보다 작거나 같은 양의 정수이다.
+
+다음 줄에는 K가 주어진다. (1 ≤ K ≤ 100,000)
+
+다음 K개 줄에는 서로 다른 두 자연수 D와 E가 주어진다. D와 E를 연결하는 경로에서 가장 짧은 도로의 길이와 가장 긴 도로의 길이를 구해서 출력하면 된다.
+
+### 출력 
+
+ 총 K개 줄에 D와 E를 연결하는 경로에서 가장 짧은 도로의 길이와 가장 긴 도로의 길이를 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+INF = float('inf')
+
+N = int(input())
+graph = [[] for _ in range(N+1)]
+for _ in range(N-1):
+    u, v, d = map(int, input().split())
+    graph[u].append((v, d))
+    graph[v].append((u, d))
+
+queue = deque([1])
+visited = [False]*(N+1)
+visited[1] = True
+depth = [0]*(N+1)
+
+LOG = N.bit_length()
+parent = [[0]*(N+1) for _ in range(LOG)]
+min_dist = [[INF]*(N+1) for _ in range(LOG)]
+max_dist = [[0]*(N+1) for _ in range(LOG)]
+
+while queue:
+    curr = queue.popleft()
+    for nxt, dist in graph[curr]:
+        if visited[nxt]:
+            continue
+        visited[nxt] = True
+        queue.append((nxt))
+        
+        depth[nxt] = depth[curr]+1
+        parent[0][nxt] = curr
+        min_dist[0][nxt] = dist
+        max_dist[0][nxt] = dist
+
+for k in range(1, LOG):
+    for i in range(1, N+1):
+        node = parent[k-1][i]
+        
+        parent[k][i] = parent[k-1][node]
+        min_dist[k][i] = min(min_dist[k-1][i], min_dist[k-1][node])
+        max_dist[k][i] = max(max_dist[k-1][i], max_dist[k-1][node])
+
+def lca(u, v):
+    if depth[u] > depth[v]:
+        u, v = v, u
+    
+    min_res = INF
+    max_res = 0
+    
+    diff = depth[v] - depth[u]
+    for k in range(LOG):
+        if diff & (1<<k):
+            min_res = min(min_res, min_dist[k][v])
+            max_res = max(max_res, max_dist[k][v])
+            v = parent[k][v]
+    
+    if u == v:
+        return min_res, max_res
+    
+    for k in range(LOG-1, -1, -1):
+        if parent[k][u] != parent[k][v]:
+            min_res = min(min_res, min_dist[k][u], min_dist[k][v])
+            max_res = max(max_res, max_dist[k][u], max_dist[k][v])
+            u, v = parent[k][u], parent[k][v]
+    
+    min_res = min(min_res, min_dist[0][u], min_dist[0][v])
+    max_res = max(max_res, max_dist[0][u], max_dist[0][v])
+    return min_res, max_res
+
+K = int(input())
+for _ in range(K):
+    u, v = map(int, input().split())
+    print(*lca(u, v))
+
+'''
+트리 형태
+LCA찾기 (희소배열)
+찾는 과정에서 최소거리, 최대거리를 추적할 수 있어야함
+
+'''
+```
