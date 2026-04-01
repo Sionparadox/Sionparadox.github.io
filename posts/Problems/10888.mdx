@@ -1,0 +1,96 @@
+export const metadata = {
+  title: '[Gold II] 두 섬간의 이동 - 10888',
+  date: '2026-04-01 10:54:55',
+  tags: ['수학', '자료 구조', '분리 집합'],
+  description: '[Gold II] 두 섬간의 이동 - 10888',
+};
+
+# [Gold II] 두 섬간의 이동 - 10888 
+
+[문제 링크](https://www.acmicpc.net/problem/10888) 
+
+### 성능 요약
+
+메모리: 37048 KB, 시간: 420 ms
+
+### 분류
+
+수학, 자료 구조, 분리 집합
+
+### 제출 일자
+
+2026년 4월 1일 19:54:34
+
+### 문제 설명
+
+1에서 N까지 번호가 붙은 N개의 섬이 일렬로 쭉 늘어서 있다. 이 섬들 간에는 아직 다리가 없어서 배로만 이동을 해야 했기에 매우 불편했다. 그렇기에 정부에서는 이 섬들에 다리를 연결하고자 한다. 정부는 섬 i와 섬 i+1을 연결하는 다리를 총 N−1개 지을 계획에 있다. 그러나 다리라는 것이 바로 지어지는 것이 아니다 보니, 짓는 순서에 따라 사람들에게 미치는 영향이 다르다. 정부는 다리가 순서대로 지어지는 순간마다 다음과 같은 것들을 알고 싶다.
+
+	두 섬 간에 왕래가 가능한 섬들 (i,j) (i
+	두 섬 (i,j)가 왕래 가능할 때 섬 i에서 섬 j까지 가기 위해 이용해야 하는 최소 다리 개수의 합
+
+정부는 이 문제에 매우 골머리를 썩히고 있다. 그래서 정부는 이런 문제를 전문적으로 해결한다는 당신에게 도움을 요청했다. 정부가 원하는 값들을 구해주자!
+
+### 입력 
+
+ 첫 번째 줄에 섬의 개수 N (2 ≤ N ≤ 105)가 주어진다.
+
+다음 N−1개의 줄에는 각 줄마다 정수 i (1 ≤ i 
+
+### 출력 
+
+ 각 다리를 지을 때마다 정부가 원하는 값을 공백으로 구분하여 각 줄마다 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+parent = list(range(N+1))
+size = [1]*(N+1)
+
+def find(node):
+    if node == parent[node]:
+        return node
+    parent[node] = find(parent[node])
+    return parent[node]
+
+def get_pair(node):
+    p = find(node)
+    return size[p] * (size[p]-1)//2
+    
+        
+def get_bridge(node):
+    p = find(node)
+    s = size[p]
+    return (s**3 - s)//6
+
+pair = bridge = 0
+for _ in range(N-1):
+    k = int(input())
+    u, v = find(k), find(k+1)
+    
+    if u != v:
+        pair -= get_pair(u)
+        pair -= get_pair(v)
+        
+        bridge -= get_bridge(u)
+        bridge -= get_bridge(v)
+        
+        parent[v] = u
+        size[u] += size[v]
+        
+        pair += get_pair(u)
+        bridge += get_bridge(u)
+    print(pair, bridge)
+    
+
+'''
+(i, j) 쌍 : 그룹 크기 s, sC2
+다리개수 합 : 그룹 크기 : s, (s-1)*1+(s-2)*2+(s-3)*3 ... (s-1만큼 반복)
+-> s * (1~s-1까지 합) - (1~s-1까지 제곱의 합)
+n*n*(n-1)//2 - (n-1)*(n)(2n-1)//6
+= (3n^3 - 3n^2 - 2n^3 +3n^2 - n) // 6
+= (n^3-n)//6
+'''
+```
