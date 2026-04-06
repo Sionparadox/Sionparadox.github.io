@@ -1,0 +1,127 @@
+export const metadata = {
+  title: '[Platinum II] 문자열 집합 판별 - 9250',
+  date: '2026-04-06 07:26:13',
+  tags: ['자료 구조', '문자열', '트리', '트라이', '아호-코라식'],
+  description: '[Platinum II] 문자열 집합 판별 - 9250',
+};
+
+# [Platinum II] 문자열 집합 판별 - 9250 
+
+[문제 링크](https://www.acmicpc.net/problem/9250) 
+
+### 성능 요약
+
+메모리: 61188 KB, 시간: 1788 ms
+
+### 분류
+
+자료 구조, 문자열, 트리, 트라이, 아호-코라식
+
+### 제출 일자
+
+2026년 4월 6일 16:25:22
+
+### 문제 설명
+
+집합 S는 크기가 N이고, 원소가 문자열인 집합이다. Q개의 문자열이 주어졌을 때, 각 문자열의 부분 문자열이 집합 S에 있는지 판별하는 프로그램을 작성하시오. 문자열의 여러 부분 문자열 중 하나라도 집합 S에 있으면 'YES'를 출력하고, 아무것도 없으면 'NO'를 출력한다.
+
+예를 들어, 집합 S = \{"www","woo","jun"\} 일 때, "myungwoo"의 부분 문자열인 "woo" 가 집합 S에 있으므로 답은 'YES'이고, "hongjun"의 부분 문자열 "jun"이 집합 S에 있으므로 답은 'YES'이다. 하지만, "dooho"는 모든 부분 문자열이 집합 S에 없기 때문에 답은 'NO'이다.
+
+### 입력 
+
+ 첫째 줄에 집합 S의 크기 N이 주어진다. (1 ≤ N ≤ 1000)
+
+다음 N개 줄에 집합 S의 원소들이 주어진다. 이 문자열의 길이는 100을 넘지 않는다.
+
+다음 줄에 답을 판별해야 하는 문자열의 개수 Q가 주어진다. (1 ≤ Q ≤ 1000)
+
+다음 Q개 줄에 답을 판별해야 하는 문자열이 주어진다. 이 문자열의 길이는 10000을 넘지 않는다.
+
+입력으로 주어지는 모든 문자열은 알파벳 소문자로만 이루어져 있다.
+
+### 출력 
+
+ Q개 줄에 각 문자열에 대한 답을 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import defaultdict, deque
+input = sys.stdin.readline
+
+class Node:
+    def __init__(self):
+        self.children = defaultdict(Node)
+        self.is_finish = False
+        self.fail = None
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+    
+    def insert(self, word):
+        curr = self.root
+        for nxt in word:
+            curr = curr.children[nxt]
+        curr.is_finish = True
+    
+    def build(self):
+        self.root.fail = self.root
+        queue = deque([self.root])
+        while queue:
+            curr = queue.popleft()
+            
+            for ch in curr.children:
+                nxt = curr.children[ch]
+                if curr == self.root:
+                    nxt.fail = self.root
+                
+                else:
+                    fail_node = curr.fail
+                    
+                    while fail_node != self.root and ch not in fail_node.children:
+                        fail_node = fail_node.fail
+                    
+                    if ch in fail_node.children:
+                        nxt.fail = fail_node.children[ch]
+                    else:
+                        nxt.fail = self.root
+                
+                if nxt.fail.is_finish:
+                    nxt.is_finish = True
+                
+                queue.append(nxt)
+        
+    def find(self, word):
+        curr = self.root
+        
+        for ch in word:
+            while curr != self.root and ch not in curr.children:
+                curr = curr.fail
+            
+            if ch in curr.children:
+                curr = curr.children[ch]
+            
+            if curr.is_finish:
+                return True
+        return False
+            
+
+N = int(input())
+trie = Trie()
+for _ in range(N):
+    trie.insert(input().strip())
+
+trie.build()
+
+Q = int(input())
+for _ in range(Q):
+    print("YES" if trie.find(input().strip()) else "NO")
+
+'''
+아호-코라식 : 트라이 + KMP알고리즘
+트라이에 fail함수가 추가됨
+트라이 완성 후 build를 통해 fail노드에 대한 정보를 추가해줌. (BFS)
+이후 탐색할때에도 자식이 없으면 fail을 거슬러 올라가며 현재 노드를 업데이트
+'''
+```
