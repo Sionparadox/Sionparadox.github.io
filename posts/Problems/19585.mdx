@@ -1,0 +1,111 @@
+export const metadata = {
+  title: '[Platinum III] 전설 - 19585',
+  date: '2026-04-06 04:48:42',
+  tags: ['자료 구조', '문자열', '트리', '집합과 맵', '해시를 사용한 집합과 맵', '트라이'],
+  description: '[Platinum III] 전설 - 19585',
+};
+
+# [Platinum III] 전설 - 19585 
+
+[문제 링크](https://www.acmicpc.net/problem/19585) 
+
+### 성능 요약
+
+메모리: 1247684 KB, 시간: 9916 ms
+
+### 분류
+
+자료 구조, 문자열, 트리, 집합과 맵, 해시를 사용한 집합과 맵, 트라이
+
+### 제출 일자
+
+2026년 4월 6일 13:45:29
+
+### 문제 설명
+
+Sogang ICPC Team에는 색상 이름과 닉네임의 순서로 이여서 팀명을 지으면 ICPC 리저널에서 수상할 수 있다는 전설이 있다. 색상 이름들과 닉네임들이 주어질 때, Q개의 팀에 대해 다음 리저널에서 수상할 수 있을지 전설에 기반해 알려주는 프로그램을 작성하자.
+
+### 입력 
+
+ 첫째 줄에는 색상의 종류 C와 닉네임의 개수 N이 주어진다. (1 ≤ C, N ≤ 4,000)
+
+다음 C개의 줄에는 색상 이름 C개가 한 줄에 하나씩 주어진다. 색상 이름은 중복되지 않는다.
+
+다음 N개의 줄에는 Sogang ICPC Team 구성원들의 닉네임 N개가 한 줄에 하나씩 주어진다. 닉네임도 중복되지 않는다.
+
+다음 줄에는 팀의 개수 Q가 주어진다. (1 ≤ Q ≤ 20,000)
+
+다음 Q개의 줄에는 팀명 Q개가 한 줄에 하나씩 주어진다. 팀명은 중복되지 않는다.
+
+모든 색상 이름의 길이와 닉네임의 길이는 1,000글자를 넘지 않는다. 모든 팀명은 2,000글자를 넘지 않는다. 모든 문자열은 알파벳 소문자로만 이루어져 있다.
+
+### 출력 
+
+ 팀명이 입력된 순서대로, 전설에 따라 해당 팀이 다음 리저널에서 수상할 수 있다면 Yes, 아니라면 No를 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import defaultdict
+input = sys.stdin.readline
+
+class Node:
+    def __init__(self):
+        self.children = defaultdict(Node)
+        self.is_finish = False
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+    
+    def insert(self, arr):
+        curr = self.root
+        for nxt in arr:
+            curr = curr.children[nxt]
+        curr.is_finish = True
+        
+    
+    def check(self, line):
+        curr = self.root
+        res = []
+        for i in range(len(line)):
+            nxt = line[i]
+            if curr.is_finish:
+                res.append(i)
+            if nxt in curr.children:            
+                curr = curr.children[nxt]
+            else:
+                break
+            
+        if curr.is_finish:
+            res.append(len(line))
+        return res
+            
+
+C, N = map(int, input().split())
+colors = Trie()
+names = set()
+for _ in range(C):
+    colors.insert(input().strip())
+for _ in range(N):
+    names.add(input().strip())
+
+Q = int(input())
+for _ in range(Q):
+    team = input().strip()
+    indexes = colors.check(team)
+    if not indexes:
+        print("No")
+        continue
+    answer = "No"
+    for idx in indexes:
+        if team[idx:] in names:
+            answer = "Yes"
+            break
+    print(answer)
+
+'''
+색명이 겹칠 수 있음 ex) red, redorange
+가능한 경우를 전부 배열로 리턴
+'''
+```
