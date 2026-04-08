@@ -1,0 +1,83 @@
+export const metadata = {
+  title: '[Platinum IV] K번째 최단경로 찾기 - 1854',
+  date: '2026-04-08 09:05:18',
+  tags: ['자료 구조', '그래프 이론', '최단 경로', '데이크스트라', '우선순위 큐'],
+  description: '[Platinum IV] K번째 최단경로 찾기 - 1854',
+};
+
+# [Platinum IV] K번째 최단경로 찾기 - 1854 
+
+[문제 링크](https://www.acmicpc.net/problem/1854) 
+
+### 성능 요약
+
+메모리: 66188 KB, 시간: 4116 ms
+
+### 분류
+
+자료 구조, 그래프 이론, 최단 경로, 데이크스트라, 우선순위 큐
+
+### 제출 일자
+
+2026년 4월 8일 18:04:45
+
+### 문제 설명
+
+봄캠프를 마친 김진영 조교는 여러 도시를 돌며 여행을 다닐 계획이다. 그런데 김 조교는, '느림의 미학'을 중요시하는 사람이라 항상 최단경로로만 이동하는 것은 별로 좋아하지 않는다. 하지만 너무 시간이 오래 걸리는 경로도 그리 매력적인 것만은 아니어서, 적당한 타협안인 '번째 최단경로'를 구하길 원한다. 그를 돕기 위한 프로그램을 작성해 보자.
+
+### 입력 
+
+ 첫째 줄에 , , 가 주어진다. (, , , ) 과 은 각각 김 조교가 여행을 고려하고 있는 도시들의 개수와, 도시 간에 존재하는 도로의 수이다.
+
+이어지는 개의 줄에는 각각 도로의 정보를 제공하는 세 개의 정수 , , 가 포함되어 있다. 이것은 번 도시에서 번 도시로 갈 때는 의 시간이 걸린다는 의미이다. (, )
+
+도시의 번호는 번부터 번까지 연속하여 붙어 있으며, 번 도시는 시작도시이다. 두 도로의 시작점과 도착점이 모두 같은 경우는 없다.
+
+### 출력 
+
+ 개의 줄을 출력한다. 번째 줄에 번 도시에서 번 도시로 가는 번째 최단경로의 소요시간을 출력한다.
+
+경로의 소요시간은 경로 위에 있는 도로들을 따라 이동하는데 필요한 시간들의 합이다. 번 도시에서 번 도시로 가는 최단경로는 이지만, 일반적인 번째 최단경로는 이 아닐 수 있음에 유의한다. 또, 번째 최단경로가 존재하지 않으면 을 출력한다. 최단경로에 같은 정점이 여러 번 포함되어도 된다.
+
+### 풀이
+```python
+import sys, heapq
+input = sys.stdin.readline
+INF = float('inf')
+
+N, M, K = map(int, input().split())
+graph = [[] for _ in range(N+1)]
+for _ in range(M):
+    u, v, t = map(int, input().split())
+    graph[u].append((v, t))
+
+dist = [[] for _ in range(N+1)]
+dist[1].append(0)
+pq = [(0, 1)]
+
+while pq:
+    time, curr = heapq.heappop(pq)
+    
+    for nxt, t in graph[curr]:
+        new_time = time + t
+        
+        if len(dist[nxt])  new_time:
+            heapq.heappop(dist[nxt])
+            heapq.heappush(dist[nxt], -new_time)
+            heapq.heappush(pq, (new_time, nxt))
+
+for i in range(1, N+1):
+    if len(dist[i]) < K:
+        print(-1)
+    else:
+        print(-dist[i][0])
+
+'''
+기본적으로 다익스트라 사용
+dist[i][k] : i로 가는 k번째 최단경로
+dist[i] = []로 선언한 후 i에 도착할 때마다 넣기(dist[i]자체를 최대힙으로 관리?)
+dist[i]가 K개가 채워지기 전에는 무조건 push
+이후는 dist[i]의 최댓값보다 본인 값이 작으면 push
+
+'''
+```
