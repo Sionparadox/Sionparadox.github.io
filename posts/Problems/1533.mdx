@@ -1,6 +1,6 @@
 export const metadata = {
   title: '[Platinum III] 길의 개수 - 1533',
-  date: '2026-04-10 08:03:37',
+  date: '2026-04-10 08:07:55',
   tags: ['수학', '그래프 이론', '분할 정복을 이용한 거듭제곱'],
   description: '[Platinum III] 길의 개수 - 1533',
 };
@@ -19,7 +19,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2026년 4월 10일 17:02:41
+2026년 4월 10일 17:06:19
 
 ### 문제 설명
 
@@ -46,7 +46,7 @@ MOD = 1_000_003
 N, S, E, T = map(int, input().split())
 matrix = [list(map(int, list(input().strip()))) for _ in range(N)]
 S, E = S-1, E-1
-M = 5
+M = max(max(max(row) for row in matrix), 1)
 
 SIZE = N*M
 mat = [[0]*SIZE for _ in range(SIZE)]
