@@ -1,0 +1,72 @@
+export const metadata = {
+  title: '[Gold I] 최솟값 - 10868',
+  date: '2026-04-13 05:38:01',
+  tags: ['세그먼트 트리', '희소 배열', '자료 구조'],
+  description: '[Gold I] 최솟값 - 10868',
+};
+
+# [Gold I] 최솟값 - 10868 
+
+[문제 링크](https://www.acmicpc.net/problem/10868) 
+
+### 성능 요약
+
+메모리: 39392 KB, 시간: 1368 ms
+
+### 분류
+
+세그먼트 트리, 희소 배열, 자료 구조
+
+### 제출 일자
+
+2026년 4월 13일 14:37:30
+
+### 문제 설명
+
+N(1 ≤ N ≤ 100,000)개의 정수들이 있을 때, a번째 정수부터 b번째 정수까지 중에서 제일 작은 정수를 찾는 것은 어려운 일이 아니다. 하지만 이와 같은 a, b의 쌍이 M(1 ≤ M ≤ 100,000)개 주어졌을 때는 어려운 문제가 된다. 이 문제를 해결해 보자.
+
+여기서 a번째라는 것은 입력되는 순서로 a번째라는 이야기이다. 예를 들어 a=1, b=3이라면 입력된 순서대로 1번, 2번, 3번 정수 중에서 최솟값을 찾아야 한다. 각각의 정수들은 1이상 1,000,000,000이하의 값을 갖는다.
+
+### 입력 
+
+ 첫째 줄에 N, M이 주어진다. 다음 N개의 줄에는 N개의 정수가 주어진다. 다음 M개의 줄에는 a, b의 쌍이 주어진다.
+
+### 출력 
+
+ M개의 줄에 입력받은 순서대로 각 a, b에 대한 답을 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+def init_tree(node, s, e):
+    if s == e:
+        segment_tree[node] = nums[s]
+        return
+    
+    mid = (s+e)//2
+    init_tree(node*2, s, mid)
+    init_tree(node*2+1, mid+1, e)
+    segment_tree[node] = min(segment_tree[node*2], segment_tree[node*2+1])
+
+def query(node, s, e, left, right):
+    if righte:
+        return float('inf')
+    if left <= s and e <= right:
+        return segment_tree[node]
+        
+    mid = (s+e)//2
+    L = query(node*2, s, mid, left, right)
+    R = query(node*2+1, mid+1, e, left, right)
+    return min(L, R)
+    
+
+N, M = map(int, input().split())
+segment_tree = [0]*(4*N)
+nums = [int(input()) for _ in range(N)]
+init_tree(1, 0, N-1)
+for _ in range(M):
+    a, b = map(int, input().split())
+    print(query(1, 0, N-1, a-1, b-1))
+```
