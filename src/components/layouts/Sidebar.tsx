@@ -27,11 +27,11 @@ export const Sidebar = () => {
             ComputerScience
           </Link>
           <Link
-            to="/posts/Frontend"
+            to="/posts/Project"
             className="flex items-center gap-3 rounded-md px-2 py-2 hover:bg-subBg"
           >
             <IconButton icon={<FaPalette />} />
-            FrontEnd
+            Project
           </Link>
           <Link
             to="/posts/Problems"
