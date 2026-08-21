@@ -1,0 +1,230 @@
+export const metadata = {
+  title: "[level 2] 선인장 숨기기 - 468379",
+  date: "2026-08-21 14:28:31",
+  tags: [],
+  description: "[level 2] 선인장 숨기기 - 468379",
+};
+
+# [level 2] 선인장 숨기기 - 468379 
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/468379) 
+
+### 성능 요약
+
+메모리: 182 MB, 시간: 95.99 ms
+
+### 구분
+
+코딩테스트 연습 > 2025 카카오 하반기 2차
+
+### 채점결과
+
+정확성: 100.0합계: 100.0 / 100.0
+
+### 제출 일자
+
+2026년 08월 21일 23:28:01
+
+### 문제 설명
+
+m개의 행과 n개의 열로 구성된 격자가 주어지며, 이는 사막 지도를 나타냅니다. 사막 지도의 가장 왼쪽 위칸 좌표는 (0, 0), 오른쪽 아래칸 좌표는 (m-1, n-1)입니다. 이 사막 어딘가에 가로 w, 세로 h 크기의 선인장 구역을 조성하려 합니다. 선인장 구역은 격자 축에 맞춘 연속된 w × h 크기의 부분 격자이며, 회전할 수 없습니다.
+
+비구름은 미리 정해진 순서대로 격자의 여러 칸에 비를 뿌립니다. 이때 빗방울이 처음으로 선인장 구역에 포함된 칸에 떨어졌을 때, 그 시점을 선인장이 처음으로 비를 맞는 순간으로 기록합니다. 당신은 선인장이 가능한 한 늦게 비를 맞도록, 선인장 구역의 위치를 정하려고 합니다.
+
+선인장이 비를 맞지 않도록 선인장 구역의 위치를 정할 수 있다면 해당 위치가 가장 우선됩니다.
+가능한 늦게 비를 맞는 선인장 구역 후보가 여러 개라면 그중 가장 위쪽 행, 그래도 여러 개면 가장 왼쪽 열에 위치한 구역을 선택합니다.
+
+격자의 세로 길이와 가로 길이를 나타내는 정수 m, n, 선인장 구역의 세로 길이와 가로 길이를 나타내는 정수 h, w, 그리고 빗방울이 떨어지는 순서대로 칸의 좌표를 담은 2차원 정수 배열 drops가 매개변수로 주어집니다. 주어진 조건을 만족하는 선인장 구역에 포함된 가장 왼쪽 위칸의 좌표를 정수 배열로 return 하도록 solution 함수를 완성해 주세요.
+
+제한사항
+
+1 ≤ m, n ≤ 500,000
+1 ≤ m × n ≤ 500,000
+1 ≤ h ≤ m
+1 ≤ w ≤ n
+1 ≤ drops의 길이 ≤ m × n
+
+drops[i]는 [r, c] 형태입니다.
+drops[i]는 i + 1번째로 떨어진 빗방울의 좌표를 의미합니다.
+0 ≤ r < m
+0 ≤ c < n
+drops의 모든 원소는 서로 다른 칸을 나타냅니다.
+
+테스트 케이스 구성 안내
+
+아래는 테스트 케이스 구성을 나타냅니다. 각 그룹은 하나 이상의 하위 그룹으로 이루어져 있으며, 하위 그룹의 모든 테스트 케이스를 통과하면 해당 그룹에 할당된 점수를 획득할 수 있습니다.
+
+        
+그룹
+총점
+추가 제한 사항
+
+        
+#1
+30%
+m ≤ 50, n ≤ 50
+
+#2
+70%
+추가 제한 없음
+
+      
+
+입출력 예
+
+        
+m
+n
+h
+w
+drops
+result
+
+        
+4
+5
+2
+2
+[[0, 0], [3, 1], [1, 3], [2, 4], [1, 1], [2, 2], [2, 3], [0, 4]]
+[2, 2]
+
+3
+3
+1
+1
+[[0, 0], [0, 1], [0, 2], [1, 0]]
+[1, 1]
+
+4
+6
+3
+4
+[[1, 2]]
+[0, 0]
+
+4
+6
+1
+2
+[[0, 1], [0, 3], [0, 5], [1, 1], [1, 3], [1, 5], [2, 1], [2, 3], [2, 5], [3, 1], [3, 3], [3, 5]]
+[3, 4]
+
+2
+2
+2
+2
+[[0, 0], [0, 1], [1, 1], [1, 0]]
+[0, 0]
+
+4
+4
+3
+1
+[[2, 0], [1, 3], [3, 2], [0, 1]]
+[0, 2]
+
+      
+
+입출력 예 설명
+
+입출력 예 #1
+
+아래 그림은 4 × 5 크기의 지도 격자입니다. 각 칸의 큰 숫자는 빗방울이 떨어지는 순서를, 작은 숫자는 좌표를 나타냅니다.
+
+![그림](https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/production/presigned_urls/ee647a0c-6d56-433f-88e5-a4de759e437e/trs_ex1_1.png)
+
+노란색으로 표시된 구역을 선인장 구역으로 두면, 6번째로 비가 떨어질 때 선인장이 처음 비를 맞게 되며, 이보다 더 늦게 젖도록 하는 배치는 존재하지 않습니다. 따라서 노란색 구역의 가장 왼쪽 위 좌표인 [2, 2]를 return 해야 합니다.
+
+입출력 예 #2
+
+아래 그림은 3 × 3 크기의 지도 격자입니다. 각 칸의 큰 숫자는 빗방울이 떨어지는 순서를, 작은 숫자는 좌표를 나타냅니다.
+
+![그림](https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/production/presigned_urls/617cd348-ee36-437f-b6dc-c86e86135277/trs_ex2.png)
+
+모든 빗방울이 떨어질 때까지 좌표가 (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)인 칸은 젖지 않습니다. 이 5칸 어디에나 1 × 1 크기의 선인장 구역을 놓을 수 있지만, 그중 가장 위쪽 행, 그리고 가장 왼쪽 열에 해당하는 좌표는 (1, 1)입니다. 따라서 [1, 1]을 return 해야 합니다.
+
+입출력 예 #3
+
+아래 그림은 4 × 6 크기의 지도 격자입니다. 각 칸의 큰 숫자는 빗방울이 떨어지는 순서를, 작은 숫자는 좌표를 나타냅니다.
+
+![그림](https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/production/presigned_urls/34650a98-15ea-46a5-a24b-9c6b65c41683/trs_ex3.png)
+
+선인장 구역을 어디에 배치하더라도 첫 번째 빗방울만에 구역이 젖습니다. 따라서 가장 위쪽 행, 그중에서도 가장 왼쪽 열에 위치하는 좌표인 [0, 0]을 return 해야 합니다.
+
+입출력 예 #4
+
+아래 그림은 4 × 6 크기의 지도 격자입니다. 각 칸의 큰 숫자는 빗방울이 떨어지는 순서를, 작은 숫자는 좌표를 나타냅니다.
+
+![그림](https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/production/presigned_urls/2b2d9522-116e-44d4-9e69-5204ed83d73b/trs_ex4.png)
+
+따라서 [3, 4]를 return 해야 합니다.
+
+입출력 예 #5
+
+아래 그림은 2 × 2 크기의 지도 격자입니다. 각 칸의 큰 숫자는 빗방울이 떨어지는 순서를, 작은 숫자는 좌표를 나타냅니다.
+
+![그림](https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/production/presigned_urls/f7d5b500-dc06-43ec-999b-edfc6dfdd815/trs_ex5.png)
+
+따라서 [0, 0]을 return 해야 합니다.
+
+입출력 예 #6
+
+아래 그림은 4 × 4 크기의 지도 격자입니다. 각 칸의 큰 숫자는 빗방울이 떨어지는 순서를, 작은 숫자는 좌표를 나타냅니다.
+
+![그림](https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/production/presigned_urls/ac8d15f6-05f6-4323-9daa-3fd8951e6ae2/trs_ex6.png)
+
+따라서 [0, 2]를 return 해야 합니다.
+
+> 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+### 풀이
+```java
+import java.util.*;
+
+class SegmentTree {
+    int[] tree;
+    
+    public SegmentTree(int[] arr){
+        tree = new int[arr.length*4];
+        Arrays.fill(tree, Integer.MAX_VALUE);
+        build(1, 0, arr.length-1, arr);
+    }
+    
+    public void build(int node, int start, int end, int[] arr){
+        if (start == end) {
+            tree[node] = arr[start];
+            return;
+        }
+        
+        int mid = (start + end) / 2;
+        build(node*2, start, mid, arr);
+        build(node*2+1, mid+1, end, arr);
+        tree[node] = Math.min(tree[node*2], tree[node*2+1]);
+    }
+    
+    public int query(int node, int start, int end, int left, int right){
+        if (start > right || end = left && end  maxTime){
+                    maxTime = time;
+                    ar = r;
+                    ac = c;
+                }
+            }
+        }
+        
+        return new int[] {ar, ac};
+    }
+}
+/*
+m : 행
+n : 열
+
+m*n <= 500,000
+
+최솟값을 가지는 세그먼트 트리
+
+1~n (가로)에 대해 먼저 범위 내 최소값들로 새 배열 생성
+위에서 만든 배열을 바탕으로 세로에 대해 최소값 갱신
+이때 최소값 중 최대인 값의 위치를 찾기
+
+*/
+```
