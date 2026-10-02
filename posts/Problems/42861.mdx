@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 섬 연결하기 - 42861",
-  date: "2026-10-02 13:59:32",
+  date: "2026-10-02 14:08:56",
   tags: [],
   description: "[level 3] 섬 연결하기 - 42861",
 };
@@ -11,7 +11,7 @@ export const metadata = {
 
 ### 성능 요약
 
-메모리: 91.2 MB, 시간: 1.29 ms
+메모리: 75.3 MB, 시간: 1.12 ms
 
 ### 구분
 
@@ -23,7 +23,7 @@ export const metadata = {
 
 ### 제출 일자
 
-2026년 10월 02일 22:59:18
+2026년 10월 02일 23:08:40
 
 ### 문제 설명
 
@@ -66,34 +66,48 @@ costs를 그림으로 표현하면 다음과 같으며, 이때 초록색 경로�
 import java.util.*;
 
 class Solution {
-    int[] parent;
     public int solution(int n, int[][] costs) {
-        int answer = 0;
-        parent = new int[n+1];
-        for (int i=1; i Integer.compare(o1[2], o2[2]));
+        ArrayList[] graph = new ArrayList[n];
+        for (int i=0; i();
+        }
         
         for (int[] cost:costs){
             int u = cost[0];
             int v = cost[1];
             int d = cost[2];
-            
-            if (find(u) != find(v)){
-                union(u, v);
-                answer += d;
-            }
+            graph[u].add(new int[] {v, d});
+            graph[v].add(new int[] {u, d});
         }
+        
+        PriorityQueue pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
+        boolean[] visited = new boolean[n];
+        
+        int answer = 0;
+        int cnt = 0;
+        pq.offer(new int[] {0, 0});
+        while (!pq.isEmpty()){
+            int[] curr = pq.poll();
+            
+            int node = curr[0];
+            int cost = curr[1];
+            if(visited[node]) continue;
+            
+            visited[node] = true;
+            answer += cost;
+            cnt++;
+            
+            for (int[] next:graph[node]){
+                int nxtNode = next[0];
+                int nxtCost = next[1];
+                
+                if (!visited[nxtNode]) pq.offer(next);
+            }
+            
+        }
+        
         
         return answer;
     }
     
-    private int find(int node){
-        if (parent[node] != node) parent[node] = find(parent[node]);
-        return parent[node];
-    }
-    
-    private void union(int u, int v){
-        int ru = find(u), rv = find(v);
-        if (ru != rv) parent[rv] = ru;
-    }
 }
 ```
