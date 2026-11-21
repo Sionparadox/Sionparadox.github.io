@@ -1,0 +1,107 @@
+export const metadata = {
+  title: "[Gold III] 카드 게임 - 11062",
+  date: "2026-11-21 15:05:07",
+  tags: ["다이나믹 프로그래밍", "게임 이론"],
+  description: "[Gold III] 카드 게임 - 11062",
+};
+
+# [Gold III] 카드 게임 - 11062 
+
+[문제 링크](https://acmicpc.net/problem/11062) 
+
+### 성능 요약
+
+메모리: 94712 KB, 시간: 401 ms
+
+### 분류
+
+다이나믹 프로그래밍, 게임 이론
+
+### 제출 일자
+
+2026년 11월 22일 00:03:51
+
+### 문제 설명
+
+근우와 명우는 재미있는 카드 게임을 하고 있다. N개의 카드가 일렬로 놓여 있다. 각 카드에는 점수가 적혀있다. 근우부터 시작하여 번갈아가면서 턴이 진행되는데 한 턴에는 가장 왼쪽에 있는 카드나 가장 오른쪽에 있는 카드를 가져갈 수 있다. 카드가 더 이상 남아있지 않을 때까지 턴은 반복된다. 게임의 점수는 자신이 가져간 카드에 적힌 수의 합이다.
+
+근우와 명우는 서로 자신의 점수를 가장 높이기 위해 최선의 전략으로 게임에 임한다. 놓여있는 카드의 개수 N과 카드가 놓여있는 상태가 주어졌을 때 근우가 얻는 점수를 구하는 프로그램을 작성하시오.
+
+예를 들어 카드가 [4, 3, 1, 2]로 놓여있다고 하자. 근우는 처음에 4가 적힌 카드를 가져가고, 명우는 3이 적힌 카드를 가져간다. 그리고 근우는 2가 적힌 카드를 가져가고, 명우는 마지막으로 1이 적힌 카드를 가져간다. 이때 근우와 명우는 최선의 전략으로 임했으며, 근우가 얻는 점수는 6이다.
+
+### 입력 
+
+ 입력의 첫 줄에는 테스트케이스의 수 T(1 ≤ T ≤ 50)가 주어진다.
+
+각 테스트케이스 마다 첫 줄에는 카드의 개수 N(1 ≤ N ≤ 1,000)이 주어진다. 두 번째 줄에는 N개의 자연수가 공백으로 구분되어 주어지는데, i번째로 주어지는 수는 왼쪽에서 i번째에 놓인 카드에 적힌 수를 의미한다. 카드에 적혀있는 수는 1이상 10,000이하다.
+
+### 출력 
+
+ 각 테스트케이스마다 근우와 명우가 최선의 전략으로 임할 때 근우가 얻게되는 점수를 줄로 구분하여 출력한다.
+
+### 풀이
+```java
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      StringTokenizer st;
+
+      int T = Integer.parseInt(br.readLine());
+      for(int t=0; t<T; t++){
+        int N = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+
+        int[] card = new int[N];
+        int[][] dp = new int[N][N];
+        int[] prefix = new int[N+1];
+
+        for (int i=0; i<N; i++){
+          card[i] = Integer.parseInt(st.nextToken());
+          dp[i][i] = card[i];
+          prefix[i+1] = prefix[i]+card[i];
+        }
+
+        for (int l=1; l<N; l++){
+          for (int i=0; i<N-l; i++){
+            int j = i+l;
+            dp[i][j] = Math.max(card[i] + (prefix[j+1]-prefix[i+1]-dp[i+1][j]),
+            card[j] + (prefix[j]-prefix[i]-dp[i][j-1]));
+
+          }
+        }
+        System.out.println(dp[0][N-1]);
+      }
+    }
+}
+
+/*
+1 2 5 2
+
+k 1 m 2
+k 5 m 2
+no  greedy
+
+1 9 4 6 3 1
+
+i~j 범위로 얻는 최대 점수
+dp[i][j]
+
+1 2 5 2
+dp[2][2] = 5
+dp[0][1] = 2
+dp[1][2] = 5
+dp[2][3] = 5
+dp[0][2] = 6
+dp[1][3] = 4
+dp[0][3] = 6
+
+0 1 3 8 10
+dp[0][3] = dp[0][0] + (9-dp[1][3]), dp[3][3] + (8-dp[0][2])
+         = 1+5, 2+2
+         = 6
+
+*/
+```
