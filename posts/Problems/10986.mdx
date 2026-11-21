@@ -1,0 +1,72 @@
+export const metadata = {
+  title: "[Gold III] 나머지 합 - 10986",
+  date: "2026-11-21 08:48:07",
+  tags: ["수학", "누적 합"],
+  description: "[Gold III] 나머지 합 - 10986",
+};
+
+# [Gold III] 나머지 합 - 10986 
+
+[문제 링크](https://acmicpc.net/problem/10986) 
+
+### 성능 요약
+
+메모리: 117248 KB, 시간: 451 ms
+
+### 분류
+
+수학, 누적 합
+
+### 제출 일자
+
+2026년 11월 21일 17:46:40
+
+### 문제 설명
+
+수 N개 A1, A2, ..., AN이 주어진다. 이때, 연속된 부분 구간의 합이 M으로 나누어 떨어지는 구간의 개수를 구하는 프로그램을 작성하시오.
+
+즉, Ai + ... + Aj (i ≤ j) 의 합이 M으로 나누어 떨어지는 (i, j) 쌍의 개수를 구해야 한다.
+
+### 입력 
+
+ 첫째 줄에 N과 M이 주어진다. (1 ≤ N ≤ 106, 2 ≤ M ≤ 103)
+
+둘째 줄에 N개의 수 A1, A2, ..., AN이 주어진다. (0 ≤ Ai ≤ 109)
+
+### 출력 
+
+ 첫째 줄에 연속된 부분 구간의 합이 M으로 나누어 떨어지는 구간의 개수를 출력한다.
+
+### 풀이
+```java
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException{
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      int N = Integer.parseInt(st.nextToken());
+      int M = Integer.parseInt(st.nextToken());
+      st = new StringTokenizer(br.readLine());
+      int[] arr = new int[N];
+      for (int i=0; i<N; i++) arr[i] = Integer.parseInt(st.nextToken());
+
+      int cnt = arr[0]%M;
+      int[] remains = new int[M];
+      remains[cnt]++;
+
+      for (int i=1; i<N; i++){
+        cnt = (cnt+arr[i])%M;
+        remains[cnt]++;  
+      }
+      
+      long answer = remains[0];
+      for (int i=0; i<M; i++){
+        answer += (long)remains[i]*(remains[i]-1)/2;
+      }
+      
+      System.out.println(answer);
+    }
+}
+```
