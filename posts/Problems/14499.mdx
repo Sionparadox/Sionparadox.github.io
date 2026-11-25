@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 주사위 굴리기 - 14499',
-  date: '2025-06-16 04:55:45',
-  tags: ['구현', '시뮬레이션'],
-  description: '[Gold IV] 주사위 굴리기 - 14499',
+  title: "[Gold IV] 주사위 굴리기 - 14499",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "시뮬레이션"],
+  description: "[Gold IV] 주사위 굴리기 - 14499",
 };
 
 # [Gold IV] 주사위 굴리기 - 14499 
@@ -100,7 +100,7 @@ pos = [x, y]
 dice = Dice()
 for cmd in orders:
     nx, ny = pos[0]+directions[cmd][0], pos[1]+directions[cmd][1]
-    if nx = N or ny = M:
+    if nx < 0 or nx >= N or ny < 0 or ny >= M:
         continue
     pos = [nx, ny]
     dice.roll(cmd)

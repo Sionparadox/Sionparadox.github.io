@@ -1,0 +1,107 @@
+export const metadata = {
+  title: "[Gold IV] 발전소 설치 - 1277",
+  date: "2026-11-25 15:31:23",
+  tags: ["데이크스트라", "그래프 이론", "최단 경로"],
+  description: "[Gold IV] 발전소 설치 - 1277",
+};
+
+# [Gold IV] 발전소 설치 - 1277 
+
+[문제 링크](https://www.acmicpc.net/problem/1277) 
+
+### 성능 요약
+
+메모리: 31340 KB, 시간: 260 ms
+
+### 분류
+
+데이크스트라, 그래프 이론, 최단 경로
+
+### 제출 일자
+
+2025년 4월 2일 04:14:11
+
+### 문제 설명
+
+엄청난 벼락을 맞아 많은 전선들이 끊어져 현재 전력 공급이 중단된 상태이다. 가장 심각한 문제는 1번 발전소에서 N번 발전소로 가는 중간의 전선이 끊어진 것이기에 일단 이 두 발전소를 다시 연결하는게 현재 해결해야할 첫 번째 과제이다.
+
+발전소는 1번부터 N번까지 번호로 매겨져 2차원 격자 좌표 위에 있다. 그리고 몇몇 전선은 보존된 채 몇몇 발전소를 잇고 있다. 문제는 현재 전선과 발전소의 위치가 주어졌을 때 최소의 전선 길이를 추가로 사용하여 1번 발전소와 N번 발전소를 연결짓는 것이다. 물론 연결 짓는 중간에 다른 발전소를 거쳐갈 수 있다. 단, 안정성 문제로 어떠한 두 발전소 사이의 전선의 길이가 M을 초과할 수는 없다. 아래에 이에 대한 예를 그려놓았다.
+
+         연결 전                          연결 후
+
+3  . . . 7 9 . . . . .          3  . . . 7 9 . . . . .
+                                          /
+2  . . 5 6 . . . . . .          2  . . 5 6 . . . . . .
+                                        /
+1  2-3-4 . 8 . . . . .          1  2-3-4 . 8 . . . . .
+   |                               |
+0  1 . . . . . . . . .          0  1 . . . . . . . . .
+
+   0 1 2 3 4 5 6 7 8 9             0 1 2 3 4 5 6 7 8 9
+
+### 입력 
+
+ 첫 줄에는 발전소의 수 N(1 ≤ N ≤ 1,000)과 현재 남아있는 전선의 수 W(1≤ W ≤ 10,000)가 주어진다. 두 번째 줄에는 제한 길이 M(0.0 \< M \< 200,000.0)가 주어진다. 다음 N개의 줄에는 1번 발전소부터 N번 발전소까지 각각의 발전소의 X좌표와 Y좌표(-100,000 ≤ xi,yi  ≤ 100,000)가 차례대로 주어진다. 다음 W개의 줄에 대해 각 줄에는 두 개의 정수가 입력되어지는데 이는 현재 남아있는 전선이 잇고 있는 두 발전소를 의미한다.
+
+### 출력 
+
+ 첫 줄에 1번 발전소와 N번 발전소를 잇는데 필요한 추가 전선 길이의 최솟값을 1000배하여 출력한다. (단, 1000배하고 난 후 나머지 소수는 반올림이 아닌 버림을 한다)
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs.readFileSync(0, 'utf-8').toString().trim().split('\n');
+// const input = fs.readFileSync('input.txt').toString().trim().split('\n');
+const [N, W] = input[0].split(' ').map(Number);
+const M = parseFloat(input[1]);
+const pos = input.slice(2, 2 + N).map((v) => v.split(' ').map(Number));
+const connected = input.slice(2 + N).map((v) => v.split(' ').map(Number));
+
+const board = Array.from({ length: N + 1 }, () => Array(N + 1).fill(Infinity));
+for (let i = 0; i < N - 1; i++) {
+  for (let j = i; j < N; j++) {
+    const dist = Math.sqrt(
+      Math.pow(pos[i][0] - pos[j][0], 2) + Math.pow(pos[i][1] - pos[j][1], 2)
+    );
+    if (dist > M) continue;
+    board[i + 1][j + 1] = dist;
+    board[j + 1][i + 1] = dist;
+  }
+}
+for (const [u, v] of connected) {
+  board[u][v] = 0;
+  board[v][u] = 0;
+}
+
+const dp = [...board[1]];
+
+const visited = Array(N + 1).fill(false);
+visited[1] = true;
+
+while (true) {
+  const idx = getMinimumIdx();
+  if (idx == -1 || idx == N) break;
+  visited[idx] = true;
+
+  for (let i = 1; i < N + 1; i++) {
+    if (visited[i]) continue;
+    const temp = dp[idx] + board[idx][i];
+    if (temp < dp[i]) {
+      dp[i] = temp;
+    }
+  }
+}
+
+console.log(Math.floor(dp[N] * 1000));
+function getMinimumIdx() {
+  let min = Infinity;
+  let idx = -1;
+  for (let i = 1; i < N + 1; i++) {
+    if (!visited[i] && dp[i] < min) {
+      idx = i;
+      min = dp[i];
+    }
+  }
+  return idx;
+}
+```

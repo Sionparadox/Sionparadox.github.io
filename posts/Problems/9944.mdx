@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] NxM 보드 완주하기 - 9944',
-  date: '2026-03-05 06:54:42',
-  tags: ['구현', '브루트포스 알고리즘', '백트래킹'],
-  description: '[Gold III] NxM 보드 완주하기 - 9944',
+  title: "[Gold III] NxM 보드 완주하기 - 9944",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "브루트포스 알고리즘", "백트래킹"],
+  description: "[Gold III] NxM 보드 완주하기 - 9944",
 };
 
 # [Gold III] NxM 보드 완주하기 - 9944 
@@ -61,6 +61,7 @@ input = sys.stdin.readline
 t = 0
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
+
 def backTrack(r, c, move, cell):
     global answer
     if cell == cells:
@@ -74,7 +75,7 @@ def backTrack(r, c, move, cell):
         path = []
         while True:
             nr, nc = nr+dr, nc+dc
-            if nr=N or nc=M:
+            if nr<0 or nr>=N or nc<0 or nc>=M:
                 break
             if board[nr][nc] == '*' or visited[nr][nc]:
                 break

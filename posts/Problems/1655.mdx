@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 가운데를 말해요 - 1655',
-  date: '2025-07-29 08:08:31',
-  tags: ['자료 구조', '우선순위 큐'],
-  description: '[Gold II] 가운데를 말해요 - 1655',
+  title: "[Gold II] 가운데를 말해요 - 1655",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "우선순위 큐"],
+  description: "[Gold II] 가운데를 말해요 - 1655",
 };
 
 # [Gold II] 가운데를 말해요 - 1655 
@@ -47,7 +47,12 @@ right = []
 for _ in range(N):
     k = int(input())
     
-    if not left or k  len(right) + 1:
+    if not left or k <= -left[0]:
+        heapq.heappush(left, -k)
+    else:
+        heapq.heappush(right, k)
+    
+    if len(left) > len(right) + 1:
         heapq.heappush(right, -heapq.heappop(left))
     elif len(right) > len(left):
         heapq.heappush(left, -heapq.heappop(right))

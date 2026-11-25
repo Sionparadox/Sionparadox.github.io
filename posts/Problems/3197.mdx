@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum V] 백조의 호수 - 3197',
-  date: '2025-07-29 09:26:03',
-  tags: ['그래프 이론', '자료 구조', '그래프 탐색', '너비 우선 탐색', '분리 집합', '격자 그래프'],
-  description: '[Platinum V] 백조의 호수 - 3197',
+  title: "[Platinum V] 백조의 호수 - 3197",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "자료 구조", "그래프 탐색", "너비 우선 탐색", "분리 집합", "격자 그래프"],
+  description: "[Platinum V] 백조의 호수 - 3197",
 };
 
 # [Platinum V] 백조의 호수 - 3197 
@@ -81,7 +81,7 @@ while queue:
     r, c = queue.popleft()
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nr=R or nc=C:
+        if nr<0 or nr>=R or nc<0 or nc>=C:
             continue
         if melt_day[nr][nc] != -1:
             continue
@@ -89,6 +89,7 @@ while queue:
             melt_day[nr][nc] = melt_day[r][c] + 1
             maxDay = melt_day[nr][nc]
             queue.append((nr, nc))
+
 
 def check(k):
     queue = deque([pos[0]])
@@ -98,7 +99,7 @@ def check(k):
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=R or nc=C:
+            if nr<0 or nr>=R or nc<0 or nc>=C:
                 continue
             if (nr, nc) == pos[1]:
                 return True

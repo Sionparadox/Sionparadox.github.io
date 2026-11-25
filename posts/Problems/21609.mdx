@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 상어 중학교 - 21609',
-  date: '2025-07-26 08:01:06',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '시뮬레이션', '너비 우선 탐색'],
-  description: '[Gold II] 상어 중학교 - 21609',
+  title: "[Gold II] 상어 중학교 - 21609",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "시뮬레이션", "너비 우선 탐색"],
+  description: "[Gold II] 상어 중학교 - 21609",
 };
 
 # [Gold II] 상어 중학교 - 21609 
@@ -312,7 +312,7 @@ def BFS(r, c):
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=N:
+            if nr<0 or nr>=N or nc<0 or nc>=N:
                 continue
             if (nr, nc) in visited or board[nr][nc] not in (0, color):
                 continue
@@ -335,8 +335,10 @@ def fall():
                         board[r][c], board[i][c] = board[i][c], board[r][c]
                         break
 
+
 def rotate():
     return [list(row) for row in zip(*board)][::-1]
+
 
 answer = 0
 while True:

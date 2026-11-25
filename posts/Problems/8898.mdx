@@ -1,0 +1,58 @@
+export const metadata = {
+  title: "[D4] 3차원 농부 - 8898",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D4] 3차원 농부 - 8898",
+};
+
+# [D4] 3차원 농부 - 8898 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW45TzHae8UDFAQ7) 
+
+### 성능 요약
+
+메모리: 209,124 KB, 시간: 4,687 ms, 코드길이: 805 Bytes
+
+### 제출 일자
+
+2026-06-30 18:49
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+from bisect import bisect_left
+
+def search(k):
+    idx = bisect_left(horse, k)
+    left = right = float('inf')
+    if idx > 0:
+        left = abs(horse[idx-1]-k)
+    if idx < M:
+        right = abs(horse[idx]-k)
+    
+    if left == right:
+        return left, 2
+    else:
+        return min(left, right), 1
+    
+    
+TC = int(input())
+for tc in range(1, TC+1):
+    N, M = map(int, input().split())
+    c1, c2 = map(int, input().split())
+    cow = list(map(int, input().split()))
+    horse = sorted(map(int, input().split()))
+    dist = abs(c1-c2)
+    min_dist = float('inf')
+    ans = 0
+    for c in cow:
+        d, cnt = search(c)
+        if d == min_dist:
+           ans += cnt
+        elif d < min_dist:
+            min_dist = d
+            ans = cnt
+        
+    print(f'#{tc} {dist+min_dist} {ans}')
+```

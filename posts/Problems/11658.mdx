@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum V] 구간 합 구하기 3 - 11658',
-  date: '2025-09-02 08:31:34',
-  tags: ['자료 구조', '세그먼트 트리', '누적 합', '다차원 세그먼트 트리'],
-  description: '[Platinum V] 구간 합 구하기 3 - 11658',
+  title: "[Platinum V] 구간 합 구하기 3 - 11658",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "세그먼트 트리", "누적 합", "다차원 세그먼트 트리"],
+  description: "[Platinum V] 구간 합 구하기 3 - 11658",
 };
 
 # [Platinum V] 구간 합 구하기 3 - 11658 
@@ -78,7 +78,17 @@ tree = [[0]*(N+1) for _ in range(N+1)]
 
 def update(r, c, value):
     x = r
-    while x  0:
+    while x <= N:
+        y = c
+        while y <= N:
+            tree[x][y] += value
+            y += y&-y
+        x += x&-x
+
+def query(r, c):
+    res = 0
+    x = r
+    while x > 0:
         y = c
         while y > 0:
             res += tree[x][y]
@@ -88,6 +98,7 @@ def update(r, c, value):
 
 def range_sum(r1, c1, r2, c2):
     return query(r2, c2) - query(r2, c1-1) - query(r1-1, c2) + query(r1-1, c1-1)
+
 
 for i in range(N):
     for j in range(N):

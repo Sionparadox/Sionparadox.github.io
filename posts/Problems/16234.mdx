@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 인구 이동 - 16234',
-  date: '2025-06-24 07:32:55',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '시뮬레이션', '너비 우선 탐색'],
-  description: '[Gold IV] 인구 이동 - 16234',
+  title: "[Gold IV] 인구 이동 - 16234",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "시뮬레이션", "너비 우선 탐색"],
+  description: "[Gold IV] 인구 이동 - 16234",
 };
 
 # [Gold IV] 인구 이동 - 16234 
@@ -68,7 +68,7 @@ def BFS(r, c):
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr = N or nc = N or (nr, nc) in visited:
+            if nr < 0 or nr >= N or nc < 0 or nc >= N or (nr, nc) in visited:
                 continue
             if L <= abs(board[r][c]-board[nr][nc]) <= R:
                 union.append((nr, nc))

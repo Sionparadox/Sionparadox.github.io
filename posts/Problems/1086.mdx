@@ -1,0 +1,94 @@
+export const metadata = {
+  title: "[Platinum V] 박성원 - 1086",
+  date: "2026-11-25 15:31:23",
+  tags: ["비트마스킹", "다이나믹 프로그래밍", "비트필드를 이용한 다이나믹 프로그래밍"],
+  description: "[Platinum V] 박성원 - 1086",
+};
+
+# [Platinum V] 박성원 - 1086 
+
+[문제 링크](https://www.acmicpc.net/problem/1086) 
+
+### 성능 요약
+
+메모리: 139412 KB, 시간: 724 ms
+
+### 분류
+
+비트마스킹, 다이나믹 프로그래밍, 비트필드를 이용한 다이나믹 프로그래밍
+
+### 제출 일자
+
+2025년 6월 5일 19:43:08
+
+### 문제 설명
+
+박성원은 이 문제를 풀지 못했다.
+
+서로 다른 정수로 이루어진 집합이 있다. 이 집합의 순열을 합치면 큰 정수 하나를 만들 수 있다. 예를 들어, \{5221,40,1,58,9\}로 5221401589를 만들 수 있다. 합친수가 정수 K로 나누어 떨어지는 순열을 구하는 프로그램을 작성하시오.
+
+하지만, 박성원은 이 문제를 풀지 못했다.
+
+따라서 박성원은 그냥 랜덤하게 순열 하나를 정답이라고 출력하려고 한다. 이 문제에는 정답이 여러 개 있을 수도 있고, 박성원이 우연히 문제의 정답을 맞출 수도 있다.
+
+박성원이 우연히 정답을 맞출 확률을 분수로 출력하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 집합의 수의 개수 N이 주어진다. N은 15보다 작거나 같은 자연수이다. 둘째 줄부터 N개의 줄에는 집합에 포함된 수가 주어진다. 각 수의 길이는 길어야 50인 자연수이다. 마지막 줄에는 K가 주어진다. K는 100보다 작거나 같은 자연수이다.
+
+### 출력 
+
+ 첫째 줄에 정답을 기약분수 형태로 출력한다. p/q꼴로 출력하며, p는 분자, q는 분모이다. 정답이 0인 경우는 0/1로, 1인 경우는 1/1로 출력한다.
+
+### 풀이
+```python
+import sys
+from math import gcd, factorial
+input = sys.stdin.readline
+
+N = int(input())
+nums = [int(input()) for _ in range(N)]
+K = int(input())
+
+mods = [x % K for x in nums]
+digits = [len(str(x)) for x in nums]
+pow10 = [1]*51
+for i in range(1, 51):
+    pow10[i] = pow10[i-1]*10 % K
+
+dp = [[0]*K for _ in range(1<<N)]
+
+for i in range(N):
+    dp[1<<i][mods[i]] = 1
+
+for mask in range(1<<N):
+    for mod in range(K):
+        if dp[mask][mod] == 0:
+            continue
+        for i in range(N):
+            if not (mask & (1<<i)):
+                next = mask | (1<<i)
+                newMod = (mod*pow10[digits[i]] + mods[i])%K
+                dp[next][newMod] += dp[mask][mod]
+
+answer = dp[(1<<N) -1][0]
+f = factorial(N)
+gcd = gcd(answer ,f)
+p = answer//gcd
+q = f//gcd
+print(f'{p}/{q}')
+
+
+'''
+100 % 7 = 2
+10 % 7 = 3
+2*100 + 3 = 203 % 7 = 0
+10010 % 7 = 0
+
+비트마스킹으로 dp?
+dp[mask][mod] : mask로 선택된 수를 이어 만드는 수열중 나머지가 mod인 경우의 수
+
+
+'''
+```

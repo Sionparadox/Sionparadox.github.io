@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 표 편집 - 81303",
-  date: "2026-08-06 12:31:44",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] 표 편집 - 81303",
 };
@@ -73,7 +73,7 @@ export const metadata = {
 제한사항
 
 5 ≤ n ≤ 1,000,000
-0 ≤ k < n
+0 ≤ k \< n
 1 ≤ cmd의 원소 개수 ≤ 200,000
 
 cmd의 각 원소는 "U X", "D X", "C", "Z" 중 하나입니다.
@@ -150,7 +150,7 @@ import java.util.*;
 
 class Solution {
     public String solution(int n, int k, String[] cmd) {
-        Deque stack = new ArrayDeque<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         int[] next = new int[n];
         int[] prev = new int[n];
         boolean[] remains = new boolean[n];

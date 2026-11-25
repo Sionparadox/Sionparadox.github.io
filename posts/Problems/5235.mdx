@@ -1,0 +1,65 @@
+export const metadata = {
+  title: "[Bronze III] Even Sum More Than Odd Sum - 5235",
+  date: "2026-11-25 15:31:23",
+  tags: ["사칙연산", "구현", "수학"],
+  description: "[Bronze III] Even Sum More Than Odd Sum - 5235",
+};
+
+# [Bronze III] Even Sum More Than Odd Sum - 5235 
+
+[문제 링크](https://www.acmicpc.net/problem/5235) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 32 ms
+
+### 분류
+
+사칙연산, 구현, 수학
+
+### 제출 일자
+
+2025년 5월 28일 18:57:19
+
+### 문제 설명
+
+When new programs arrive in the grid world, they start by playing the simplest of games in the Disc Arena against other novice programs. One of those games is played in front of a large board as follows: a sequence of numbers appears on the board, and the players have to decide whether the sum of even numbers in the sequence is larger than the sum of odd numbers in the sequence, or if they are equal. The first player to provide the correct answer wins the game, and the losers are deleted.
+
+For example, given the sequence:
+
+5 7 2 1 10 13 6 12
+
+the sum of even numbers is 2 + 10 + 6 + 12 = 30, whereas the sum of odd numbers is 5 + 7 + 1 + 13 = 26. Hence the correct answer here is “EVEN”.
+
+You are to help Sam (our protagonist) win this game so he can survive, and look for his father.
+
+### 입력 
+
+ The first line in the test data file contains the number of test cases (≤ 50). After that, each line contains one test case. The test case begins with the number of elements in the sequence, k (\< 100), and then we have k numbers which specify the sequence. Assume all numbers are ≥ 0, and \< 220.
+
+### 출력 
+
+ For each test case, you are to output “EVEN” (if the sum of even numbers in the sequence is larger than the sum of odd numbers), “ODD” (if the reverse is true), or “TIE” (if the two sums are identical).
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+for _ in range(T):
+    nums = list(map(int, input().split()))
+    even = 0
+    odd = 0
+    for num in nums[1:]:
+        if num % 2 == 0:
+            even += num
+        else :
+            odd += num
+    if even > odd:
+        print('EVEN')
+    elif even < odd:
+        print('ODD')
+    else:
+        print("TIE")
+```

@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 디스크 컨트롤러 - 42627",
-  date: "2026-08-06 13:00:24",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] 디스크 컨트롤러 - 42627",
 };
@@ -35,9 +35,12 @@ export const metadata = {
 하드디스크가 어떤 작업을 마치는 시점과 다른 작업 요청이 들어오는 시점이 겹친다면 하드디스크가 작업을 마치자마자 디스크 컨트롤러는 요청이 들어온 작업을 대기 큐에 저장한 뒤 우선순위가 높은 작업을 대기 큐에서 꺼내서 하드디스크에 그 작업을 시킵니다. 또, 하드디스크가 어떤 작업을 마치는 시점에 다른 작업이 들어오지 않더라도 그 작업을 마치자마자 또 다른 작업을 시작할 수 있습니다. 이 과정에서 걸리는 시간은 없다고 가정합니다.
 
 예를 들어
+
+```text
 - 0ms 시점에 3ms가 소요되는 0번 작업 요청
 - 1ms 시점에 9ms가 소요되는 1번 작업 요청
 - 3ms 시점에 5ms가 소요되는 2번 작업 요청
+```
 
 와 같은 요청이 들어왔습니다. 이를 그림으로 표현하면 다음과 같습니다.
 
@@ -165,55 +168,26 @@ return
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
 
 ### 풀이
-```java
-import java.util.*;
-
-class Job {
-    int num;
-    int start;
-    int time;
-    Job(int num, int start, int time){
-        this.num = num;
-        this.start = start;
-        this.time = time;
-    }
-}
-
-class Solution {
-    public int solution(int[][] jobs) {
-        int answer = 0;
-        int L = jobs.length;
-        Arrays.sort(jobs, (o1, o2) -> Integer.compare(o1[0], o2[0]));
-        PriorityQueue pq = new PriorityQueue<>(
-            Comparator.comparingInt((Job o) -> o.time)
-            .thenComparingInt(o -> o.start)
-            .thenComparingInt(o -> o.num));
+```python
+import heapq
+def solution(jobs):
+    jobs.sort()
+    answer = 0
+    pq = []
+    time = 0
+    idx = 0
+    cnt = 0
+    while cnt<len(jobs):
+        while idx < len(jobs) and jobs[idx][0]<=time:
+            heapq.heappush(pq, (jobs[idx][1], jobs[idx][0], idx))
+            idx+=1
+        if pq:
+            length, start, i = heapq.heappop(pq)
+            time += length
+            answer += time-start
+            cnt += 1
+        else :
+            time = jobs[idx][0]
         
-        int cnt = 0;
-        int index = 0;
-        int time = 0;
-        while (cnt < L) {
-            while (index < L && jobs[index][0] <= time){
-                int[] job = jobs[index];
-                pq.offer(new Job(index, job[0], job[1]));
-                index++;
-            }
-            if (pq.isEmpty()){
-                time = jobs[index][0];
-            } else {
-                Job curr = pq.poll();
-                time += curr.time;
-                answer += time - curr.start;
-                cnt++;
-            }
-        }
-        
-        return answer/L;
-    }
-}
-/*
-start 기준으로 정렬
-루프돌며 시간 지난 작업 pq에 넣기
-pq가 없으면 time = start
-*/
+    return answer//len(jobs)
 ```

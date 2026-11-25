@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] 상어 초등학교 - 21608',
-  date: '2025-07-26 06:36:22',
-  tags: ['구현'],
-  description: '[Gold V] 상어 초등학교 - 21608',
+  title: "[Gold V] 상어 초등학교 - 21608",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현"],
+  description: "[Gold V] 상어 초등학교 - 21608",
 };
 
 # [Gold V] 상어 초등학교 - 21608 
@@ -232,7 +232,7 @@ def sit(n):
                 want = 0
                 for dr, dc in directions:
                     nr, nc = r+dr, c+dc
-                    if nr=N or nc=N:
+                    if nr<0 or nr>=N or nc<0 or nc>=N:
                         continue
                     if board[nr][nc] == 0:
                         blank += 1

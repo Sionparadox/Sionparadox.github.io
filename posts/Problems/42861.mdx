@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 섬 연결하기 - 42861",
-  date: "2026-10-02 14:08:56",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] 섬 연결하기 - 42861",
 };
@@ -62,52 +62,31 @@ costs를 그림으로 표현하면 다음과 같으며, 이때 초록색 경로�
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
 
 ### 풀이
-```java
-import java.util.*;
-
-class Solution {
-    public int solution(int n, int[][] costs) {
-        ArrayList[] graph = new ArrayList[n];
-        for (int i=0; i();
-        }
-        
-        for (int[] cost:costs){
-            int u = cost[0];
-            int v = cost[1];
-            int d = cost[2];
-            graph[u].add(new int[] {v, d});
-            graph[v].add(new int[] {u, d});
-        }
-        
-        PriorityQueue pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
-        boolean[] visited = new boolean[n];
-        
-        int answer = 0;
-        int cnt = 0;
-        pq.offer(new int[] {0, 0});
-        while (!pq.isEmpty()){
-            int[] curr = pq.poll();
-            
-            int node = curr[0];
-            int cost = curr[1];
-            if(visited[node]) continue;
-            
-            visited[node] = true;
-            answer += cost;
-            cnt++;
-            
-            for (int[] next:graph[node]){
-                int nxtNode = next[0];
-                int nxtCost = next[1];
-                
-                if (!visited[nxtNode]) pq.offer(next);
-            }
-            
-        }
-        
-        
-        return answer;
-    }
+```python
+import heapq
+def solution(n, costs):
+    answer = 0
+    cnt = 0
+    graph = [[] for _ in range(n)]
+    visited = [False] * n
     
-}
+    for u, v, w in costs:
+        graph[u].append([v, w])
+        graph[v].append([u, w])
+    
+    pq = []
+    heapq.heappush(pq, (0,0))
+    while pq and cnt < n:
+        d, node = heapq.heappop(pq)
+        if visited[node] : continue
+        
+        visited[node] = True
+        answer += d
+        cnt += 1
+        
+        for next, nextD in graph[node]:
+            if visited[next] : continue
+            heapq.heappush(pq, (nextD, next))
+    
+    return answer
 ```

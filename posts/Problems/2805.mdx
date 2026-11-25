@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Silver II] 나무 자르기 - 2805',
-  date: '2026-03-13 10:04:05',
-  tags: ['이분 탐색', '매개 변수 탐색'],
-  description: '[Silver II] 나무 자르기 - 2805',
+  title: "[Silver II] 나무 자르기 - 2805",
+  date: "2026-11-25 15:31:23",
+  tags: ["이분 탐색", "매개 변수 탐색"],
+  description: "[Silver II] 나무 자르기 - 2805",
 };
 
 # [Silver II] 나무 자르기 - 2805 
@@ -51,7 +51,12 @@ left = 0
 right = max(trees)
 answer = 0
 
-while left  mid:
+while left <= right:
+    mid = (left+right)//2
+    
+    k = 0
+    for tree in trees:
+        if tree > mid:
             k += tree-mid
     
     if k>=M:

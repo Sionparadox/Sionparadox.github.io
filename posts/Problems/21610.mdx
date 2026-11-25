@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] 마법사 상어와 비바라기 - 21610',
-  date: '2025-07-26 08:25:21',
-  tags: ['구현', '시뮬레이션'],
-  description: '[Gold V] 마법사 상어와 비바라기 - 21610',
+  title: "[Gold V] 마법사 상어와 비바라기 - 21610",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "시뮬레이션"],
+  description: "[Gold V] 마법사 상어와 비바라기 - 21610",
 };
 
 # [Gold V] 마법사 상어와 비바라기 - 21610 
@@ -92,7 +92,7 @@ for _ in range(M):
     for r, c in clouds:
         for dr, dc in directions[1::2]:
             nr, nc = r+dr, c+dc
-            if 00:
+            if 0<=nr<N and 0<=nc<N and board[nr][nc]>0:
                 board[r][c] += 1
     
     clouds = make(clouds)

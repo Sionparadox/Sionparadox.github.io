@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 이항 계수 3 - 11401',
-  date: '2025-08-01 05:30:50',
-  tags: ['수학', '정수론', '조합론', '분할 정복을 이용한 거듭제곱', '모듈로 곱셈 역원', '페르마의 소정리'],
-  description: '[Gold I] 이항 계수 3 - 11401',
+  title: "[Gold I] 이항 계수 3 - 11401",
+  date: "2026-11-25 15:31:23",
+  tags: ["수학", "정수론", "조합론", "분할 정복을 이용한 거듭제곱", "모듈로 곱셈 역원", "페르마의 소정리"],
+  description: "[Gold I] 이항 계수 3 - 11401",
 };
 
 # [Gold I] 이항 계수 3 - 11401 
@@ -61,6 +61,7 @@ def modinv(n):
 answer = factorial[N] * modinv(factorial[K]) % MOD
 answer = answer * modinv(factorial[N - K]) % MOD
 print(answer)
+
 
 '''
 nCk = n!/k!(n-k)!

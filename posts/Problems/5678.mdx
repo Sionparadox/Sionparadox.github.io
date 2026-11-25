@@ -1,0 +1,46 @@
+export const metadata = {
+  title: "[D4] [Professional] 팰린드롬 - 5678",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D4] [Professional] 팰린드롬 - 5678",
+};
+
+# [D4] [Professional] 팰린드롬 - 5678 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRrK7KhO4DFAUo) 
+
+### 성능 요약
+
+메모리: 60,288 KB, 시간: 118 ms, 코드길이: 469 Bytes
+
+### 제출 일자
+
+2026-06-21 15:56
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+def is_palindrome(s):
+    l = len(s)
+    for i in range(l//2):
+        if s[i] != s[l-i-1]:
+            return False
+    return True
+
+TC = int(input())
+for tc in range(1, TC+1):
+    S = input()
+    N = len(S)
+    answer = 0
+    
+    for length in range(N, 0, -1):
+        for i in range(N-length+1):
+            if is_palindrome(S[i:i+length]):
+                answer = length
+                break
+        if answer:
+            break
+    
+    print(f'#{tc} {answer}')
+```

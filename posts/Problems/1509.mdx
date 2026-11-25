@@ -1,0 +1,75 @@
+export const metadata = {
+  title: "[Gold I] 팰린드롬 분할 - 1509",
+  date: "2026-11-25 15:31:23",
+  tags: ["다이나믹 프로그래밍"],
+  description: "[Gold I] 팰린드롬 분할 - 1509",
+};
+
+# [Gold I] 팰린드롬 분할 - 1509 
+
+[문제 링크](https://www.acmicpc.net/problem/1509) 
+
+### 성능 요약
+
+메모리: 156316 KB, 시간: 6092 ms
+
+### 분류
+
+다이나믹 프로그래밍
+
+### 제출 일자
+
+2025년 5월 25일 16:53:43
+
+### 문제 설명
+
+세준이는 어떤 문자열을 팰린드롬으로 분할하려고 한다. 예를 들어, ABACABA를 팰린드롬으로 분할하면, \{A, B, A, C, A, B, A\}, \{A, BACAB, A\}, \{ABA, C, ABA\}, \{ABACABA\}등이 있다.
+
+분할의 개수의 최솟값을 출력하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 문자열이 주어진다. 이 문자열은 알파벳 대문자로만 이루어져 있고, 최대 길이는 2,500이다.
+
+### 출력 
+
+ 첫째 줄에 팰린드롬 분할의 개수의 최솟값을 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+str = input().strip()
+L = len(str)
+
+def isPalindrome(s,e):
+    while s<=e:
+        if str[s] != str[e]:
+            return False
+        s += 1
+        e -= 1
+    return True
+
+length = [[] for _ in range(L)]
+for i in range(L):
+    for j in range(0, i+1):
+        if isPalindrome(j, i):
+            length[i].append(i-j+1)
+
+dp = [float('inf')]*(L+1)
+dp[0] = 0
+for i in range(1,L+1):
+    for l in length[i-1]:
+        dp[i] = min(dp[i], dp[i-l]+1)
+print(dp[L])
+
+'''
+ABCBADABC
+length 배열을 만듬
+length[i] : i-length[i] ~ i 범위에 대해 펠린드롬을 만족하는 모든 값.
+dp[i] : dp[i-length[i]]+1
+         [A,B,C,B,A,D,A,B,C]
+length = [1,1,1,3,5,1,3,5,7]
+dp =     [1,2,3,2,1,2,3,4,3]
+'''
+```

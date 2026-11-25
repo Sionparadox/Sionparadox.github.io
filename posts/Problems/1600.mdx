@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 말이 되고픈 원숭이 - 1600',
-  date: '2026-02-26 08:02:31',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색'],
-  description: '[Gold III] 말이 되고픈 원숭이 - 1600',
+  title: "[Gold III] 말이 되고픈 원숭이 - 1600",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색"],
+  description: "[Gold III] 말이 되고픈 원숭이 - 1600",
 };
 
 # [Gold III] 말이 되고픈 원숭이 - 1600 
@@ -100,7 +100,10 @@ while queue:
         answer = cnt
         break
     
-    if h=H or nc=W:
+    if h<K:
+        for dr, dc in horse_dirs:
+            nr, nc = r+dr, c+dc
+            if nr<0 or nr>=H or nc<0 or nc>=W:
                 continue
             if (nr, nc, h+1) not in visited and board[nr][nc] == 0:
                 visited.add((nr, nc, h+1))
@@ -108,7 +111,7 @@ while queue:
     
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nr=H or nc=W:
+        if nr<0 or nr>=H or nc<0 or nc>=W:
             continue
         if (nr, nc, h) not in visited and board[nr][nc] == 0:
             visited.add((nr, nc, h))

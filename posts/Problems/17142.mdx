@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 연구소 3 - 17142',
-  date: '2025-07-23 06:51:16',
-  tags: ['그래프 이론', '브루트포스 알고리즘', '그래프 탐색', '너비 우선 탐색', '격자 그래프'],
-  description: '[Gold III] 연구소 3 - 17142',
+  title: "[Gold III] 연구소 3 - 17142",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "브루트포스 알고리즘", "그래프 탐색", "너비 우선 탐색", "격자 그래프"],
+  description: "[Gold III] 연구소 3 - 17142",
 };
 
 # [Gold III] 연구소 3 - 17142 
@@ -107,7 +107,7 @@ def BFS(viruses):
             r, c = queue.popleft()
             for dr, dc in directions:
                 nr, nc = r+dr, c+dc
-                if nr=N or nc=N:
+                if nr<0 or nr>=N or nc<0 or nc>=N:
                     continue
                 if visited[nr][nc] or room[nr][nc] == 1:
                     continue

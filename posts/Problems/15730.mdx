@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum V] 수영장 사장님 - 15730',
-  date: '2025-07-02 09:03:26',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '시뮬레이션', '너비 우선 탐색'],
-  description: '[Platinum V] 수영장 사장님 - 15730',
+  title: "[Platinum V] 수영장 사장님 - 15730",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "시뮬레이션", "너비 우선 탐색"],
+  description: "[Platinum V] 수영장 사장님 - 15730",
 };
 
 # [Platinum V] 수영장 사장님 - 15730 
@@ -57,7 +57,7 @@ while pq:
     
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nr= N or nc = M:
+        if nr<0 or nr >= N or nc <0 or nc >= M:
             continue
         if not visited[nr][nc]:
             visited[nr][nc] = True

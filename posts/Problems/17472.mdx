@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 다리 만들기 2 - 17472',
-  date: '2025-07-31 08:54:20',
-  tags: ['구현', '그래프 이론', '브루트포스 알고리즘', '그래프 탐색', '너비 우선 탐색', '깊이 우선 탐색', '최소 스패닝 트리'],
-  description: '[Gold I] 다리 만들기 2 - 17472',
+  title: "[Gold I] 다리 만들기 2 - 17472",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "브루트포스 알고리즘", "그래프 탐색", "너비 우선 탐색", "깊이 우선 탐색", "최소 스패닝 트리"],
+  description: "[Gold I] 다리 만들기 2 - 17472",
 };
 
 # [Gold I] 다리 만들기 2 - 17472 
@@ -146,7 +146,7 @@ def BFS(r, c):
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=M:
+            if nr<0 or nr>=N or nc<0 or nc>=M:
                 continue
             if visited[nr][nc] or board[nr][nc] == 0:
                 continue
@@ -177,12 +177,24 @@ def distance(x, y):
     start_c = max(min_c1, min_c2)
     end_c = min(max_c1, max_c2)
     
-    if start_r 2:
+    if start_r <= end_r:
+        for row in range(start_r, end_r+1):
+            cols1 = [c for r, c in A if r == row]
+            cols2 = [c for r, c in B if r == row]
+            for c1 in cols1:
+                for c2 in cols2:
+                    if abs(c1-c2)>2:
                         s, e = sorted([c1, c2])
                         if all(board[row][col] == 0 for col in range(s+1, e)):
                             res = min(res, e-s-1)
     
-    if start_c 2:
+    if start_c <= end_c:
+        for col in range(start_c, end_c+1):
+            rows1 = [r for r, c in A if c == col]
+            rows2 = [r for r, c in B if c == col]
+            for r1 in rows1:
+                for r2 in rows2:
+                    if abs(r1-r2)>2:
                         s, e = sorted([r1, r2])
                         if all(board[row][col] == 0 for row in range(s+1, e)):
                             res = min(res, e-s-1)

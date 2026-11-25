@@ -1,0 +1,108 @@
+export const metadata = {
+  title: "[Platinum V] 임계경로 - 1948",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "방향 비순환 그래프", "위상 정렬", "역추적"],
+  description: "[Platinum V] 임계경로 - 1948",
+};
+
+# [Platinum V] 임계경로 - 1948 
+
+[문제 링크](https://www.acmicpc.net/problem/1948) 
+
+### 성능 요약
+
+메모리: 56068 KB, 시간: 252 ms
+
+### 분류
+
+그래프 이론, 그래프 탐색, 방향 비순환 그래프, 위상 정렬, 역추적
+
+### 제출 일자
+
+2025년 6월 8일 14:56:47
+
+### 문제 설명
+
+월드 나라는 모든 도로가 일방통행인 도로이고, 싸이클이 없다. 그런데 어떤 무수히 많은 사람들이 월드 나라의 지도를 그리기 위해서, 어떤 시작 도시로부터 도착 도시까지 출발을 하여 가능한 모든 경로를 탐색한다고 한다.
+
+이 지도를 그리는 사람들은 사이가 너무 좋아서 지도를 그리는 일을 다 마치고 도착 도시에서 모두 다 만나기로 하였다. 그렇다고 하였을 때 이들이 만나는 시간은 출발 도시로부터 출발한 후 최소 몇 시간 후에 만날 수 있는가? 즉, 마지막에 도착하는 사람까지 도착을 하는 시간을 의미한다.
+
+어떤 사람은 이 시간에 만나기 위하여 1분도 쉬지 않고 달려야 한다. 이런 사람들이 지나는 도로의 수를 카운트 하여라.
+
+출발 도시는 들어오는 도로가 0개이고, 도착 도시는 나가는 도로가 0개이다.
+
+### 입력 
+
+ 첫째 줄에 도시의 개수 n(1 ≤ n ≤ 10,000)이 주어지고 둘째 줄에는 도로의 개수 m(1 ≤ m ≤ 100,000)이 주어진다. 그리고 셋째 줄부터 m+2줄까지 다음과 같은 도로의 정보가 주어진다. 처음에는 도로의 출발 도시의 번호가 주어지고 그 다음에는 도착 도시의 번호, 그리고 마지막에는 이 도로를 지나는데 걸리는 시간이 주어진다. 도로를 지나가는 시간은 10,000보다 작거나 같은 자연수이다.
+
+그리고 m+3째 줄에는 지도를 그리는 사람들이 출발하는 출발 도시와 도착 도시가 주어진다.
+
+모든 도시는 출발 도시로부터 도달이 가능하고, 모든 도시로부터 도착 도시에 도달이 가능하다.
+
+### 출력 
+
+ 첫째 줄에는 이들이 만나는 시간을, 둘째 줄에는 1분도 쉬지 않고 달려야 하는 도로의 수가 몇 개인지 출력하여라.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N = int(input())
+M = int(input())
+
+graph = [[] for _ in range(N)]
+indegree = [0]*N
+reversed_graph = [[] for _ in range(N)]
+for _ in range(M):
+    s, e, t = map(int, input().split())
+    s -= 1
+    e -= 1
+    graph[s].append((e, t))
+    reversed_graph[e].append((s, t))
+    indegree[e] += 1
+
+start, end = map(int, input().split())
+start -= 1
+end -= 1
+
+queue = deque([start])
+
+time = [0]*N
+while queue:
+    node = queue.popleft()
+
+    for next, t in graph[node]:
+        if time[next] < time[node] + t:
+            time[next] = time[node] + t
+        indegree[next] -= 1
+        if indegree[next] == 0:
+            queue.append(next)
+
+maxTime = time[end]
+visited = [False]*N
+cnt = 0
+queue = deque([end])
+
+while queue:
+    node = queue.popleft()
+    
+    for prev, t in reversed_graph[node]:
+        if time[prev]+t == time[node]:
+            cnt += 1
+            if not visited[prev]:
+                visited[prev] = True
+                queue.append(prev)
+
+print(maxTime)
+print(cnt)
+
+'''
+기본적으로는 위상정렬 + time 배열을 갱신하며 가는 느낌.
+지금 걸린 시간이 이전에 온 시간보다 크면 바꿔버리기(최대 비용 경로 저장)
+
+이후 역방향 그래프에 대해 BFS 
+-> 시간을 비교해서 최대시간을 지나는 경로인지 탐색.
+'''
+```

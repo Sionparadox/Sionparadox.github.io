@@ -1,0 +1,91 @@
+export const metadata = {
+  title: "[Silver II] 가장 긴 짝수 연속한 부분 수열 (small) - 22857",
+  date: "2026-11-25 15:31:23",
+  tags: ["다이나믹 프로그래밍", "두 포인터"],
+  description: "[Silver II] 가장 긴 짝수 연속한 부분 수열 (small) - 22857",
+};
+
+# [Silver II] 가장 긴 짝수 연속한 부분 수열 (small) - 22857 
+
+[문제 링크](https://www.acmicpc.net/problem/22857) 
+
+### 성능 요약
+
+메모리: 36940 KB, 시간: 76 ms
+
+### 분류
+
+다이나믹 프로그래밍, 두 포인터
+
+### 제출 일자
+
+2025년 5월 31일 22:16:44
+
+### 문제 설명
+
+길이가 인 수열 가 있다. 수열 는 1 이상인 정수로 이루어져 있다.
+
+수열 에서 원하는 위치에 있는 수를 골라 최대 번 삭제를 할 수 있다.
+
+예를 들어, 수열 가 다음과 같이 구성되어 있다고 가정하자.
+
+수열 S : 1 2 3 4 5 6 7 8
+
+수열 에서 4번째에 있는 4를 지운다고 하면 아래와 같다.
+
+수열 S : 1 2 3 5 6 7 8 
+
+수열 에서 최대 번 원소를 삭제한 수열에서 짝수로 이루어져 있는 연속한 부분 수열 중 가장 긴 길이를 구해보자.
+
+### 입력 
+
+ 수열 의 길이 와 삭제할 수 있는 최대 횟수인 가 공백으로 구분되어 주어진다.
+
+두 번째 줄에는 수열 를 구성하고 있는 개의 수가 공백으로 구분되어 주어진다.
+
+### 출력 
+
+ 수열 에서 최대 번 원소를 삭제한 수열에서 짝수로 이루어져 있는 연속한 부분 수열 중 가장 긴 길이를 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+N, K = map(int, input().split())
+arr = list(map(int, input().split()))
+S = []
+cnt = 0
+for n in arr:
+    if n % 2 == 1:
+        if cnt != 0: 
+            S.append(cnt)
+        cnt = 0
+        S.append(cnt)
+    else:
+        cnt += 1
+if cnt != 0 :
+    S.append(cnt)
+
+left = right = 0
+odd = total = 0
+answer = 0
+
+while right<len(S):
+    if S[right] == 0:
+        odd += 1
+    else :
+        total += S[right]
+    
+    while odd > K:
+        if S[left] == 0:
+            odd -= 1
+        else :
+            total -= S[left]
+        left += 1
+    
+    answer = max(answer, total)
+    right += 1
+
+print(answer)
+```

@@ -1,0 +1,76 @@
+export const metadata = {
+  title: "[Gold IV] 북쪽나라의 도로 - 1595",
+  date: "2026-11-25 15:31:23",
+  tags: ["깊이 우선 탐색", "그래프 이론", "그래프 탐색", "트리"],
+  description: "[Gold IV] 북쪽나라의 도로 - 1595",
+};
+
+# [Gold IV] 북쪽나라의 도로 - 1595 
+
+[문제 링크](https://www.acmicpc.net/problem/1595) 
+
+### 성능 요약
+
+메모리: 17080 KB, 시간: 184 ms
+
+### 분류
+
+깊이 우선 탐색, 그래프 이론, 그래프 탐색, 트리
+
+### 제출 일자
+
+2025년 4월 11일 06:22:13
+
+### 문제 설명
+
+두 도시 사이에 도로를 만드는 일은 매우 비싸다. 때문에 북쪽나라는 특정 도시를 두 번 이상 지나가지 않고서 임의의 두 도시간을 이동하는 경로가 유일하도록 도로가 설계되어 있다.
+
+또한 북쪽나라의 모든 도시는 다른 모든 도시로 이동할 수 있다고 한다. 이때, 거리가 가장 먼 두 도시 사이의 거리를 출력하는 것이 당신의 임무이다.
+
+북쪽나라에는 최대 10,000개의 도시가 있을 수 있고, 도시는 1 부터 숫자로 이름이 매겨져 있다.
+
+### 입력 
+
+ 입력은 여러줄에 걸쳐 주어진다. 입력의 각 줄은 세 개의 양의 정수로 구성되어있는데, 각각은 차례대로 서로 다른 두 도시의 번호와 두 도시를 연결하는 도로의 길이를 의미한다. 모든 도로는 양방향으로 통행이 가능하다.
+
+### 출력 
+
+ 가장 거리가 먼 두 도시간의 거리를 나타내는 정수 하나를 출력하면 된다.
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs.readFileSync(0, 'utf-8').toString().trim().split('\n');
+if (input.length === 0 || input[0] === '') {
+    console.log(0);
+    return;
+}
+const arr = input.map(v => v.split(' ').map(Number));
+
+const graph = {};
+for (let i=1; i<=arr.length+1;i++){
+    graph[i] = [];
+}
+for (const [u, v, w] of arr){
+    graph[u].push([v, w]);
+    graph[v].push([u, w]);
+}
+let maxDist = 0;
+let endNode = 1;
+findEndNode(1, 0, new Set());
+findEndNode(endNode, 0, new Set());
+console.log(maxDist);
+function findEndNode(node, k, visited){
+    visited.add(node);
+    if(k > maxDist){
+        maxDist = k;
+        endNode = node;
+    }
+    const next = graph[node];
+    for (const [u, w] of next){
+        if(!visited.has(u)){
+            findEndNode(u, k+w, visited);
+        }
+    }
+}
+```

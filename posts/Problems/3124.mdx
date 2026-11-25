@@ -1,0 +1,56 @@
+export const metadata = {
+  title: "[D4] 최소 스패닝 트리 - 3124",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D4] 최소 스패닝 트리 - 3124",
+};
+
+# [D4] 최소 스패닝 트리 - 3124 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV_mSnmKUckDFAWb) 
+
+### 성능 요약
+
+메모리: 127,320 KB, 시간: 6,537 ms, 코드길이: 741 Bytes
+
+### 제출 일자
+
+2026-06-19 18:24
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+import heapq
+INF = float('inf')
+TC = int(input())
+for tc in range(1, TC+1):
+    V, E = map(int, input().split())
+    dist = [INF]*(V+1)
+    edges = [[] for _ in range(V+1)]
+    for _ in range(E):
+        A, B, C = map(int, input().split())
+        edges[A].append((B, C))
+        edges[B].append((A, C))
+    
+    visited = [False]*(V+1)
+    pq = [(0, 1)]
+    dist = 0
+    cnt = 0
+    
+    while pq and cnt<V:
+        cost, curr = heapq.heappop(pq)
+        
+        if visited[curr]:
+            continue
+        visited[curr] = True
+        dist += cost
+        cnt += 1
+        
+        for nxt, c in edges[curr]:
+            if visited[nxt]:
+                continue
+            heapq.heappush(pq, (c, nxt))
+    
+    print(f'#{tc} {dist}')
+```

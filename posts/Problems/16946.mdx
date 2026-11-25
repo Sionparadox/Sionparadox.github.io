@@ -1,0 +1,96 @@
+export const metadata = {
+  title: "[Gold II] 벽 부수고 이동하기 4 - 16946",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "깊이 우선 탐색", "격자 그래프"],
+  description: "[Gold II] 벽 부수고 이동하기 4 - 16946",
+};
+
+# [Gold II] 벽 부수고 이동하기 4 - 16946 
+
+[문제 링크](https://www.acmicpc.net/problem/16946) 
+
+### 성능 요약
+
+메모리: 97036 KB, 시간: 2468 ms
+
+### 분류
+
+그래프 이론, 그래프 탐색, 너비 우선 탐색, 깊이 우선 탐색, 격자 그래프
+
+### 제출 일자
+
+2025년 5월 22일 18:26:13
+
+### 문제 설명
+
+N×M의 행렬로 표현되는 맵이 있다. 맵에서 0은 이동할 수 있는 곳을 나타내고, 1은 이동할 수 없는 벽이 있는 곳을 나타낸다. 한 칸에서 다른 칸으로 이동하려면, 두 칸이 인접해야 한다. 두 칸이 변을 공유할 때, 인접하다고 한다.
+
+각각의 벽에 대해서 다음을 구해보려고 한다.
+
+	벽을 부수고 이동할 수 있는 곳으로 변경한다.
+	그 위치에서 이동할 수 있는 칸의 개수를 세어본다.
+
+한 칸에서 이동할 수 있는 칸은 상하좌우로 인접한 칸이다.
+
+### 입력 
+
+ 첫째 줄에 N(1 ≤ N ≤ 1,000), M(1 ≤ M ≤ 1,000)이 주어진다. 다음 N개의 줄에 M개의 숫자로 맵이 주어진다.
+
+### 출력 
+
+ 맵의 형태로 정답을 출력한다. 원래 빈 칸인 곳은 0을 출력하고, 벽인 곳은 이동할 수 있는 칸의 개수를 10으로 나눈 나머지를 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+board = [list(map(int, input().strip())) for _ in range(N)]
+group = [[(-1, -1) for _ in range(M)]for _ in range(N)]
+groupDict = {}
+
+directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+def BFS(i, j):
+    queue = deque()
+    queue.append((i, j))
+    group[i][j] = (i,j)
+    groupDict[(i,j)] = 1
+    while queue:
+        r, c = queue.popleft()
+        
+        for dr, dc in directions:
+            nr = r+dr
+            nc = c+dc
+            if nr<0 or nr >=N or nc < 0 or nc >= M:
+                continue
+            if board[nr][nc] == 0 and group[nr][nc] == (-1, -1):
+                group[nr][nc] = (i, j)
+                groupDict[(i,j)] += 1
+                queue.append((nr, nc))
+
+for i in range(N):
+    for j in range(M):
+        if group[i][j] == (-1, -1) and board[i][j] == 0:
+            BFS(i, j)
+
+answer = [[0]*M for _ in range(N)]
+for i in range(N):
+    for j in range(M):
+        if board[i][j] == 1:
+            candidate = set()
+            answer[i][j] = 1
+            for dr, dc in directions:
+                ni = i+dr
+                nj = j+dc
+                if 0<=ni<N and 0<=nj<M and board[ni][nj] == 0:
+                    candidate.add(group[ni][nj])
+            for pos in candidate:
+                answer[i][j] += groupDict[pos]
+                answer[i][j] %= 10
+        else :
+            answer[i][j] = 0
+
+print('\n'.join([''.join(map(str, row)) for row in answer]))
+```

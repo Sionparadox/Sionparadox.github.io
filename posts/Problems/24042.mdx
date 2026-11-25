@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 횡단보도 - 24042',
-  date: '2025-06-27 05:01:47',
-  tags: ['데이크스트라', '그래프 이론', '최단 경로'],
-  description: '[Gold I] 횡단보도 - 24042',
+  title: "[Gold I] 횡단보도 - 24042",
+  date: "2026-11-25 15:31:23",
+  tags: ["데이크스트라", "그래프 이론", "최단 경로"],
+  description: "[Gold I] 횡단보도 - 24042",
 };
 
 # [Gold I] 횡단보도 - 24042 
@@ -65,7 +65,13 @@ pq = []
 heapq.heappush(pq, (0, 0))
 while pq:
     t, node = heapq.heappop(pq)
-    if dp[node]  time+1:
+    if dp[node] < t:
+        continue
+    
+    for nxt, time in graph[node]:
+        if time < t:
+            time += ((t-time+M-1) // M) * M
+        if dp[nxt] > time+1:
             dp[nxt] = time+1
             heapq.heappush(pq, (time+1, nxt))
 

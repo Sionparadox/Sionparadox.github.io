@@ -1,0 +1,142 @@
+export const metadata = {
+  title: "[Silver II] 상범이의 우울 - 2811",
+  date: "2026-11-25 15:31:23",
+  tags: ["브루트포싱", "구현", "누적 합", "시뮬레이션"],
+  description: "[Silver II] 상범이의 우울 - 2811",
+};
+
+# [Silver II] 상범이의 우울 - 2811 
+
+[문제 링크](https://acmicpc.net/problem/2811) 
+
+### 성능 요약
+
+메모리: 24188 KB, 시간: 214 ms
+
+### 분류
+
+브루트포싱, 구현, 누적 합, 시뮬레이션
+
+### 제출 일자
+
+2026년 11월 26일 00:14:27
+
+### 문제 설명
+
+민균이와 상범이는 오래된 연인이다.
+
+요즘따라 냉랭해진 상범이의 태도를 본 민균이는 상범이의 기분을 예측한 다음, 상범이가 우울해지기 전에 꽃을 선물함으로써 그의 기분을 상큼하게 만들어주려고 한다.
+
+상범이의 기분은 하루씩 정수로 표현되는데, 기분이 좋은 날은 양수로 표현되고 우울한 날은 음수로 표현된다. (따라서 음수만 나타나는 연속적인 구간을 '우울한 기간' 또는 '우울 기간'이라고 한다)
+
+한편, 상범이의 우울 기간의 길이가 T일 땐, 구간의 시작으로부터 2T일 전부터 구간의 시작 바로 전날까지 꽃을 선물해야 그의 우울함을 덜어줄 수 있다. 주의해야 할 점은 길이가 가장 긴 우울 구간의 경우에는 2T일 이전이 아닌 3T일 이전부터 꽃을 선물해야 한다는 점이다. 현재부터 가장 빠른 상범이의 우울기간을 T_f 라고 하자. 만약 현재부터 계속해서 꽃을 선물해도 가장 빠른 상범이의 우울기간까지 2 * T_f 만큼 꽃을 선물할 수 없다고 하더라고 줄 수 있는만큼 꽃을 줘야 한다. (단, 이런 최장 우울 구간이 여러 개인 경우에는 그중 한 구간만 이렇게 하면 되고, 나머지 구간은 2T로 적용하면 된다)
+
+민균이가 예측한 앞으로 N일간의 상범이의 기분이 주어졌을 때, 이 N일 중 그가 상범이에게 꽃을 줘야하는 날의 수(사야 하는 꽃의 개수)의 최댓값을 구해보자.
+
+### 입력 
+
+ 첫 번째 줄에는 예측한 날의 수 N (1 ≤ N ≤ 100,000)이 주어진다.
+
+두 번째 줄에는 상범이의 기분을 나타내는 N개의 정수(|기분| ≤ 100)가 주어진다.
+
+### 출력 
+
+ 민균이가 상범이에게 꽃을 주어야하는 날의 최댓값을 출력한다.
+
+### 풀이
+```java
+import java.util.*;
+import java.io.*;
+
+public class Main {
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    int N = Integer.parseInt(br.readLine());
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    
+    boolean[] down = new boolean[N];
+    for (int i=0; i<N; i++) down[i] = Integer.parseInt(st.nextToken()) < 0;
+
+    ArrayDeque<int[]> stack = new ArrayDeque<>();
+    
+    int maxLength = 0, start = -1;
+
+    for(int i=0; i<N; i++){
+      if(down[i]){
+        if(start == -1) start = i;
+      }
+      else if (start != -1){
+        int length = i-start;
+        stack.push(new int[] {start, length});
+        maxLength = Math.max(maxLength, length);
+        start = -1;
+      }
+    }
+    
+    if(start != -1){
+      int length = N-start;
+      stack.push(new int[] {start, length});
+      maxLength = Math.max(maxLength, length);
+    }
+
+    if(stack.isEmpty()){
+      System.out.println(0);
+      return;
+    }
+
+    int[] diff = new int[N];
+
+    for (int[] curr:stack){
+      int s = curr[0];
+      int d = curr[1];
+
+      int left = Math.max(0, s-2*d);
+      int right = s-1;
+      if(left<=right){
+        diff[left]++;
+        diff[right+1]--;
+      }
+    }
+
+    int[] prefix = new int[N+1];
+    int sum = 0;
+    for(int i=0; i<N; i++){
+      sum += diff[i];
+      prefix[i+1] = prefix[i]+ (sum>0 ? 1 : 0);
+    }
+
+    int answer = prefix[N];
+    int remain = 0;
+
+    for (int[] curr:stack){
+      int s = curr[0];
+      int d = curr[1];
+
+      if(d != maxLength) continue;
+
+      int left = Math.max(0, s-3*d);
+      int right = s-1-2*d;
+
+      if(left > right) continue;
+
+      int len = right-left+1;
+      int k = len - (prefix[right+1]-prefix[left]);
+      remain = Math.max(remain, k);
+    }
+
+    System.out.println(answer+remain);  
+  }
+}
+
+
+/*
+뒤에가 엄청 크면 앞에 상관없이 다 덮어버리면 됨
+15
+1 2 1 2 3 -4 5 6 1 -4 -8 -3 -1 -2 1
+
+색칠하는 양 끝점을 1, -1로 지정
+이후 누적합을 구해 현재 칸이 색칠되어있는지 확인
+누적합을 기반으로 빈칸 수를 세고 그 칸만큼 추가로 T길이 내에서 구매
+
+*/
+```

@@ -1,0 +1,60 @@
+export const metadata = {
+  title: "[Bronze II] 커트라인 - 25305",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "정렬"],
+  description: "[Bronze II] 커트라인 - 25305",
+};
+
+# [Bronze II] 커트라인 - 25305 
+
+[문제 링크](https://www.acmicpc.net/problem/25305) 
+
+### 성능 요약
+
+메모리: 20964 KB, 시간: 244 ms
+
+### 분류
+
+구현, 정렬
+
+### 제출 일자
+
+2024년 11월 1일 16:22:37
+
+### 문제 설명
+
+2022 연세대학교 미래캠퍼스 슬기로운 코딩생활에 명의 학생들이 응시했다.
+
+이들 중 점수가 가장 높은 명은 상을 받을 것이다. 이 때, 상을 받는 커트라인이 몇 점인지 구하라.
+
+커트라인이란 상을 받는 사람들 중 점수가 가장 가장 낮은 사람의 점수를 말한다.
+
+### 입력 
+
+ 첫째 줄에는 응시자의 수 과 상을 받는 사람의 수 가 공백을 사이에 두고 주어진다.
+
+둘째 줄에는 각 학생의 점수 가 공백을 사이에 두고 주어진다.
+
+### 출력 
+
+ 상을 받는 커트라인을 출력하라.
+
+### 풀이
+```java
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int N = sc.nextInt();
+		int k = sc.nextInt();
+		int[] scores = new int[N];
+		for (int i = 0; i < N; i++) {
+			scores[i] = sc.nextInt();
+		}
+		Arrays.sort(scores);
+		System.out.println(scores[N - k]);
+	}
+}
+```

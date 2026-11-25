@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[Gold IV] 오큰수 - 17298",
-  date: "2026-11-22 04:57:41",
+  date: "2026-11-25 15:31:23",
   tags: ["자료 구조", "스택"],
   description: "[Gold IV] 오큰수 - 17298",
 };
@@ -46,7 +46,10 @@ public class Main {
       int N = Integer.parseInt(br.readLine());
       StringTokenizer st = new StringTokenizer(br.readLine());
       int[] arr = new int[N];
-      for (int i=0; i stack = new ArrayDeque<>();
+      for (int i=0; i<N; i++) arr[i] = Integer.parseInt(st.nextToken());
+      int[] answer = new int[N];
+      Arrays.fill(answer, -1);
+      ArrayDeque<int[]> stack = new ArrayDeque<>();
       for(int i=0; i<N; i++){
         while(!stack.isEmpty() && stack.peek()[0]<arr[i]){
           int[] left = stack.pop();

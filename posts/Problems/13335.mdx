@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Silver I] 트럭 - 13335',
-  date: '2025-07-01 09:23:45',
-  tags: ['자료 구조', '구현', '큐', '시뮬레이션'],
-  description: '[Silver I] 트럭 - 13335',
+  title: "[Silver I] 트럭 - 13335",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "구현", "큐", "시뮬레이션"],
+  description: "[Silver I] 트럭 - 13335",
 };
 
 # [Silver I] 트럭 - 13335 
@@ -54,7 +54,9 @@ weight = 0
 queue = deque()
 idx = 0
 time = 0
-while idx= W:
+while idx<N:
+    time += 1
+    if queue and time-queue[0][1] >= W:
         truck, t = queue.popleft()
         weight -= truck
     

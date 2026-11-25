@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 주사위 굴리기 2 - 23288',
-  date: '2025-07-26 10:16:26',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '시뮬레이션', '너비 우선 탐색'],
-  description: '[Gold III] 주사위 굴리기 2 - 23288',
+  title: "[Gold III] 주사위 굴리기 2 - 23288",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "시뮬레이션", "너비 우선 탐색"],
+  description: "[Gold III] 주사위 굴리기 2 - 23288",
 };
 
 # [Gold III] 주사위 굴리기 2 - 23288 
@@ -37,7 +37,7 @@ export const metadata = {
 	주사위의 아랫면에 있는 정수 A와 주사위가 있는 칸 (x, y)에 있는 정수 B를 비교해 이동 방향을 결정한다.
 	
 		A > B인 경우 이동 방향을 90도 시계 방향으로 회전시킨다.
-		A 
+		A \< B인 경우 이동 방향을 90도 반시계 방향으로 회전시킨다.
 		A = B인 경우 이동 방향에 변화는 없다.
 	
 	
@@ -104,7 +104,7 @@ def BFS(r, c):
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=M:
+            if nr<0 or nr>=N or nc<0 or nc>=M:
                 continue
             if (nr, nc) in visited or board[nr][nc] != n:
                 continue
@@ -120,7 +120,17 @@ answer = 0
 dice = Dice()
 for _ in range(K):
     dr, dc = directions[d]
-    if not (0B:
+    if not (0<=r+dr<N and 0<=c+dc<M):
+        d = (d+2)%4
+    dr, dc = directions[d]
+    r, c = r+dr, c+dc
+    dice.roll(d)
+    A = dice.bottom()
+    B = board[r][c]
+    if score[r][c] == 0:
+        BFS(r, c)
+    answer += score[r][c]
+    if A>B:
         d = (d+1)%4
     elif A<B:
         d = (d-1)%4

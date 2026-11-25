@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 입국심사 - 43238",
-  date: "2026-08-09 04:42:09",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] 입국심사 - 43238",
 };
@@ -75,20 +75,19 @@ return
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
 
 ### 풀이
-```java
-class Solution {
-    public long solution(int n, int[] times) {
-        long answer = 0;
+```python
+def solution(n, times):
+    answer = 0
+    s = 0
+    e = max(times)*n//len(times)
+    while s<=e:
+        mid = (s+e)//2
+        people = sum(mid//t for t in times)
         
-        long maxTime = 0;
-        for (int time:times){
-            if (maxTime = n;
-    }
-}
-
-/*
-걸리는 시간에 대해 이분탐색
-check로 확인
-check : true >> 시간이 충분 & 시간을 줄여야함
-*/
+        if people >= n:
+            answer = mid
+            e=mid-1
+        else :
+            s = mid+1
+    return answer
 ```

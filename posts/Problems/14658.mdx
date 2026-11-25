@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 하늘에서 별똥별이 빗발친다 - 14658',
-  date: '2025-06-26 07:21:24',
-  tags: ['브루트포스 알고리즘'],
-  description: '[Gold III] 하늘에서 별똥별이 빗발친다 - 14658',
+  title: "[Gold III] 하늘에서 별똥별이 빗발친다 - 14658",
+  date: "2026-11-25 15:31:23",
+  tags: ["브루트포스 알고리즘"],
+  description: "[Gold III] 하늘에서 별똥별이 빗발친다 - 14658",
 };
 
 # [Gold III] 하늘에서 별똥별이 빗발친다 - 14658 
@@ -68,6 +68,16 @@ for x in star_x:
     for y in star_y:
         cnt = 0
         for sx, sy in stars:
-            if x > 최대 100만번 연산
+            if x <= sx <= x+L and y <= sy <= y+L:
+                cnt += 1
+        answer = max(answer, cnt)
+
+print(K - answer)
+
+'''
+별의 x,y를 각각 저장해서 정렬.
+이 x,y를 트램펄린의 시작점으로 해서 답을 구하기
+x사이클 1, y사이클 1, 별이 안에 있는지 검사 사이클 1
+K^3 >> 최대 100만번 연산
 '''
 ```

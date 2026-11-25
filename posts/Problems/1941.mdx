@@ -1,0 +1,107 @@
+export const metadata = {
+  title: "[Gold III] 소문난 칠공주 - 1941",
+  date: "2026-11-25 15:31:23",
+  tags: ["백트래킹", "너비 우선 탐색", "브루트포스 알고리즘", "조합론", "그래프 이론", "그래프 탐색", "수학"],
+  description: "[Gold III] 소문난 칠공주 - 1941",
+};
+
+# [Gold III] 소문난 칠공주 - 1941 
+
+[문제 링크](https://www.acmicpc.net/problem/1941) 
+
+### 성능 요약
+
+메모리: 114156 KB, 시간: 876 ms
+
+### 분류
+
+백트래킹, 너비 우선 탐색, 브루트포스 알고리즘, 조합론, 그래프 이론, 그래프 탐색, 수학
+
+### 제출 일자
+
+2025년 3월 24일 07:02:52
+
+### 문제 설명
+
+총 25명의 여학생들로 이루어진 여학생반은 5×5의 정사각형 격자 형태로 자리가 배치되었고, 얼마 지나지 않아 이다솜과 임도연이라는 두 학생이 두각을 나타내며 다른 학생들을 휘어잡기 시작했다. 곧 모든 여학생이 ‘이다솜파’와 ‘임도연파’의 두 파로 갈라지게 되었으며, 얼마 지나지 않아 ‘임도연파’가 세력을 확장시키며 ‘이다솜파’를 위협하기 시작했다.
+
+위기의식을 느낀 ‘이다솜파’의 학생들은 과감히 현재의 체제를 포기하고, ‘소문난 칠공주’를 결성하는 것이 유일한 생존 수단임을 깨달았다. ‘소문난 칠공주’는 다음과 같은 규칙을 만족해야 한다.
+
+	이름이 이름인 만큼, 7명의 여학생들로 구성되어야 한다.
+	강한 결속력을 위해, 7명의 자리는 서로 가로나 세로로 반드시 인접해 있어야 한다.
+	화합과 번영을 위해, 반드시 ‘이다솜파’의 학생들로만 구성될 필요는 없다.
+	그러나 생존을 위해, ‘이다솜파’가 반드시 우위를 점해야 한다. 따라서 7명의 학생 중 ‘이다솜파’의 학생이 적어도 4명 이상은 반드시 포함되어 있어야 한다.
+
+여학생반의 자리 배치도가 주어졌을 때, ‘소문난 칠공주’를 결성할 수 있는 모든 경우의 수를 구하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 'S'(이다‘솜’파의 학생을 나타냄) 또는 'Y'(임도‘연’파의 학생을 나타냄)을 값으로 갖는 5*5 행렬이 공백 없이 첫째 줄부터 다섯 줄에 걸쳐 주어진다.
+
+### 출력 
+
+ 첫째 줄에 ‘소문난 칠공주’를 결성할 수 있는 모든 경우의 수를 출력한다.
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs.readFileSync(0, 'utf-8').toString().trim().split('\n');
+// const input = fs.readFileSync('input.txt').toString().trim().split('\n');
+const seat = input.map((s) => s.split(''));
+
+const group = [];
+makeCombine(0, []);
+let ans = 0;
+const dir = [
+  [0, -1],
+  [0, 1],
+  [-1, 0],
+  [1, 0],
+];
+for (const g of group) {
+  const pos = [];
+  let cnt = 0;
+  for (let p of g) {
+    const row = Math.floor(p / 5);
+    const col = p % 5;
+    pos.push([row, col]);
+    if (seat[row][col] == 'S') cnt++;
+  }
+  if (cnt < 4) continue;
+
+  const visited = new Set();
+  const queue = [];
+  queue.push(pos[0]);
+  visited.add(`${pos[0][0]} ${pos[0][1]}`);
+
+  while (queue.length > 0) {
+    const [x, y] = queue.shift();
+    for (const [dx, dy] of dir) {
+      const newX = x + dx;
+      const newY = y + dy;
+      const index = pos.findIndex((item) => item[0] == newX && item[1] == newY);
+      const str = `${newX} ${newY}`;
+      if (index != -1 && !visited.has(str)) {
+        visited.add(str);
+        queue.push([newX, newY]);
+      }
+    }
+  }
+  if (visited.size == 7) ans++;
+}
+
+console.log(ans);
+
+function makeCombine(idx, arr) {
+  if (arr.length == 7) {
+    group.push([...arr]);
+    return;
+  }
+
+  for (let i = idx; i < 25; i++) {
+    arr.push(i);
+    makeCombine(i + 1, arr);
+    arr.pop();
+  }
+}
+```

@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] Gaaaaaaaaaarden - 18809',
-  date: '2025-07-09 07:08:24',
-  tags: ['구현', '그래프 이론', '브루트포스 알고리즘', '그래프 탐색', '시뮬레이션', '너비 우선 탐색'],
-  description: '[Gold I] Gaaaaaaaaaarden - 18809',
+  title: "[Gold I] Gaaaaaaaaaarden - 18809",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "브루트포스 알고리즘", "그래프 탐색", "시뮬레이션", "너비 우선 탐색"],
+  description: "[Gold I] Gaaaaaaaaaarden - 18809",
 };
 
 # [Gold I] Gaaaaaaaaaarden - 18809 
@@ -95,7 +95,7 @@ def BFS(greens, reds):
             color = visited[r][c] % 2 # 0:green, 1:red
             for dr, dc in directions:
                 nr, nc = r+dr, c+dc
-                if nr=N or nc=M:
+                if nr<0 or nr>=N or nc<0 or nc>=M:
                     continue
                 if garden[nr][nc] == 0 or visited[nr][nc] < time*2:
                     continue

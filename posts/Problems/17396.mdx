@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] 백도어 - 17396',
-  date: '2026-04-08 07:13:07',
-  tags: ['그래프 이론', '최단 경로', '데이크스트라'],
-  description: '[Gold V] 백도어 - 17396',
+  title: "[Gold V] 백도어 - 17396",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "최단 경로", "데이크스트라"],
+  description: "[Gold V] 백도어 - 17396",
 };
 
 # [Gold V] 백도어 - 17396 
@@ -35,7 +35,7 @@ export const metadata = {
 
 두 번째 줄에 각 분기점이 적의 시야에 보이는지를 의미하는 N개의 정수 a0, a1, ..., aN-1가 공백으로 구분되어 주어진다. ai가 0이면 i 번째 분기점이 상대의 시야에 보이지 않는다는 뜻이며, 1이면 보인다는 뜻이다. 추가적으로 a0 = 0, aN-1 = 1이다., N-1번째 분기점은 상대 넥서스이기 때문에 어쩔 수 없이 상대의 시야에 보이게 되며, 또 유일하게 상대 시야에 보이면서 갈 수 있는 곳이다.
 
-다음 M개의 줄에 걸쳐 세 정수 a, b, t가 공백으로 구분되어 주어진다. (0 ≤ a, b , a ≠ b, 1 ≤ t ≤ 100,000) 이는 a번째 분기점과 b번째 분기점 사이를 지나는데 t만큼의 시간이 걸리는 것을 의미한다. 연결은 양방향이며, 한 분기점에서 다른 분기점으로 가는 간선은 최대 1개 존재한다.
+다음 M개의 줄에 걸쳐 세 정수 a, b, t가 공백으로 구분되어 주어진다. (0 ≤ a, b \< N, a ≠ b, 1 ≤ t ≤ 100,000) 이는 a번째 분기점과 b번째 분기점 사이를 지나는데 t만큼의 시간이 걸리는 것을 의미한다. 연결은 양방향이며, 한 분기점에서 다른 분기점으로 가는 간선은 최대 1개 존재한다.
 
 ### 출력 
 
@@ -69,7 +69,12 @@ heapq.heappush(pq, (0, 0))
 while pq:
     time, curr = heapq.heappop(pq)
     
-    if dist[curr]  new_time:
+    if dist[curr] < time:
+        continue
+    
+    for nxt, nt in graph[curr]:
+        new_time = time+nt
+        if dist[nxt] > new_time:
             dist[nxt] = new_time
             heapq.heappush(pq, (new_time, nxt))    
 

@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] KCM Travel - 10217',
-  date: '2025-08-07 07:39:51',
-  tags: ['다이나믹 프로그래밍', '그래프 이론', '최단 경로', '데이크스트라'],
-  description: '[Platinum IV] KCM Travel - 10217',
+  title: "[Platinum IV] KCM Travel - 10217",
+  date: "2026-11-25 15:31:23",
+  tags: ["다이나믹 프로그래밍", "그래프 이론", "최단 경로", "데이크스트라"],
+  description: "[Platinum IV] KCM Travel - 10217",
 };
 
 # [Platinum IV] KCM Travel - 10217 
@@ -55,7 +55,27 @@ def solve():
         for i in range(N):
             if dp[i][j] != INF:
                 for nxt, cost, time in graph[i]:
-                    if j+cost  시간초과
+                    if j+cost <= M:
+                        dp[nxt][j+cost] = min(dp[nxt][j+cost], dp[i][j]+time)
+    
+    return min(dp[N-1])
+    
+
+T = int(input())
+for _ in range(T):
+    N, M, K = map(int, input().split())
+    graph = [[] for _ in range(N)]
+    for _ in range(K):
+        u, v, c, t = map(int, input().split())
+        u, v = u-1, v-1
+        graph[u].append((v, c ,t))
+
+    answer = solve()
+    print(answer if answer != INF else 'Poor KCM')
+
+
+'''
+다익스트라 -> 시간초과
 냅색?
 
 '''

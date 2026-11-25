@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 빵집 - 3109',
-  date: '2025-07-01 07:28:18',
-  tags: ['그래프 이론', '그리디 알고리즘', '그래프 탐색', '깊이 우선 탐색', '격자 그래프'],
-  description: '[Gold II] 빵집 - 3109',
+  title: "[Gold II] 빵집 - 3109",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그리디 알고리즘", "그래프 탐색", "깊이 우선 탐색", "격자 그래프"],
+  description: "[Gold II] 빵집 - 3109",
 };
 
 # [Gold II] 빵집 - 3109 
@@ -61,7 +61,7 @@ def backTrack(row, col):
     
     for dr, dc in ((-1, 1), (0, 1), (1, 1)):
         nr, nc = row+dr, col+dc
-        if nr=R:
+        if nr<0 or nr >=R:
             continue
         if board[nr][nc] == '.':
             board[nr][nc] = 'x'

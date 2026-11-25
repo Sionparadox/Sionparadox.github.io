@@ -1,0 +1,48 @@
+export const metadata = {
+  title: "[D3] 지명 선수 - 23791",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 지명 선수 - 23791",
+};
+
+# [D3] 지명 선수 - 23791 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZU2weVqkoPHBIRK) 
+
+### 성능 요약
+
+메모리: 53,760 KB, 시간: 83 ms, 코드길이: 644 Bytes
+
+### 제출 일자
+
+2026-05-24 16:00
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+from collections import deque
+T = int(input())
+for _ in range(T):
+    N = int(input())
+    A = deque(map(int, input().split()))
+    B = deque(map(int, input().split()))
+    answer = ['']*(N+1)
+    cnt = 0
+    for i in range(N):
+        if i%2 == 0:
+            while A:
+                player = A.popleft()
+                if answer[player] == '':
+                    answer[player] = 'A'
+                    break
+                
+        else:
+            while B:
+                player = B.popleft()
+                if answer[player] == '':
+                    answer[player] = 'B'
+                    break
+    
+    print(''.join(answer))
+```

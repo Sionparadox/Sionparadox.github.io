@@ -1,0 +1,70 @@
+export const metadata = {
+  title: "[Gold IV] 행렬 제곱 - 10830",
+  date: "2026-11-25 15:31:23",
+  tags: ["수학", "분할 정복", "분할 정복을 이용한 거듭제곱", "선형대수학"],
+  description: "[Gold IV] 행렬 제곱 - 10830",
+};
+
+# [Gold IV] 행렬 제곱 - 10830 
+
+[문제 링크](https://www.acmicpc.net/problem/10830) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 44 ms
+
+### 분류
+
+수학, 분할 정복, 분할 정복을 이용한 거듭제곱, 선형대수학
+
+### 제출 일자
+
+2025년 5월 19일 16:36:05
+
+### 문제 설명
+
+크기가 N*N인 행렬 A가 주어진다. 이때, A의 B제곱을 구하는 프로그램을 작성하시오. 수가 매우 커질 수 있으니, A^B의 각 원소를 1,000으로 나눈 나머지를 출력한다.
+
+### 입력 
+
+ 첫째 줄에 행렬의 크기 N과 B가 주어진다. (2 ≤ N ≤  5, 1 ≤ B ≤ 100,000,000,000)
+
+둘째 줄부터 N개의 줄에 행렬의 각 원소가 주어진다. 행렬의 각 원소는 1,000보다 작거나 같은 자연수 또는 0이다.
+
+### 출력 
+
+ 첫째 줄부터 N개의 줄에 걸쳐 행렬 A를 B제곱한 결과를 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+MOD = 1000
+
+N, B = map(int, input().split())
+
+matrix = [list(map(int, input().split())) for _ in range(N)]
+
+
+def multiply(X, Y):
+    res = [[0]*N for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            for k in range(N):
+                res[i][j] = (res[i][j] + X[i][k]*Y[k][j])%MOD
+    return res
+
+
+def solve(matrix, power):
+    if power == 1:
+        return [[x % MOD for x in row] for row in matrix]
+        
+    half = solve(matrix, power//2)
+    res = multiply(half, half)
+    if power % 2 == 1:
+        res = multiply(res, matrix)
+    return res
+
+answer = solve(matrix, B)
+print('\n'.join([' '.join(map(str, line)) for line in answer]))
+```

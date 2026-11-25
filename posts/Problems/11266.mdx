@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 단절점 - 11266',
-  date: '2026-04-10 08:58:38',
-  tags: ['그래프 이론', '그래프 탐색', '깊이 우선 탐색', '단절점과 단절선'],
-  description: '[Platinum IV] 단절점 - 11266',
+  title: "[Platinum IV] 단절점 - 11266",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "깊이 우선 탐색", "단절점과 단절선"],
+  description: "[Platinum IV] 단절점 - 11266",
 };
 
 # [Platinum IV] 단절점 - 11266 
@@ -71,7 +71,15 @@ def dfs(node, parent, is_root=False):
             child_cnt += 1
             child_low = dfs(nxt, node)
             
-            if not is_root and visited[node] =2:
+            if not is_root and visited[node] <= child_low:
+                answer.add(node)
+            
+            low = min(low, child_low)
+            
+        else:
+            low = min(low, visited[nxt])
+    
+    if is_root and child_cnt >=2:
         answer.add(node)
     
     return low

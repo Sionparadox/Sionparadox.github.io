@@ -1,0 +1,88 @@
+export const metadata = {
+  title: "[Platinum V] 선분 그룹 - 2162",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "기하학", "분리 집합", "선분 교차 판정"],
+  description: "[Platinum V] 선분 그룹 - 2162",
+};
+
+# [Platinum V] 선분 그룹 - 2162 
+
+[문제 링크](https://www.acmicpc.net/problem/2162) 
+
+### 성능 요약
+
+메모리: 35036 KB, 시간: 5812 ms
+
+### 분류
+
+자료 구조, 기하학, 분리 집합, 선분 교차 판정
+
+### 제출 일자
+
+2025년 5월 29일 18:30:32
+
+### 문제 설명
+
+N개의 선분들이 2차원 평면상에 주어져 있다. 선분은 양 끝점의 x, y 좌표로 표현이 된다.
+
+두 선분이 서로 만나는 경우에, 두 선분은 같은 그룹에 속한다고 정의하며, 그룹의 크기는 그 그룹에 속한 선분의 개수로 정의한다. 두 선분이 만난다는 것은 선분의 끝점을 스치듯이 만나는 경우도 포함하는 것으로 한다.
+
+N개의 선분들이 주어졌을 때, 이 선분들은 총 몇 개의 그룹으로 되어 있을까? 또, 가장 크기가 큰 그룹에 속한 선분의 개수는 몇 개일까? 이 두 가지를 구하는 프로그램을 작성해 보자.
+
+### 입력 
+
+ 첫째 줄에 N(1 ≤ N ≤ 3,000)이 주어진다. 둘째 줄부터 N+1번째 줄에는 양 끝점의 좌표가 x1, y1, x2, y2의 순서로 주어진다. 각 좌표의 절댓값은 5,000을 넘지 않으며, 입력되는 좌표 사이에는 빈칸이 하나 있다.
+
+### 출력 
+
+ 첫째 줄에 그룹의 수를, 둘째 줄에 가장 크기가 큰 그룹에 속한 선분의 개수를 출력한다.
+
+### 풀이
+```python
+import sys
+from collections import Counter
+input = sys.stdin.readline
+
+N = int(input())
+lines = [list(map(int, input().split())) for _ in range(N)]
+parent = [x for x in range(N)]
+
+def find(node):
+    if parent[node] == node:
+        return node
+    parent[node] = find(parent[node])
+    return parent[node]
+
+def ccw(x1, y1, x2, y2, x3, y3):
+    return (x2-x1)*(y3-y1) - (y2-y1)*(x3-x1)
+
+def isCross(l1, l2):
+    x1, y1, x2, y2 = lines[l1]
+    x3, y3, x4, y4 = lines[l2]
+    a = ccw(x1, y1, x2, y2, x3, y3)
+    b = ccw(x1, y1, x2, y2, x4, y4)
+    c = ccw(x3, y3, x4, y4, x1, y1)
+    d = ccw(x3, y3, x4, y4, x2, y2)
+    
+    if a==0 and b==0 and c==0 and d==0:
+        if min(x1,x2)<=max(x3,x4) and min(x3,x4)<=max(x1,x2) and \
+        min(y1,y2)<=max(y3,y4) and min(y3,y4)<=max(y1, y2):
+            return True
+        return False
+    
+    return a*b <=0 and c*d <= 0
+
+for i in range(N-1):
+    for j in range(i+1, N):
+        rootI = find(i)
+        rootJ = find(j)
+        if rootI != rootJ and isCross(i, j):
+            parent[rootJ] = find(rootI)
+
+for i in range(N):
+    parent[i] = find(i)
+
+counter = Counter(parent)
+print(len(counter))
+print(max(counter.values()))
+```

@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] 보물섬 - 2589',
-  date: '2025-11-06 08:06:52',
-  tags: ['그래프 이론', '브루트포스 알고리즘', '그래프 탐색', '너비 우선 탐색', '격자 그래프'],
-  description: '[Gold V] 보물섬 - 2589',
+  title: "[Gold V] 보물섬 - 2589",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "브루트포스 알고리즘", "그래프 탐색", "너비 우선 탐색", "격자 그래프"],
+  description: "[Gold V] 보물섬 - 2589",
 };
 
 # [Gold V] 보물섬 - 2589 
@@ -59,7 +59,7 @@ def BFS(r, c):
         r, c, dist = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=H or nc=W:
+            if nr<0 or nr>=H or nc<0 or nc>=W:
                 continue
             if board[nr][nc] == 'W' or visited[nr][nc]:
                 continue

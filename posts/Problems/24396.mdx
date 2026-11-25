@@ -1,0 +1,35 @@
+export const metadata = {
+  title: "[D3] 공과 상자 - 24396",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 공과 상자 - 24396",
+};
+
+# [D3] 공과 상자 - 24396 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZZ_XjxKgVLHBINj) 
+
+### 성능 요약
+
+메모리: 53,504 KB, 시간: 60 ms, 코드길이: 242 Bytes
+
+### 제출 일자
+
+2026-06-22 16:58
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+TC = int(input())
+for _ in range(TC):
+    B, W, X, Y, Z = map(int, input().split())
+    answer = 0
+    if B>W:
+        answer += (B-W)*X
+    else:
+        answer += (W-B)*Y
+    K = min(B, W)
+    answer += max((X+Y)*K, 2*K*Z)
+    print(answer)
+```

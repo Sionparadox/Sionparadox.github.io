@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 연결 - 5022',
-  date: '2025-08-19 06:16:35',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색'],
-  description: '[Gold I] 연결 - 5022',
+  title: "[Gold I] 연결 - 5022",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색"],
+  description: "[Gold I] 연결 - 5022",
 };
 
 # [Gold I] 연결 - 5022 
@@ -66,6 +66,7 @@ def solve(P1, P2, Q1, Q2):
     res += BFS(Q1, Q2, visited)
     return res
 
+
 def BFS(P1, P2, visited):
     queue = deque([(*P1, 0)])
     visited[P1[0]][P1[1]] = P1
@@ -76,7 +77,7 @@ def BFS(P1, P2, visited):
         
         for dx, dy in directions:
             nx, ny = x+dx, y+dy
-            if nxN or nyM:
+            if nx<0 or nx>N or ny<0 or ny>M:
                 continue
             if visited[nx][ny]:
                 continue

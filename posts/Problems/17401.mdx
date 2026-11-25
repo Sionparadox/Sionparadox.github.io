@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum V] 일하는 세포 - 17401',
-  date: '2025-09-14 08:30:36',
-  tags: ['수학', '분할 정복을 이용한 거듭제곱'],
-  description: '[Platinum V] 일하는 세포 - 17401',
+  title: "[Platinum V] 일하는 세포 - 17401",
+  date: "2026-11-25 15:31:23",
+  tags: ["수학", "분할 정복을 이용한 거듭제곱"],
+  description: "[Platinum V] 일하는 세포 - 17401",
 };
 
 # [Platinum V] 일하는 세포 - 17401 
@@ -54,6 +54,7 @@ sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 MOD = 1_000_000_007
 
+
 T, N, D = map(int ,input().split())
 graph = [[[0]*N for _ in range(N)]for _ in range(T)]
 for t in range(T):
@@ -71,7 +72,17 @@ def mat_mul(A, B):
     return res
 
 def mat_pow(A, k):
-    if k = T:
+    if k <= 1:
+        return A
+    
+    half = mat_pow(A, k//2)
+    res = mat_mul(half, half)
+    if k % 2 == 1:
+        res = mat_mul(res, A)
+    return res
+
+cycle = [[int(i == j) for j in range(N)] for i in range(N)]
+if D >= T:
     for t in range(T):
         cycle = mat_mul(cycle, graph[t])
 

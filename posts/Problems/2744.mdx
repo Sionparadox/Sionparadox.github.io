@@ -1,0 +1,52 @@
+export const metadata = {
+  title: "[Bronze V] 대소문자 바꾸기 - 2744",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "문자열"],
+  description: "[Bronze V] 대소문자 바꾸기 - 2744",
+};
+
+# [Bronze V] 대소문자 바꾸기 - 2744 
+
+[문제 링크](https://www.acmicpc.net/problem/2744) 
+
+### 성능 요약
+
+메모리: 9324 KB, 시간: 92 ms
+
+### 분류
+
+구현, 문자열
+
+### 제출 일자
+
+2025년 4월 18일 23:21:08
+
+### 문제 설명
+
+	영어 소문자와 대문자로 이루어진 단어를 입력받은 뒤, 대문자는 소문자로, 소문자는 대문자로 바꾸어 출력하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 
+	첫째 줄에 영어 소문자와 대문자로만 이루어진 단어가 주어진다. 단어의 길이는 최대 100이다.
+
+### 출력 
+
+ 
+	첫째 줄에 입력으로 주어진 단어에서 대문자는 소문자로, 소문자는 대문자로 바꾼 단어를 출력한다.
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs.readFileSync(0, 'utf-8').toString().trim();
+
+let ans = '';
+for (const s of input){
+    if(s === s.toLowerCase()){
+        ans += s.toUpperCase();
+    } else{
+        ans += s.toLowerCase();
+    }
+}
+console.log(ans);
+```

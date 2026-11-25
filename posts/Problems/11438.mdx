@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum V] LCA 2 - 11438',
-  date: '2025-08-21 07:59:47',
-  tags: ['자료 구조', '트리', '최소 공통 조상', '희소 배열'],
-  description: '[Platinum V] LCA 2 - 11438',
+  title: "[Platinum V] LCA 2 - 11438",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "트리", "최소 공통 조상", "희소 배열"],
+  description: "[Platinum V] LCA 2 - 11438",
 };
 
 # [Platinum V] LCA 2 - 11438 
@@ -49,7 +49,33 @@ for _ in range(N-1):
     graph[v-1].append(u-1)
 
 L = 1
-while 2**L = 2**i:
+while 2**L < N:
+    L += 1
+parent = [[-1]*N for _ in range(L)]
+depth = [0]*N
+
+def DFS(node, p):
+    for nxt in graph[node]:
+        if nxt == p : continue
+        parent[0][nxt] = node
+        depth[nxt] = depth[node]+1
+        DFS(nxt, node)
+
+DFS(0, -1)
+
+for step in range(1, L):
+    for i in range(N):
+        if parent[step-1][i] != -1:
+            parent[step][i] = parent[step-1][parent[step-1][i]]
+
+M = int(input())
+
+def LCA(u, v):
+    if depth[u] < depth[v]:
+        u, v = v, u
+
+    for i in range(L-1, -1, -1):
+        if depth[u] - depth[v] >= 2**i:
             u = parent[i][u]
 
     if u == v:
@@ -65,6 +91,9 @@ while 2**L = 2**i:
 for _ in range(M):
     u, v = map(int, input().split())
     print(LCA(u-1, v-1)+1)
+
+
+
 
 '''
 부모를 기록해서 희소배열로 탐색

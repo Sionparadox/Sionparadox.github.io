@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 비밀 모임 - 13424',
-  date: '2026-04-08 08:44:09',
-  tags: ['그래프 이론', '최단 경로', '데이크스트라', '플로이드–워셜'],
-  description: '[Gold IV] 비밀 모임 - 13424',
+  title: "[Gold IV] 비밀 모임 - 13424",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "최단 경로", "데이크스트라", "플로이드–워셜"],
+  description: "[Gold IV] 비밀 모임 - 13424",
 };
 
 # [Gold IV] 비밀 모임 - 13424 
@@ -53,11 +53,17 @@ def dijkstra(start):
     pq = [(0, start)]
     while pq:
         d, curr = heapq.heappop(pq)
-        if dist[curr]  new_d:
+        if dist[curr] < d:
+            continue
+        
+        for nxt, nd in graph[curr]:
+            new_d = d+nd
+            if dist[nxt] > new_d:
                 dist[nxt] = new_d
                 heapq.heappush(pq, (new_d, nxt))
     
     return dist
+
 
 T = int(input())
 for _ in range(T):

@@ -1,0 +1,111 @@
+export const metadata = {
+  title: "[Gold I] 수열과 쿼리 16 - 14428",
+  date: "2026-11-25 15:31:23",
+  tags: ["세그먼트 트리", "자료 구조"],
+  description: "[Gold I] 수열과 쿼리 16 - 14428",
+};
+
+# [Gold I] 수열과 쿼리 16 - 14428 
+
+[문제 링크](https://www.acmicpc.net/problem/14428) 
+
+### 성능 요약
+
+메모리: 52704 KB, 시간: 1680 ms
+
+### 분류
+
+세그먼트 트리, 자료 구조
+
+### 제출 일자
+
+2025년 6월 5일 18:24:00
+
+### 문제 설명
+
+길이가 N인 수열 A1, A2, ..., AN이 주어진다. 이때, 다음 쿼리를 수행하는 프로그램을 작성하시오.
+
+	1 i v : Ai를 v로 바꾼다. (1 ≤ i ≤ N, 1 ≤ v ≤ 109)
+	2 i j : Ai, Ai+1, ..., Aj에서 크기가 가장 작은 값의 인덱스를 출력한다. 그러한 값이 여러개인 경우에는 인덱스가 작은 것을 출력한다. (1 ≤ i ≤ j  ≤ N, 1 ≤ v ≤ 109)
+
+수열의 인덱스는 1부터 시작한다. 
+
+### 입력 
+
+ 첫째 줄에 수열의 크기 N이 주어진다. (1 ≤ N ≤ 100,000)
+
+둘째 줄에는 A1, A2, ..., AN이 주어진다. (1 ≤ Ai ≤ 109)
+
+셋째 줄에는 쿼리의 개수 M이 주어진다. (1 ≤ M ≤ 100,000)
+
+넷째 줄부터 M개의 줄에는 쿼리가 주어진다.
+
+### 출력 
+
+ 2번 쿼리에 대해서 정답을 한 줄에 하나씩 순서대로 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+nums = list(map(int, input().split()))
+
+segmentTree = [(0,0)]*(N*4)
+
+
+def merge(left, right):
+    res = (0,0)
+    if left[0] == right[0]:
+        res = (left[0], min(left[1], right[1]))
+    elif left[0] < right[0]:
+        res = left
+    else:
+        res = right
+    return res
+        
+
+def initTree(node=1, s=0, e=N-1):
+    if s == e:
+        segmentTree[node] = (nums[s], s)
+    else :
+        mid = (s+e)//2
+        initTree(node*2, s, mid)
+        initTree(node*2+1, mid+1, e)
+        segmentTree[node] = merge(segmentTree[node*2], segmentTree[node*2+1])
+            
+def pick(left, right, node=1, s=0, e=N-1):
+    if left > e or right < s:
+        return (float('inf'), -1)
+    if left <= s and e <= right:
+        return segmentTree[node]
+    
+    mid = (s+e)//2
+    return merge(pick(left, right, node*2, s, mid), pick(left, right, node*2+1, mid+1, e))
+    
+def update(idx, value, node=1, s=0, e=N-1):
+    if idx<s or idx > e:
+        return
+    
+    if s == e:
+        segmentTree[node] = (value, idx)
+        return
+    
+    mid = (s+e)//2
+    update(idx, value, node*2, s, mid)
+    update(idx, value, node*2+1, mid+1, e)
+    segmentTree[node] = merge(segmentTree[node*2],segmentTree[node*2+1])
+
+
+initTree()
+M = int(input())
+for _ in range(M):
+    a, b, c = map(int, input().split())
+    if a == 1:
+        update(b-1, c)
+        nums[b-1] = c
+    else:
+        _, idx = pick(b-1, c-1)
+        print(idx+1)
+```

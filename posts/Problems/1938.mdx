@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 통나무 옮기기 - 1938',
-  date: '2026-03-05 08:31:31',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '너비 우선 탐색'],
-  description: '[Gold II] 통나무 옮기기 - 1938',
+  title: "[Gold II] 통나무 옮기기 - 1938",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "너비 우선 탐색"],
+  description: "[Gold II] 통나무 옮기기 - 1938",
 };
 
 # [Gold II] 통나무 옮기기 - 1938 
@@ -221,7 +221,7 @@ def can_rotate(r, c, v):
     for dr in [-1, 0, 1]:
         for dc in [-1, 0 ,1]:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=N:
+            if nr<0 or nr>=N or nc<0 or nc>=N:
                 return False
             if board[nr][nc] == '1':
                 return False
@@ -231,7 +231,7 @@ def can_rotate(r, c, v):
 def can_move(r, c, v, d):
     dr, dc = directions[d]
     nr, nc = r+dr, c+dc
-    if nr=N or nc=N:
+    if nr<0 or nr>=N or nc<0 or nc>=N:
         return False
     if visited[nr][nc][v]:
         return False
@@ -239,14 +239,14 @@ def can_move(r, c, v, d):
     if v == 0:
         for dc in [-1, 0, 1]:
             _nc = nc+dc
-            if _nc=N:
+            if _nc<0 or _nc>=N:
                 return False
             if board[nr][_nc] == '1':
                 return False
     else:
         for dr in [-1, 0, 1]:
             _nr = nr+dr
-            if _nr=N:
+            if _nr<0 or _nr>=N:
                 return False
             if board[_nr][nc] == '1':
                 return False

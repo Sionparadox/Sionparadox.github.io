@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Silver I] 컴백홈 - 1189',
-  date: '2025-07-04 08:13:58',
-  tags: ['그래프 이론', '브루트포스 알고리즘', '그래프 탐색', '깊이 우선 탐색', '백트래킹', '격자 그래프'],
-  description: '[Silver I] 컴백홈 - 1189',
+  title: "[Silver I] 컴백홈 - 1189",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "브루트포스 알고리즘", "그래프 탐색", "깊이 우선 탐색", "백트래킹", "격자 그래프"],
+  description: "[Silver I] 컴백홈 - 1189",
 };
 
 # [Silver I] 컴백홈 - 1189 
@@ -64,7 +64,7 @@ def backTrack(r, c, k):
     
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nr=R or nc=C:
+        if nr<0 or nr>=R or nc<0 or nc>=C:
             continue
         if visited[nr][nc] or board[nr][nc] == 'T':
             continue

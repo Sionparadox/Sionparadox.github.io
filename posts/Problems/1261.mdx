@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 알고스팟 - 1261',
-  date: '2026-03-15 08:46:39',
-  tags: ['그래프 이론', '그래프 탐색', '최단 경로', '데이크스트라', '격자 그래프', '0-1 너비 우선 탐색'],
-  description: '[Gold IV] 알고스팟 - 1261',
+  title: "[Gold IV] 알고스팟 - 1261",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "최단 경로", "데이크스트라", "격자 그래프", "0-1 너비 우선 탐색"],
+  description: "[Gold IV] 알고스팟 - 1261",
 };
 
 # [Gold IV] 알고스팟 - 1261 
@@ -63,7 +63,7 @@ while pq:
         continue
     for dr, dc in directions:
         nr, nc, ncnt = r+dr, c+dc, cnt
-        if nr=R or nc=C:
+        if nr<0 or nr>=R or nc<0 or nc>=C:
             continue            
         if board[nr][nc] == 1:
             ncnt += 1

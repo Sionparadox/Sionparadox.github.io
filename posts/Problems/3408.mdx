@@ -1,0 +1,31 @@
+export const metadata = {
+  title: "[D3] 세가지 합 구하기 - 3408",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 세가지 합 구하기 - 3408",
+};
+
+# [D3] 세가지 합 구하기 - 3408 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWEbPukqySUDFAWs) 
+
+### 성능 요약
+
+메모리: 62,080 KB, 시간: 551 ms, 코드길이: 139 Bytes
+
+### 제출 일자
+
+2026-06-22 18:12
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+TC = int(input())
+for tc in range(1, TC+1):
+    N = int(input())
+    x = N*(N+1)//2
+    z = x*2
+    y = z-N
+    print(f'#{tc} {x} {y} {z}')
+```

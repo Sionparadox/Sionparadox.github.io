@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 2] 카카오프렌즈 컬러링북 - 1829",
-  date: "2026-10-28 11:30:18",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 2] 카카오프렌즈 컬러링북 - 1829",
 };
@@ -41,7 +41,7 @@ export const metadata = {
 
 입력은 그림의 크기를 나타내는 m과 n, 그리고 그림을 나타내는 m × n 크기의 2차원 배열 picture로 주어진다. 제한조건은 아래와 같다.
 
-1 <= m, n <= 100
+1 \<= m, n \<= 100
 picture의 원소는 0 이상 2^31 - 1 이하의 임의의 값이다.
 picture의 원소 중 값이 0인 경우는 색칠하지 않는 영역을 뜻한다.
 
@@ -88,7 +88,20 @@ class Solution {
         board = picture;
         
         visited = new boolean[m][n];
-        for(int r=0; r queue = new ArrayDeque<>();
+        for(int r=0; r<m; r++){
+            for (int c=0; c<n; c++){
+                if(picture[r][c] == 0 || visited[r][c]) continue;
+                cnt++;
+                size = Math.max(size, bfs(r, c));
+            }
+        }
+        
+        
+        return new int[] {cnt, size};
+    }
+    
+    private int bfs(int r, int c){
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
         visited[r][c] = true;
         queue.offer(r*C+c);
         int color = board[r][c];
@@ -99,7 +112,9 @@ class Solution {
             r = curr/C;
             c = curr%C;
             
-            for (int d=0; d=R || nc=C) continue;
+            for (int d=0; d<4; d++){
+                int nr=r+dr[d], nc=c+dc[d];
+                if(nr<0 || nr>=R || nc<0 || nc>=C) continue;
                 if(board[nr][nc] != color || visited[nr][nc]) continue;
                 visited[nr][nc] = true;
                 queue.offer(nr*C+nc);

@@ -1,0 +1,34 @@
+export const metadata = {
+  title: "[D3] 높은 곳으로 - 22574",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 높은 곳으로 - 22574",
+};
+
+# [D3] 높은 곳으로 - 22574 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZIieDaq5AEDFAXd) 
+
+### 성능 요약
+
+메모리: 56,192 KB, 시간: 68 ms, 코드길이: 209 Bytes
+
+### 제출 일자
+
+2026-06-21 17:13
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+TC = int(input())
+for tc in range(1, TC+1):
+    N, P = map(int, input().split())
+    floor = 0
+    for i in range(1, N+1):
+        floor += i
+        if floor == P:
+            floor -= 1
+    
+    print(floor)
+```

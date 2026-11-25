@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] 토마토 - 7576',
-  date: '2025-11-11 07:11:39',
-  tags: ['너비 우선 탐색', '그래프 이론', '그래프 탐색', '격자 그래프', '최단 경로'],
-  description: '[Gold V] 토마토 - 7576',
+  title: "[Gold V] 토마토 - 7576",
+  date: "2026-11-25 15:31:23",
+  tags: ["너비 우선 탐색", "그래프 이론", "그래프 탐색", "격자 그래프", "최단 경로"],
+  description: "[Gold V] 토마토 - 7576",
 };
 
 # [Gold V] 토마토 - 7576 
@@ -65,11 +65,12 @@ while queue:
         r, c = queue.popleft()
         for dr ,dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=M:
+            if nr<0 or nr>=N or nc<0 or nc>=M:
                 continue
             if board[nr][nc] == 0:
                 board[nr][nc] = 1
                 queue.append((nr, nc))
+
 
 for r in range(N):
     for c in range(M):
@@ -77,6 +78,7 @@ for r in range(N):
             answer = -1
             break
 print(answer)
+
 
 '''
 leveling BFS?

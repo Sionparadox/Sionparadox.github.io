@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 네트워크 복구 - 2211',
-  date: '2026-04-08 06:57:55',
-  tags: ['그래프 이론', '최단 경로', '데이크스트라', '역추적'],
-  description: '[Gold II] 네트워크 복구 - 2211',
+  title: "[Gold II] 네트워크 복구 - 2211",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "최단 경로", "데이크스트라", "역추적"],
+  description: "[Gold II] 네트워크 복구 - 2211",
 };
 
 # [Gold II] 네트워크 복구 - 2211 
@@ -64,7 +64,12 @@ heapq.heappush(pq, (0, 1))
 while pq:
     cost, curr = heapq.heappop(pq)
     
-    if dist[curr]  new_cost:
+    if dist[curr] < cost:
+        continue
+    
+    for nxt, ncost in graph[curr]:
+        new_cost = ncost+cost
+        if dist[nxt] > new_cost:
             dist[nxt] = new_cost
             parent[nxt] = curr
             heapq.heappush(pq, (new_cost, nxt))

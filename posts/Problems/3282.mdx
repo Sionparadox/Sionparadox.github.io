@@ -1,0 +1,34 @@
+export const metadata = {
+  title: "[D3] 0/1 Knapsack - 3282",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 0/1 Knapsack - 3282",
+};
+
+# [D3] 0/1 Knapsack - 3282 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBJAVpqrzQDFAWr) 
+
+### 성능 요약
+
+메모리: 59,776 KB, 시간: 96 ms, 코드길이: 320 Bytes
+
+### 제출 일자
+
+2026-05-19 16:59
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+T = int(input())
+for t in range(1, T+1):
+    N, K = map(int, input().split())
+    arr = [tuple(map(int, input().split())) for _ in range(N)]
+    
+    dp = [0]*(K+1)
+    for weight, cost in arr:
+        for i in range(K, weight-1, -1):
+            dp[i] = max(dp[i], dp[i-weight]+cost)
+    print(f'#{t} {dp[K]}')
+```

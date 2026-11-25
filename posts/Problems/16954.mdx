@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 움직이는 미로 탈출 - 16954',
-  date: '2025-08-08 07:22:42',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '격자 그래프'],
-  description: '[Gold III] 움직이는 미로 탈출 - 16954',
+  title: "[Gold III] 움직이는 미로 탈출 - 16954",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "격자 그래프"],
+  description: "[Gold III] 움직이는 미로 탈출 - 16954",
 };
 
 # [Gold III] 움직이는 미로 탈출 - 16954 
@@ -72,7 +72,7 @@ while queue:
             continue
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=8 or nc=8:
+            if nr<0 or nr>=8 or nc<0 or nc>=8:
                 continue
             if (nr, nc) in walls or visited[nr][nc]:
                 continue
@@ -85,6 +85,7 @@ while queue:
     walls = move_walls(walls)
 
 print(0)
+
 
 '''
 레벨링 BFS사용

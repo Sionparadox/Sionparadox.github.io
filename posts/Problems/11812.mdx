@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] K진 트리 - 11812',
-  date: '2025-08-19 07:30:03',
-  tags: ['수학', '트리', '최소 공통 조상'],
-  description: '[Gold III] K진 트리 - 11812',
+  title: "[Gold III] K진 트리 - 11812",
+  date: "2026-11-25 15:31:23",
+  tags: ["수학", "트리", "최소 공통 조상"],
+  description: "[Gold III] K진 트리 - 11812",
 };
 
 # [Gold III] K진 트리 - 11812 
@@ -55,7 +55,25 @@ def parent(node):
         return -1
     idx = 1
     k = 1
-    while k + idx  v:
+    while k + idx <= node:
+        k += idx
+        idx *= K
+    
+    res = (node-k)//K
+    res += k - idx//K
+    return res
+
+answer = []
+for _ in range(Q):
+    u, v = map(int, input().split())
+    if K == 1:
+        print(abs(u-v))
+        continue
+    dist = 0
+    while True:
+        if u == v:
+            break
+        if u > v:
             u = parent(u)
         else:
             v = parent(v)

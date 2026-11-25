@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 주난의 난(難) - 14497',
-  date: '2026-04-08 07:36:25',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '최단 경로', '데이크스트라', '0-1 너비 우선 탐색'],
-  description: '[Gold IV] 주난의 난(難) - 14497',
+  title: "[Gold IV] 주난의 난(難) - 14497",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "최단 경로", "데이크스트라", "0-1 너비 우선 탐색"],
+  description: "[Gold IV] 주난의 난(難) - 14497",
 };
 
 # [Gold IV] 주난의 난(難) - 14497 
@@ -85,6 +85,7 @@ N, M = map(int, input().split())
 sr, sc, er, ec = map(lambda x:int(x)-1, input().split())
 board = [list(input().strip()) for _ in range(N)]
 
+
 visited = [[-1]*M for _ in range(N)]
 visited[sr][sc] = 1
 queue = deque([(sr, sc)])
@@ -95,7 +96,7 @@ while queue:
     
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nr=N or nc=M:
+        if nr<0 or nr>=N or nc<0 or nc>=M:
             continue
         if visited[nr][nc] != -1:
             continue

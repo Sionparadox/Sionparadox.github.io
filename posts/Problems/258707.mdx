@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] n + 1 카드게임 - 258707",
-  date: "2026-07-30 12:10:58",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] n + 1 카드게임 - 258707",
 };
@@ -48,7 +48,7 @@ export const metadata = {
 제한사항
 
 0 ≤ coin ≤ n
-6 ≤ cards의 길이 = n < 1,000
+6 ≤ cards의 길이 = n \< 1,000
 
 cards[i]는 i+1번째로 뽑는 카드에 적힌 수를 나타냅니다.
 1 ≤ cards[i] ≤ n
@@ -125,11 +125,36 @@ class Solution {
         int answer = 0;
         int N = cards.length;
         
-        Set mine = new HashSet<>();
+        Set<Integer> mine = new HashSet<>();
         int[] pair = {0, 0, 0};
-        for (int i = 0;i waits = new HashSet<>();  
+        for (int i = 0;i<N/3;i++){
+            int card = cards[i];
+            if (mine.contains(N+1-card)){
+                mine.remove(N+1-card);
+                pair[0]++;
+            } else {
+                mine.add(card);
+            }
+        }
+        
+        Set<Integer> waits = new HashSet<>();  
 
-        for (int i=N/3;i 0){
+        for (int i=N/3;i<N;i+= 2){
+            for (int j=i;j<i+2;j++){
+                int card = cards[j];
+                if (mine.contains(N+1-card)){
+                    mine.remove(N+1-card);
+                    pair[1]++;
+                } else if (waits.contains(N+1-card)){
+                    waits.remove(N+1-card);
+                    pair[2]++;
+                } else {
+                    waits.add(card);
+                }
+                
+            }
+            
+            if (pair[0] > 0){
                 pair[0]--;
             } else if (coin >= 1 && pair[1]>0){
                 pair[1]--;
@@ -147,11 +172,15 @@ class Solution {
     }
 }
 
+
+
 /*
 2, [5, 8, 1, 2, 9, 4, 12, 11, 3, 10, 6, 7]
 
+
 1 2             1
 1 2     9 4     1
+
 
 dp[i][coin] : i번째 턴을 진행했을 때 동전 coin개를 남기고 얻는 최대 pair수
 

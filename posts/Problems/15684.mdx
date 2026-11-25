@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 사다리 조작 - 15684',
-  date: '2025-07-22 07:35:18',
-  tags: ['구현', '브루트포스 알고리즘', '백트래킹'],
-  description: '[Gold III] 사다리 조작 - 15684',
+  title: "[Gold III] 사다리 조작 - 15684",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "브루트포스 알고리즘", "백트래킹"],
+  description: "[Gold III] 사다리 조작 - 15684",
 };
 
 # [Gold III] 사다리 조작 - 15684 
@@ -89,7 +89,16 @@ for i in range(H):
     for j in range(N - 1):
         if ladder[i][j]: continue
         if j > 0 and ladder[i][j-1]: continue
-        if j  0 and ladder[r][now-1]:
+        if j < N - 2 and ladder[i][j+1]: continue
+        possible.append((i, j))
+
+def check():
+    for c in range(N):
+        now = c
+        for r in range(H):
+            if ladder[r][now]:
+                now += 1
+            elif now > 0 and ladder[r][now-1]:
                 now -= 1
         if now != c:
             return False

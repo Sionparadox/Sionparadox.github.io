@@ -1,0 +1,73 @@
+export const metadata = {
+  title: "[Silver I] 겹치는 건 싫어 - 20922",
+  date: "2026-11-25 15:31:23",
+  tags: ["두 포인터"],
+  description: "[Silver I] 겹치는 건 싫어 - 20922",
+};
+
+# [Silver I] 겹치는 건 싫어 - 20922 
+
+[문제 링크](https://www.acmicpc.net/problem/20922) 
+
+### 성능 요약
+
+메모리: 38964 KB, 시간: 244 ms
+
+### 분류
+
+두 포인터
+
+### 제출 일자
+
+2025년 3월 9일 19:13:36
+
+### 문제 설명
+
+홍대병에 걸린 도현이는 겹치는 것을 매우 싫어한다. 특히 수열에서 같은 원소가 여러 개 들어 있는 수열을 싫어한다. 도현이를 위해 같은 원소가 개 이하로 들어 있는 최장 연속 부분 수열의 길이를 구하려고 한다.
+
+ 이하의 양의 정수로 이루어진 길이가 인 수열이 주어진다.  이 수열에서 같은 정수를 개 이하로 포함한 최장 연속 부분 수열의 길이를 구하는 프로그램을 작성해보자.
+
+### 입력 
+
+ 첫째 줄에 정수  ()과  ()가 주어진다.
+
+둘째 줄에는 이 주어진다 ()
+
+### 출력 
+
+ 조건을 만족하는 최장 연속 부분 수열의 길이를 출력한다.
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs
+  .readFileSync('/dev/stdin')
+  .toString()
+  .trim()
+  .split('\n')
+  .map((str) => str.split(' ').map(Number));
+// const input = fs
+//   .readFileSync('input.txt')
+//   .toString()
+//   .trim()
+//   .split('\n')
+//   .map((str) => str.split(' ').map(Number));
+const [N, K] = input[0];
+const nums = input[1];
+let ans = 0;
+let s = 0;
+let e = 0;
+const map = new Map();
+map.set(nums[0], 1);
+while (s < N && e < N) {
+  if (map.get(nums[e]) <= K) {
+    e++;
+    map.set(nums[e], (map.get(nums[e]) || 0) + 1);
+    ans = Math.max(ans, e - s);
+  } else {
+    map.set(nums[s], map.get(nums[s]) - 1);
+    s++;
+  }
+}
+console.log(ans);
+```

@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Silver I] 숨바꼭질 - 1697',
-  date: '2026-02-23 07:49:21',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색'],
-  description: '[Silver I] 숨바꼭질 - 1697',
+  title: "[Silver I] 숨바꼭질 - 1697",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색"],
+  description: "[Silver I] 숨바꼭질 - 1697",
 };
 
 # [Silver I] 숨바꼭질 - 1697 
@@ -55,7 +55,7 @@ while queue:
         print(cnt)
         break
     for np in [pos-1, pos+1, pos*2]:
-        if npMAX:
+        if np<0 or np>MAX:
             continue
         if visited[np]:
             continue

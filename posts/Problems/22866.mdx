@@ -1,0 +1,128 @@
+export const metadata = {
+  title: "[Gold III] 탑 보기 - 22866",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "스택"],
+  description: "[Gold III] 탑 보기 - 22866",
+};
+
+# [Gold III] 탑 보기 - 22866 
+
+[문제 링크](https://www.acmicpc.net/problem/22866) 
+
+### 성능 요약
+
+메모리: 56792 KB, 시간: 340 ms
+
+### 분류
+
+자료 구조, 스택
+
+### 제출 일자
+
+2025년 6월 10일 00:31:13
+
+### 문제 설명
+
+일직선으로 다양한 높이의 건물이 총 개가 존재한다. 각 건물 옥상에서 양 옆에 존재하는 건물의 옆을 몇 개 볼 수 있는지 궁금해졌다.
+
+번째 건물 기준으로 , , ..., 번째 건물은 왼쪽에, , , ..., 번째 건물은 오른쪽에 있다. 각 건물 사이의 거리는 다 동일하다.
+
+현재 있는 건물의 높이가 이라고 가정하면 높이가 보다 큰 곳의 건물만 볼 수 있다.
+
+바라보는 방향으로 높이가 인 건물 뒤에 높이가 이하인 건물이 있다면 가려져서 보이지 않는다.
+
+	
+		
+			번호
+			1
+			2
+			3
+			4
+			5
+			6
+			7
+			8
+		
+		
+			높이
+			3
+			7
+			1
+			6
+			3
+			5
+			1
+			7
+		
+		
+			보이는 건물 번호
+			2
+			x
+			2, 4, 8
+			2, 8
+			2,4,6,8
+			2,4,8
+			2,4,6,8
+			x
+		
+	
+
+각 건물에서 볼 수 있는 건물들이 어떤것이 있는지 구해보자.
+
+### 입력 
+
+ 첫번째 줄에 건물의 개수 이 주어진다.
+
+두번째 줄에는 개의 건물 높이가 공백으로 구분되어 주어진다.
+
+### 출력 
+
+ 번째 건물에서 볼 수 있는 건물의 개수를 출력한다.
+
+만약 볼 수 있는 건물의 개수가 1개 이상이라면 번째 건물에서 거리가 가장 가까운 건물의 번호 중 작은 번호로 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+height = list(map(int, input().split()))
+
+result= [[0, 0] for _ in range(N)]
+stack = []
+for i in range(N):
+    h = height[i]
+    while stack and height[stack[-1]] <= h:
+        stack.pop()
+    
+    if stack:
+        result[i][0] += len(stack)
+        result[i][1] = stack[-1] + 1
+    stack.append(i)
+
+stack = []
+for i in range(N-1, -1, -1):
+    h = height[i]
+    while stack and height[stack[-1]] <= h:
+        stack.pop()
+    
+    if stack:
+        if result[i][0] == 0 or abs(stack[-1] - i) < abs(result[i][1]-i-1):
+            result[i][1] = stack[-1] + 1
+        result[i][0] += len(stack)
+    stack.append(i)
+
+for cnt, num in result:
+    if cnt == 0:
+        print(0)
+    else:
+        print(cnt, num)
+
+'''
+높이를 왼쪽 -> 오른쪽으로 돌며 스택에 쌓고
+스택에 나보다 낮은 높이를 pop
+이후 스택이 남았다면 개수를 스택 길이만큼 증가, 해당 노드를 가까운 노드로 설정
+위 과정을 오른쪽 -> 왼쪽으로 한번 더 함
+'''
+```

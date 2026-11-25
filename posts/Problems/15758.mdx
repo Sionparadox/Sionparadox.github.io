@@ -1,0 +1,34 @@
+export const metadata = {
+  title: "[D3] 무한 문자열 - 15758",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 무한 문자열 - 15758",
+};
+
+# [D3] 무한 문자열 - 15758 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYP5JmsqcngDFATW) 
+
+### 성능 요약
+
+메모리: 53,760 KB, 시간: 68 ms, 코드길이: 225 Bytes
+
+### 제출 일자
+
+2026-06-14 18:47
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+import math
+TC = int(input())
+for tc in range(1, TC+1):
+    S, T = input().split()
+    N, M = len(S), len(T)
+    k = math.gcd(N, M)
+    if S*(M//k) == T*(N//k):
+        print(f'#{tc} yes')
+    else:
+        print(f'#{tc} no')
+```

@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 2] 선인장 숨기기 - 468379",
-  date: "2026-08-21 14:28:31",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 2] 선인장 숨기기 - 468379",
 };
@@ -46,8 +46,8 @@ m개의 행과 n개의 열로 구성된 격자가 주어지며, 이는 사막 �
 
 drops[i]는 [r, c] 형태입니다.
 drops[i]는 i + 1번째로 떨어진 빗방울의 좌표를 의미합니다.
-0 ≤ r < m
-0 ≤ c < n
+0 ≤ r \< m
+0 ≤ c \< n
 drops의 모든 원소는 서로 다른 칸을 나타냅니다.
 
 테스트 케이스 구성 안내
@@ -203,7 +203,62 @@ class SegmentTree {
     }
     
     public int query(int node, int start, int end, int left, int right){
-        if (start > right || end = left && end  maxTime){
+        if (start > right || end < left) return Integer.MAX_VALUE;
+        if (start >= left && end <= right) return tree[node];
+        
+        int mid = (start+end)/2;
+        int l = query(node*2, start, mid, left, right);
+        int r = query(node*2+1, mid+1, end, left, right);
+        return Math.min(l, r);
+    }
+}
+
+
+class Solution {
+    public int[] solution(int m, int n, int h, int w, int[][] drops) {
+        // 보드 초기화
+        int[][] board = new int[m][n];
+        for (int[] row:board){
+            Arrays.fill(row, Integer.MAX_VALUE);
+        }
+        
+        // 비오는 위치 갱신
+        for (int i=0; i<drops.length; i++){
+            int r = drops[i][0];
+            int c = drops[i][1];
+            if (board[r][c] == Integer.MAX_VALUE) {
+                board[r][c] = i;
+            }
+        }
+        
+        // 행 범위 내 최소값 기록
+        // 전치행렬로 전환
+        int[][] minRow = new int[n-w+1][m];
+        for (int r=0; r<m; r++){
+            SegmentTree segmentTree = new SegmentTree(board[r]);
+            for (int c=0; c<n-w+1; c++){
+                minRow[c][r] = segmentTree.query(1, 0, n-1, c, c+w-1);
+            }
+        }
+        
+        int maxTime = 0;
+        int ar = 0;
+        int ac = 0;
+        // 열범위에 대해 최소값을 찾아 갱신
+        for (int c=0; c<n-w+1; c++){
+            SegmentTree segmentTree = new SegmentTree(minRow[c]);
+            for (int r=0; r<m-h+1; r++){
+                int time = segmentTree.query(1, 0, m-1, r, r+h-1);
+                
+                // 행이 작은 값, 열이 작은 값 우선 처리
+                if (time == maxTime && (r<ar || r == ar && c < ac)){
+                    maxTime = time;
+                    ar = r;
+                    ac = c;
+                }
+                
+                // 정답 갱신
+                if (time > maxTime){
                     maxTime = time;
                     ar = r;
                     ac = c;

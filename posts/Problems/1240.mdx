@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] 노드사이의 거리 - 1240',
-  date: '2026-03-17 08:16:31',
-  tags: ['그래프 이론', '그래프 탐색', '트리', '너비 우선 탐색', '깊이 우선 탐색'],
-  description: '[Gold V] 노드사이의 거리 - 1240',
+  title: "[Gold V] 노드사이의 거리 - 1240",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "트리", "너비 우선 탐색", "깊이 우선 탐색"],
+  description: "[Gold V] 노드사이의 거리 - 1240",
 };
 
 # [Gold V] 노드사이의 거리 - 1240 
@@ -45,6 +45,7 @@ for _ in range(N-1):
     u, v, d = map(int, input().split())
     graph[u].append((v, d))
     graph[v].append((u, d))
+
 
 def BFS(node, target):
     visited = [False]*(N+1)

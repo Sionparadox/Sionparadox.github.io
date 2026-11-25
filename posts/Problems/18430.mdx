@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 무기 공학 - 18430',
-  date: '2025-07-08 06:01:32',
-  tags: ['백트래킹'],
-  description: '[Gold IV] 무기 공학 - 18430',
+  title: "[Gold IV] 무기 공학 - 18430",
+  date: "2026-11-25 15:31:23",
+  tags: ["백트래킹"],
+  description: "[Gold IV] 무기 공학 - 18430",
 };
 
 # [Gold IV] 무기 공학 - 18430 
@@ -68,7 +68,7 @@ answer = 0
 def check(r, c, d):
     dr, dc = directions[d]
     r, c = r+dr, c+dc
-    if r=N or c=M:
+    if r<0 or r>=N or c<0 or c>=M:
         return (-1, -1)
     if visited[r][c]:
         return(-1, -1)

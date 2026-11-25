@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 해킹 - 10282',
-  date: '2025-08-22 05:06:06',
-  tags: ['그래프 이론', '최단 경로', '데이크스트라'],
-  description: '[Gold IV] 해킹 - 10282',
+  title: "[Gold IV] 해킹 - 10282",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "최단 경로", "데이크스트라"],
+  description: "[Gold IV] 해킹 - 10282",
 };
 
 # [Gold IV] 해킹 - 10282 
@@ -55,10 +55,14 @@ def dijkstra(start, n):
     heapq.heappush(pq, (0, start))
     while pq:
         d, node = heapq.heappop(pq)
-        if dist[node] nd:
+        if dist[node] < d: continue
+        for nxt, t in graph[node]:
+            nd = d+t
+            if dist[nxt]>nd:
                 dist[nxt] = nd
                 heapq.heappush(pq, (nd, nxt))
     return dist
+
 
 T = int(input())
 for _ in range(T):

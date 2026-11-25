@@ -1,0 +1,44 @@
+export const metadata = {
+  title: "[D3] 쉬운 삼각형 - 26502",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 쉬운 삼각형 - 26502",
+};
+
+# [D3] 쉬운 삼각형 - 26502 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZz7DObKASzHBIRj) 
+
+### 성능 요약
+
+메모리: 59,264 KB, 시간: 91 ms, 코드길이: 606 Bytes
+
+### 제출 일자
+
+2026-06-09 18:51
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+from collections import defaultdict
+TC = int(input())
+for _ in range(TC):
+    N = int(input())
+    x_pos = defaultdict(list)
+    y_pos = defaultdict(list)
+    arr = [tuple(map(int, input().split())) for _ in range(N)]
+    for x, y in arr:
+        x_pos[x].append(y)
+        y_pos[y].append(x)
+        
+    answer = 0
+    for x, y in arr:
+        if len(x_pos[x]) == 1 or len(y_pos[y]) == 1:
+            continue
+        width = max(abs(x-min(y_pos[y])), abs(x-max(y_pos[y])))
+        height = max(abs(y-min(x_pos[x])), abs(y-max(x_pos[x])))
+        answer = max(answer, width*height)
+    
+    print(answer)
+```

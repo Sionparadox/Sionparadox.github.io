@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 면접보는 승범이네 - 17835',
-  date: '2026-03-15 09:09:57',
-  tags: ['그래프 이론', '최단 경로', '데이크스트라'],
-  description: '[Gold II] 면접보는 승범이네 - 17835',
+  title: "[Gold II] 면접보는 승범이네 - 17835",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "최단 경로", "데이크스트라"],
+  description: "[Gold II] 면접보는 승범이네 - 17835",
 };
 
 # [Gold II] 면접보는 승범이네 - 17835 
@@ -68,9 +68,13 @@ for e in endpoint:
     dist[e] = 0
     heapq.heappush(pq, (0, e))
 
+
 while pq:
     d, node = heapq.heappop(pq)
-    if dist[node]  d+c:
+    if dist[node] < d:
+        continue
+    for nxt, c in graph[node]:
+        if dist[nxt] > d+c:
             dist[nxt] = d+c
             heapq.heappush(pq, (d+c, nxt))
 

@@ -1,0 +1,80 @@
+export const metadata = {
+  title: "[Gold IV] 데이터 체커 - 22942",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "기하학", "정렬", "스택", "스위핑"],
+  description: "[Gold IV] 데이터 체커 - 22942",
+};
+
+# [Gold IV] 데이터 체커 - 22942 
+
+[문제 링크](https://www.acmicpc.net/problem/22942) 
+
+### 성능 요약
+
+메모리: 117664 KB, 시간: 664 ms
+
+### 분류
+
+자료 구조, 기하학, 정렬, 스택, 스위핑
+
+### 제출 일자
+
+2025년 3월 12일 18:07:09
+
+### 문제 설명
+
+원 이동하기 2 문제를 만들고 만든 데이터가 문제의 조건에 맞는지 확인하는 코드를 작성해야한다.
+
+해당 문제의 데이터는 아래 조건들을 만족해야한다.
+
+	모든 원의 중심 좌표는 축 위에 존재해야 한다.
+	개의 원 중 임의의 두 원을 선택했을 때, 교점이 존재하지 않아야 한다. 즉, 하나의 원이 다른 원 안에 존재하거나 외부에 존재한다.
+
+데이터 형식은 원의 개수 이랑 각 원의 중심 좌표, 원의 반지름 만 주어진다. 따라서, 2번 조건을 만족하는지만 확인하면 된다.
+
+주어진 데이터가 해당 조건을 만족하는지 확인해보자.
+
+### 입력 
+
+ 첫 번째 줄에는 원의 개수 이 주어진다.
+
+두 번째 줄부터 번째 줄까지 원의 중심 좌표, 원의 반지름 이 공백으로 구분되어 주어진다.
+
+### 출력 
+
+ 데이터가 조건에 맞는다면 YES, 조건에 만족하지 않는다면 NO를 출력한다.
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
+// const input = fs.readFileSync('input.txt').toString().trim().split('\n');
+const N = parseInt(input[0]);
+const arr = input.slice(1).map((item) => item.split(' ').map(Number));
+const points = [];
+for (let i = 0; i < N; i++) {
+  const [x, r] = arr[i];
+  points.push({ pos: x - r, type: 's', idx: i });
+  points.push({ pos: x + r, type: 'e', idx: i });
+}
+points.sort((a, b) => {
+  if (a.pos != b.pos) return a.pos - b.pos;
+  return a.type == 'e' ? 1 : -1;
+});
+
+const stack = [];
+let ans = 'YES';
+for (const p of points) {
+  if (p.type == 's') {
+    stack.push(p.idx);
+  } else {
+    if (stack.at(-1) == p.idx) {
+      stack.pop();
+    } else {
+      ans = 'NO';
+      break;
+    }
+  }
+}
+console.log(ans);
+```

@@ -1,0 +1,36 @@
+export const metadata = {
+  title: "[D3] [Professional] 합 - 5642",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] [Professional] 합 - 5642",
+};
+
+# [D3] [Professional] 합 - 5642 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXQm2SqdxkDFAUo) 
+
+### 성능 요약
+
+메모리: 99,368 KB, 시간: 400 ms, 코드길이: 293 Bytes
+
+### 제출 일자
+
+2026-06-28 18:01
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+INF = float('inf')
+TC = int(input())
+for tc in range(1, TC+1):
+    N = int(input())
+    arr = list(map(int, input().split()))
+    max_value = 0
+    answer = -INF
+    for n in arr:
+        max_value = max(n, max_value+n)
+        answer = max(answer, max_value)
+    
+    print(f'#{tc} {answer}')
+```

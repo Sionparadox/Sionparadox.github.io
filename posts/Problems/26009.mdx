@@ -1,0 +1,30 @@
+export const metadata = {
+  title: "[D3] 곱의 합 - 26009",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 곱의 합 - 26009",
+};
+
+# [D3] 곱의 합 - 26009 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZv9opVqDDXHBIQE) 
+
+### 성능 요약
+
+메모리: 50,048 KB, 시간: 57 ms, 코드길이: 164 Bytes
+
+### 제출 일자
+
+2026-05-20 15:31
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+MOD = 998244353
+TC = int(input())
+for _ in range(TC):
+    a, b, c = map(int, input().split())
+    res = (a*(a+1)//2 * b*(b+1)//2 * c*(c+1)//2 ) % MOD
+    print(res)
+```

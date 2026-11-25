@@ -1,0 +1,48 @@
+export const metadata = {
+  title: "[D3] DNA 수열 - 26837",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] DNA 수열 - 26837",
+};
+
+# [D3] DNA 수열 - 26837 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZ5ipX4ahvPHBITl) 
+
+### 성능 요약
+
+메모리: 65,152 KB, 시간: 178 ms, 코드길이: 475 Bytes
+
+### 제출 일자
+
+2026-06-25 18:15
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+from collections import Counter
+TC = int(input())
+for _ in range(TC):
+    N, S = input().split()
+    N = int(N)
+    AT = CG = 0
+    counter = Counter()
+    counter[(0, 0)] = 1
+    answer = 0
+    
+    for ch in S:
+        if ch == 'A':
+            AT += 1
+        elif ch == 'T':
+            AT -= 1
+        elif ch == 'C':
+            CG += 1
+        else:
+            CG -= 1
+        
+        answer += counter[(AT, CG)]
+        counter[(AT, CG)] += 1
+    
+    print(answer)
+```

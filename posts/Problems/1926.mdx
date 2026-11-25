@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Silver I] 그림 - 1926',
-  date: '2026-02-23 06:17:46',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '깊이 우선 탐색', '격자 그래프', '플러드 필'],
-  description: '[Silver I] 그림 - 1926',
+  title: "[Silver I] 그림 - 1926",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "깊이 우선 탐색", "격자 그래프", "플러드 필"],
+  description: "[Silver I] 그림 - 1926",
 };
 
 # [Silver I] 그림 - 1926 
@@ -53,7 +53,7 @@ def BFS(r, c):
         size += 1
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if 0>nr or Nnc or M<=nc:
+            if 0>nr or N<=nr or 0>nc or M<=nc:
                 continue
             if visited[nr][nc] or board[nr][nc] == 0:
                 continue

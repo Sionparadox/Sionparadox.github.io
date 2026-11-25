@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 세금 - 13907',
-  date: '2026-03-19 08:02:03',
-  tags: ['다이나믹 프로그래밍', '그래프 이론', '최단 경로', '데이크스트라'],
-  description: '[Platinum IV] 세금 - 13907',
+  title: "[Platinum IV] 세금 - 13907",
+  date: "2026-11-25 15:31:23",
+  tags: ["다이나믹 프로그래밍", "그래프 이론", "최단 경로", "데이크스트라"],
+  description: "[Platinum IV] 세금 - 13907",
 };
 
 # [Platinum IV] 세금 - 13907 
@@ -35,7 +35,7 @@ export const metadata = {
 
 두 번째 줄에는 두 정수 S와 D (1 ≤ S, D ≤ N, S ≠ D)가 주어진다. 각각 출발 도시와 도착 도시 번호를 의미한다. 도시 번호는 1부터 시작한다.
 
-다음 M개의 줄에는 각각 도로 정보를 나타내는 세 정수 a, b (1 ≤ a 
+다음 M개의 줄에는 각각 도로 정보를 나타내는 세 정수 a, b (1 ≤ a \< b ≤ N), w (1 ≤ w ≤ 1,000)가 주어진다. 도시 a와 도시 b가 통행료 w인 도로로 연결되어 있다는 것을 의미한다.
 
 다음 총 K개의 줄에는 각각 정수 p (1 ≤ p ≤ 10)가 주어진다. 각각 첫 번째, 두 번째, …, K 번째에 인상되는 세금을 의미한다.
 
@@ -66,6 +66,7 @@ prefix = [0]
 for _ in range(K):
     prefix.append(int(input()) + prefix[-1])
 
+
 dist = [[INF]*(N+1) for _ in range(N+1)]
 dist[S][0] = 0
 pq = []
@@ -73,7 +74,17 @@ heapq.heappush(pq, (0, S, 0))
 
 def check(node, cnt, cost):
     for i in range(cnt + 1):
-        if dist[node][i] = N: continue
+        if dist[node][i] <= cost:
+            return False
+    return True
+
+while pq:
+    cost, curr, cnt = heapq.heappop(pq)
+    
+    if dist[curr][cnt] < cost:
+        continue
+    
+    if cnt >= N: continue
 
     for nxt, nc in graph[curr]:
         new_cost = cost + nc

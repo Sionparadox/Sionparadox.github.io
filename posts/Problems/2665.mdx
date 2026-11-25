@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 미로만들기 - 2665',
-  date: '2026-04-08 06:38:01',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '최단 경로', '데이크스트라', '격자 그래프', '0-1 너비 우선 탐색'],
-  description: '[Gold IV] 미로만들기 - 2665',
+  title: "[Gold IV] 미로만들기 - 2665",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "최단 경로", "데이크스트라", "격자 그래프", "0-1 너비 우선 탐색"],
+  description: "[Gold IV] 미로만들기 - 2665",
 };
 
 # [Gold IV] 미로만들기 - 2665 
@@ -65,7 +65,7 @@ while queue:
     
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nr=N or nc=N:
+        if nr<0 or nr>=N or nc<0 or nc>=N:
             continue
         if visited[nr][nc] != -1:
             continue

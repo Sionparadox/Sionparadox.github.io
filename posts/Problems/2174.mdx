@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Unrated] 로봇 시뮬레이션 - 2174',
-  date: '2025-07-03 08:32:55',
-  tags: ['분류 없음'],
-  description: '[Unrated] 로봇 시뮬레이션 - 2174',
+  title: "[Unrated] 로봇 시뮬레이션 - 2174",
+  date: "2026-11-25 15:31:23",
+  tags: ["분류 없음"],
+  description: "[Unrated] 로봇 시뮬레이션 - 2174",
 };
 
 # [Unrated] 로봇 시뮬레이션 - 2174 
@@ -75,7 +75,7 @@ def practice(idx, k, cmd):
         nr, nc = r, c
         for _ in range(k):
             nr, nc = nr+dr, nc+dc
-            if nr = R or nc = C:
+            if nr < 0 or nr >= R or nc < 0 or nc >= C:
                 print(f'Robot {idx} crashes into the wall')
                 return False
             if board[nr][nc] != 0:

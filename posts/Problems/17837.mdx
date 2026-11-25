@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 새로운 게임 2 - 17837',
-  date: '2025-06-30 14:03:19',
-  tags: ['구현', '시뮬레이션'],
-  description: '[Gold II] 새로운 게임 2 - 17837',
+  title: "[Gold II] 새로운 게임 2 - 17837",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "시뮬레이션"],
+  description: "[Gold II] 새로운 게임 2 - 17837",
 };
 
 # [Gold II] 새로운 게임 2 - 17837 
@@ -130,11 +130,25 @@ for i in range(K):
     token_dir[i] = d-1
 
 def reverseDirection(d):
-    if d= N or nc = N or board[nr][nc] == 2:
+    if d<2:
+        return 1-d
+    else:
+        return 5-d
+
+def move(idx, isReverse = False):
+    r, c = pos[idx]
+    d = token_dir[idx]
+    dr, dc = directions[d]
+    nr, nc = r+dr, c+dc
+    index = token[r][c].index(idx)
+    stack = token[r][c][index:]
+    token[r][c] = token[r][c][:index]
+    
+    if nr < 0 or nr >= N or nc <0 or nc >= N or board[nr][nc] == 2:
         token_dir[idx] = reverseDirection(d)
         dr, dc = directions[token_dir[idx]]
         nr, nc = r+dr, c+dc
-        if nr = N or nc = N or board[nr][nc] == 2:
+        if nr < 0 or nr >= N or nc <0 or nc >= N or board[nr][nc] == 2:
             token[r][c].extend(stack)
             return False
     if board[nr][nc] == 1:

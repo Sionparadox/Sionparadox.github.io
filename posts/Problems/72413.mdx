@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 합승 택시 요금 - 72413",
-  date: "2026-10-11 07:32:08",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] 합승 택시 요금 - 72413",
 };
@@ -135,12 +135,13 @@ A와 B가 4→6 구간을 합승하고 B가 6번 지점에서 내린 후, A가6�
 import java.util.*;
 
 class Solution {
-    ArrayList[] graph;
+    ArrayList<int[]>[] graph;
     int N;
     public int solution(int n, int s, int a, int b, int[][] fares) {
         N = n;
         graph = new ArrayList[n];
-        for (int i=0; i();
+        for (int i=0; i<n; i++){
+            graph[i] = new ArrayList<>();
         }
         
         for (int[] fare:fares){
@@ -155,7 +156,19 @@ class Solution {
         int[] distS = dijkstra(s-1);
         
         int answer = Integer.MAX_VALUE;
-        for (int i=0; i pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
+        for (int i=0; i<N; i++){
+            int cost = distA[i] + distB[i] + distS[i];
+            answer = Math.min(answer, cost);
+        }
+        
+        return answer;
+    }
+    
+    private int[] dijkstra(int node){
+        int[] dist = new int[N];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[node] = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
         pq.offer(new int[] {node, 0});
         while (!pq.isEmpty()){
             int[] curr = pq.poll();

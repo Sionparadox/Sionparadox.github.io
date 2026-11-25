@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 구간 합 구하기 2 - 10999',
-  date: '2026-04-13 07:54:48',
-  tags: ['세그먼트 트리', '느리게 갱신되는 세그먼트 트리', '자료 구조'],
-  description: '[Platinum IV] 구간 합 구하기 2 - 10999',
+  title: "[Platinum IV] 구간 합 구하기 2 - 10999",
+  date: "2026-11-25 15:31:23",
+  tags: ["세그먼트 트리", "느리게 갱신되는 세그먼트 트리", "자료 구조"],
+  description: "[Platinum IV] 구간 합 구하기 2 - 10999",
 };
 
 # [Platinum IV] 구간 합 구하기 2 - 10999 
@@ -59,12 +59,28 @@ def lazy_update(node, s, e):
             lazy[node*2+1] += lazy[node]
         lazy[node] = 0
 
+
 def update(node, s, e, left, right, value):
     lazy_update(node, s, e)
-    if eright:
+    if e<left or s>right:
         return
     
-    if left right:
+    if left <= s and e <= right:
+        segment_tree[node] += (e-s+1)*value
+        if s != e:
+            lazy[node*2] += value
+            lazy[node*2+1] += value
+        return
+
+    mid = (s+e)//2
+    update(node*2, s, mid, left, right, value)
+    update(node*2+1, mid+1, e, left, right, value)
+    segment_tree[node] = segment_tree[node*2] + segment_tree[node*2+1]
+
+
+def query(node, s, e, left, right):
+    lazy_update(node, s, e)
+    if e<left or s>right:
         return 0
     if s >= left and e <= right:
         return segment_tree[node]
@@ -73,6 +89,7 @@ def update(node, s, e, left, right, value):
     L = query(node*2, s, mid, left, right)
     R = query(node*2+1, mid+1, e, left, right)
     return L+R
+
 
 N, M, K = map(int, input().split())
 nums = [int(input()) for _ in range(N)]

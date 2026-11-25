@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 단속카메라 - 42884",
-  date: "2026-08-14 13:44:48",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] 단속카메라 - 42884",
 };
@@ -58,27 +58,15 @@ return
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
 
 ### 풀이
-```java
-import java.util.*;
-class Solution {
-    public int solution(int[][] routes) {
-        int answer = 0;
-        Arrays.sort(routes, (o1, o2) -> Integer.compare(o1[1], o2[1]));
-        int pos = -30001;
-        for (int[] route:routes){
-            int s = route[0];
-            int e = route[1];
-            if (pos < s){
-                pos = e;
-                answer++;
-            } 
-        }
-        
-        return answer;
-    }
-}
-/*
-끝나는 지점을 기준으로 정렬
-카메라 위치가 내 시작지점보다 작으면 내 끝나는 지점으로 카메라 위치 설정
-*/
+```python
+def solution(routes):
+    answer = 0
+    pos = -30001
+    routes.sort(key= lambda x: x[1])
+    for start, end in routes:
+        if pos < start:
+            pos = end
+            answer += 1
+            
+    return answer;
 ```

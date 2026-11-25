@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 달빛 여우 - 16118',
-  date: '2026-04-08 08:08:51',
-  tags: ['그래프 이론', '최단 경로', '데이크스트라'],
-  description: '[Gold I] 달빛 여우 - 16118',
+  title: "[Gold I] 달빛 여우 - 16118",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "최단 경로", "데이크스트라"],
+  description: "[Gold I] 달빛 여우 - 16118",
 };
 
 # [Gold I] 달빛 여우 - 16118 
@@ -61,7 +61,12 @@ pq = [(0, 1)]
 while pq:
     d, curr = heapq.heappop(pq)
     
-    if dist[curr] new_d:
+    if dist[curr]<d:
+        continue
+    
+    for nxt, nd in graph[curr]:
+        new_d = d+nd
+        if dist[nxt] > new_d:
             dist[nxt] = new_d
             heapq.heappush(pq, (new_d, nxt))
 
@@ -72,7 +77,17 @@ pq = [(0, 1, 0)]
 while pq:
     d, curr, state = heapq.heappop(pq)
     
-    if wolf[curr][state]  new_d:
+    if wolf[curr][state] < d:
+        continue
+    
+    for nxt, nd in graph[curr]:
+        if state == 0:
+            new_d = d + nd//2
+        else:
+            new_d = d + nd*2
+        
+        new_state = 1-state
+        if wolf[nxt][new_state] > new_d:
             wolf[nxt][new_state] = new_d
             heapq.heappush(pq, (new_d, nxt, new_state))
 

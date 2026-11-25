@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum III] 섬 - 1109',
-  date: '2025-07-02 08:52:03',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '너비 우선 탐색', '깊이 우선 탐색'],
-  description: '[Platinum III] 섬 - 1109',
+  title: "[Platinum III] 섬 - 1109",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "너비 우선 탐색", "깊이 우선 탐색"],
+  description: "[Platinum III] 섬 - 1109",
 };
 
 # [Platinum III] 섬 - 1109 
@@ -87,7 +87,7 @@ def BFS(r, c):
         r, c = queue.popleft()
         for dr, dc in directions[:d]:
             nr, nc = r+dr, c+dc
-            if nr  N+1 or nc  M+1:
+            if nr < 0 or nr > N+1 or nc < 0 or nc > M+1:
                 continue
             
             if not visited[nr][nc]:

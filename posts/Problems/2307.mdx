@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 도로검문 - 2307',
-  date: '2026-04-08 09:35:23',
-  tags: ['그래프 이론', '최단 경로', '데이크스트라', '역추적'],
-  description: '[Gold I] 도로검문 - 2307',
+  title: "[Gold I] 도로검문 - 2307",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "최단 경로", "데이크스트라", "역추적"],
+  description: "[Gold I] 도로검문 - 2307",
 };
 
 # [Gold I] 도로검문 - 2307 
@@ -49,7 +49,7 @@ export const metadata = {
 
 ### 입력 
 
- 첫 줄에는 지점의 수를 나타내는 정수 N(6 ≤ N ≤ 1000)과 도로의 수 M(6 ≤ M ≤ 5000)이 주어진다. 그 다음 이어 나오는 M개의 각 줄에는 도로(a, b)와 그 통과시간 t가 a b t 로 표시된다. 단 이 경우 a 
+ 첫 줄에는 지점의 수를 나타내는 정수 N(6 ≤ N ≤ 1000)과 도로의 수 M(6 ≤ M ≤ 5000)이 주어진다. 그 다음 이어 나오는 M개의 각 줄에는 도로(a, b)와 그 통과시간 t가 a b t 로 표시된다. 단 이 경우 a \< b 이고 1 ≤ t ≤ 10000이다.
 
 ### 출력 
 
@@ -75,10 +75,16 @@ pq = [(0, 1)]
 while pq:
     time, curr = heapq.heappop(pq)
     
-    if dist[curr]  new_time:
+    if dist[curr] < time:
+        continue
+    
+    for nxt, t in graph[curr]:
+        new_time = time + t
+        if dist[nxt] > new_time:
             dist[nxt] = new_time
             parent[nxt] = curr
             heapq.heappush(pq, (new_time, nxt))
+
 
 path = []
 p = N
@@ -94,7 +100,14 @@ def dijkstra(x, y):
     while pq:
         time, curr = heapq.heappop(pq)
         
-        if res[curr]  new_time:
+        if res[curr] < time:
+            continue
+        
+        for nxt, t in graph[curr]:
+            if (curr, nxt) in blocked:
+                continue
+            new_time = time + t
+            if res[nxt] > new_time:
                 res[nxt] = new_time
                 heapq.heappush(pq, (new_time, nxt))
     

@@ -1,0 +1,118 @@
+export const metadata = {
+  title: "[Silver IV] 춤 - 4836",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "문자열", "파싱"],
+  description: "[Silver IV] 춤 - 4836",
+};
+
+# [Silver IV] 춤 - 4836 
+
+[문제 링크](https://www.acmicpc.net/problem/4836) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 32 ms
+
+### 분류
+
+구현, 문자열, 파싱
+
+### 제출 일자
+
+2025년 6월 11일 18:44:15
+
+### 문제 설명
+
+창영이는 요즘 춤을 배우고 있다. 창영이는 다음과 같은 규칙을 따라서 춤을 추어야 한다.
+
+	dip은 jiggle을 춘 다음이나 다다음, 또는 twirl을 추기 전에 출 수 있다. 예를 들면 다음과 같다.
+	
+		...jiggle dip...
+		...jiggle stomp dip...
+		...dip twirl...
+	
+	
+	모든 춤은 clap stomp clap으로 끝나야 한다.
+	만약 twirl을 췄다면, hop도 춰야한다.
+	jiggle로 춤을 시작할 수 없다.
+	반드시 dip을 춰야 한다.
+
+창영이가 춘 춤이 주어졌을 때, 위의 규칙을 지켰는지 아닌지를 알아내는 프로그램을 작성하시오.
+
+### 입력 
+
+ 입력은 여러개의 테스트 케이스로 이루어져 있다. 각 테스트 케이스는 한 줄로 이루어져 있으며, 창영이가 춘 춤이 주어진다. 각 춤은 1000스텝을 넘지 않는다. 각 스텝 알파벳 소문자로 이루어져 있고, 100글자를 넘지 않는다.
+
+### 출력 
+
+ 창영이의 춤이 규칙을 모두 지켰다면, "form ok: "를 출력하고 입력으로 주어진 춤을 출력한다.
+
+창영이의 춤이 규칙을 1개만 어겼다면, "form error K: "를 출력하고 입력으로 주어진 춤을 출력한다. 여기서 K는 창영이가 어긴 규칙의 번호이다.
+
+창영이의 춤이 규칙을 여러개 어겼다면, "form errors K(1), K(2), ..., K(N-1) and K(N): "을 출력하고 입력으로 주어진 춤을 출력한다. K(i)는 창영이가 어긴 규칙의 번호이고, 오름차순이다.
+
+창영이가 1번 규칙을 어겼다면, 입력으로 주어진 춤을 출력할 때, 규칙에 어긋난 dip을 대문자로 출력한다.
+
+### 풀이
+```python
+import sys
+
+def validation(text):
+    arr = text.split()
+    steps = set(arr)
+    res = []
+    dips = []
+    for i in range(len(arr)):
+        if arr[i] == 'dip':
+            flag = False
+            if i>0 and arr[i-1] == 'jiggle':
+                flag = True
+                
+            if i>1 and arr[i-2] == 'jiggle':
+                flag = True
+                
+            if i<len(arr)-1 and arr[i+1] == 'twirl':
+                flag = True
+            
+            if not flag:
+                dips.append(i)
+    if dips:
+        res.append('1')
+            
+    if len(text)<15 or arr[-3:] != ['clap', 'stomp', 'clap']:
+        res.append('2')
+    
+    if 'twirl' in steps and 'hop' not in steps:
+        res.append('3')
+    
+    if arr[0] == 'jiggle':
+        res.append('4')
+    
+    if 'dip' not in steps:
+        res.append('5')
+    
+    return res, dips
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    arr = line.split()
+    errors, dips = validation(line)
+    if errors:
+        text = line
+        if dips:
+            for i in dips:
+                arr[i] = 'DIP'
+            text = ' '.join(arr)
+        
+        if len(errors) == 1:
+            output = f'form error {errors[0]}: {text}'
+        else:
+            err = ', '.join(errors[:-1])+' and '+errors[-1]
+            output = f'form errors {err}: {text}'
+    else:
+        output = f'form ok: {line}'
+        
+    print(output)
+```

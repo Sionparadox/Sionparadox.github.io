@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 과외맨 - 5213',
-  date: '2025-08-12 09:03:40',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '너비 우선 탐색'],
-  description: '[Gold II] 과외맨 - 5213',
+  title: "[Gold II] 과외맨 - 5213",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "너비 우선 탐색"],
+  description: "[Gold II] 과외맨 - 5213",
 };
 
 # [Gold II] 과외맨 - 5213 
@@ -103,7 +103,7 @@ even_directions = [(0, -2), (0, 2), (1, 0), (-1, 0), (1, 2), (-1, 2)] #짝수 �
 odd_directions = [(0, -2), (0, 2), (1, 0), (-1, 0), (1, -2), (-1, -2)] #홀수 행
 
 def check(r, c, nr, nc, d):
-    if nr = N or nc = 2*N: return False
+    if nr < 0 or nr >= N or nc < 0 or nc >= 2*N: return False
     if nr % 2 == 1 and (nc == 0 or nc == 2*N-1): return False
     
     if d in (2,3):

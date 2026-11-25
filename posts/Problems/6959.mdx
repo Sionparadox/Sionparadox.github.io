@@ -1,0 +1,30 @@
+export const metadata = {
+  title: "[D4] 이상한 나라의 덧셈게임 - 6959",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D4] 이상한 나라의 덧셈게임 - 6959",
+};
+
+# [D4] 이상한 나라의 덧셈게임 - 6959 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWjlH0k63joDFAVT) 
+
+### 성능 요약
+
+메모리: 58,880 KB, 시간: 71 ms, 코드길이: 189 Bytes
+
+### 제출 일자
+
+2026-06-10 16:24
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+T = int(input())
+for t in range(1, T+1):
+    nums = list(map(int, list(input().strip())))
+    k = len(nums)-1 + (sum(nums)-1)//9
+    answer = 'A' if k%2 else 'B'
+    print(f'#{t} {answer}')
+```

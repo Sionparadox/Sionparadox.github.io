@@ -1,0 +1,29 @@
+export const metadata = {
+  title: "[D3] 등차수열 만들기 - 18662",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 등차수열 만들기 - 18662",
+};
+
+# [D3] 등차수열 만들기 - 18662 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYo-e9EKmGoDFAQI) 
+
+### 성능 요약
+
+메모리: 52,480 KB, 시간: 65 ms, 코드길이: 177 Bytes
+
+### 제출 일자
+
+2026-06-18 15:59
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+TC = int(input())
+for tc in range(1, TC+1):
+    a, b, c = map(int, input().split())
+    answer = min(abs(2*b-a-c), abs(a+c-2*b), abs((a+c)/2-b))
+    print(f'#{tc} {answer:.1f}')
+```

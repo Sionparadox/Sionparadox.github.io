@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] [카카오 인턴] 보석 쇼핑 - 67258",
-  date: "2026-10-04 06:38:23",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] [카카오 인턴] 보석 쇼핑 - 67258",
 };
@@ -121,15 +121,40 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String[] gems) {
-        HashSet set = new HashSet<>(Arrays.asList(gems));
+        HashSet<String> set = new HashSet<>(Arrays.asList(gems));
         int total = set.size();
         int L = gems.length;
         
-        HashMap map = new HashMap<>();
+        HashMap<String, Integer> map = new HashMap<>();
         int left = 0, right = 0;
         int answerLeft = 0, answerRight = gems.length-1;
         
-        while (right  슬라이딩 윈도우
+        while (right < L) {
+            map.put(gems[right], map.getOrDefault(gems[right], 0)+1);
+            right++;
+            
+            while (map.size() == total){
+                if (right - left < answerRight - answerLeft+1){
+                    answerLeft = left;
+                    answerRight = right-1;
+                }
+                String lGem = gems[left];
+                map.put(lGem, map.get(lGem) - 1);
+                if(map.get(lGem) == 0) map.remove(lGem);
+                left++;
+            }
+        }
+        
+        return new int[] {answerLeft+1, answerRight+1};
+    }
+
+}
+
+/*
+이분탐색?
+10만까지 해당 길이로 만들 수 있는지 확인
+-> 슬라이딩 윈도우
+
 
 */
 ```

@@ -1,0 +1,50 @@
+export const metadata = {
+  title: "[D4] [Professional] 평등주의 - 3814",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D4] [Professional] 평등주의 - 3814",
+};
+
+# [D4] [Professional] 평등주의 - 3814 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH0Qk6qB0sDFAVB) 
+
+### 성능 요약
+
+메모리: 61,312 KB, 시간: 123 ms, 코드길이: 606 Bytes
+
+### 제출 일자
+
+2026-06-15 17:02
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+MAX = 1_000_000_000
+
+def check(diff):
+    arr = nums[:]
+    for i in range(1, N):
+        arr[i] = min(arr[i], arr[i-1]+diff)
+    for i in range(N-1, 0, -1):
+        arr[i-1] = min(arr[i-1], arr[i]+diff)
+    return sum(nums) - sum(arr)
+
+TC = int(input())
+for tc in range(1, TC+1):
+    N, K = map(int, input().split())
+    nums = list(map(int, input().split()))
+    l, r = 0, MAX
+    answer = 0
+    while l<=r:
+        mid = (l+r)//2
+        cnt = check(mid)
+        if cnt<=K:
+            r = mid-1            
+            answer = mid
+        else:
+            l = mid+1
+    
+    print(f'#{tc} {answer}')
+```

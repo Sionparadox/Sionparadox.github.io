@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 맹독 방벽 - 7420',
-  date: '2025-09-04 08:42:40',
-  tags: ['기하학', '볼록 껍질'],
-  description: '[Platinum IV] 맹독 방벽 - 7420',
+  title: "[Platinum IV] 맹독 방벽 - 7420",
+  date: "2026-11-25 15:31:23",
+  tags: ["기하학", "볼록 껍질"],
+  description: "[Platinum IV] 맹독 방벽 - 7420",
 };
 
 # [Platinum IV] 맹독 방벽 - 7420 
@@ -61,7 +61,14 @@ def convex_hull():
     lower = []
     for i in range(N):
         while len(lower)>=2:
-            if CCW(lower[-2], lower[-1], i) =2:
+            if CCW(lower[-2], lower[-1], i) <= 0:
+                lower.pop()
+            else: break
+        lower.append(i)
+    
+    upper = []
+    for i in range(N-1, -1, -1):
+        while len(upper)>=2:
             if CCW(upper[-2], upper[-1], i)<=0:
                 upper.pop()
             else: break

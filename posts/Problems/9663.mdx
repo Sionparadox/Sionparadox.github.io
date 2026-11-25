@@ -1,0 +1,61 @@
+export const metadata = {
+  title: "[Gold IV] N-Queen - 9663",
+  date: "2026-11-25 15:31:23",
+  tags: ["백트래킹", "브루트포스 알고리즘"],
+  description: "[Gold IV] N-Queen - 9663",
+};
+
+# [Gold IV] N-Queen - 9663 
+
+[문제 링크](https://www.acmicpc.net/problem/9663) 
+
+### 성능 요약
+
+메모리: 11432 KB, 시간: 30464 ms
+
+### 분류
+
+백트래킹, 브루트포스 알고리즘
+
+### 제출 일자
+
+2025년 4월 16일 06:37:55
+
+### 문제 설명
+
+N-Queen 문제는 크기가 N × N인 체스판 위에 퀸 N개를 서로 공격할 수 없게 놓는 문제이다.
+
+N이 주어졌을 때, 퀸을 놓는 방법의 수를 구하는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 N이 주어진다. (1 ≤ N \< 15)
+
+### 출력 
+
+ 첫째 줄에 퀸 N개를 서로 공격할 수 없게 놓는 경우의 수를 출력한다.
+
+### 풀이
+```python
+def Queen(row):
+    global cnt
+    if(row==N):
+        cnt += 1
+    else:
+        for i in range(N):
+            check[row] = i
+            if(not isAttack(row)):
+                Queen(row+1)
+
+def isAttack(k):
+    for i in range(k):
+        if(check[i] == check[k] or abs(k-i) == abs(check[k] - check[i])):
+            return True
+    return False
+
+N = int(input())
+cnt = 0
+check = [0 for _ in range(N)]
+Queen(0)
+print(cnt)
+```

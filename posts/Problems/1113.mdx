@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 수영장 만들기 - 1113',
-  date: '2025-07-02 05:44:20',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '시뮬레이션', '너비 우선 탐색', '격자 그래프'],
-  description: '[Gold I] 수영장 만들기 - 1113',
+  title: "[Gold I] 수영장 만들기 - 1113",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "시뮬레이션", "너비 우선 탐색", "격자 그래프"],
+  description: "[Gold I] 수영장 만들기 - 1113",
 };
 
 # [Gold I] 수영장 만들기 - 1113 
@@ -49,6 +49,7 @@ import sys
 import heapq
 input = sys.stdin.readline
 
+
 N, M = map(int, input().split())
 pool = [list(map(int, input().strip())) for _ in range(N)]
 
@@ -67,11 +68,41 @@ while pq:
     
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nr=N or nc=M:
+        if nr<0 or nr>=N or nc<0 or nc>=M:
             continue
         if not visited[nr][nc]:
             visited[nr][nc] = True
-            if pool[nr][nc] = N or nc = M:
+            if pool[nr][nc] < h:
+                answer += h-pool[nr][nc]
+            
+            heapq.heappush(pq, (max(h, pool[nr][nc]), nr, nc))
+
+print(answer)
+            
+
+# import sys
+# from collections import deque
+# input = sys.stdin.readline
+
+
+# N, M = map(int, input().split())
+# pool = [list(map(int, input().strip())) for _ in range(N)]
+
+# directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+# def BFS(r, c, height):
+    # visited[r][c] = True
+    # queue = deque([(r, c)])
+    # canFill = True
+    # res = 0
+    
+    # while queue:
+        # r, c = queue.popleft()
+        # res += height-pool[r][c]
+        # pool[r][c] = height
+        # for dr, dc in directions:
+            # nr, nc = r+dr, c+dc
+            # if nr < 0 or nr >= N or nc < 0 or nc >= M:
                 # canFill = False
                 # continue
             # if not visited[nr][nc] and pool[nr][nc] < height:

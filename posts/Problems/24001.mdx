@@ -1,0 +1,43 @@
+export const metadata = {
+  title: "[D3] 로봇 언어 - 24001",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 로봇 언어 - 24001",
+};
+
+# [D3] 로봇 언어 - 24001 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZVqPrHaAy_HBIOy) 
+
+### 성능 요약
+
+메모리: 59,008 KB, 시간: 87 ms, 코드길이: 339 Bytes
+
+### 제출 일자
+
+2026-06-18 16:31
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+TC = int(input())
+for _ in range(TC):
+    S = input()
+    L = 0
+    R = 0
+    answer = 0
+    for c in S:
+        if c == 'L':
+            L += 1
+            R -= 1
+        elif c == 'R':
+            L -= 1
+            R += 1
+        else:
+            L += 1
+            R += 1
+        answer = max(answer, L, R)
+    
+    print(answer)
+```

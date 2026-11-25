@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 2] 두 큐 합 같게 만들기 - 118667",
-  date: "2026-10-07 11:30:57",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 2] 두 큐 합 같게 만들기 - 118667",
 };
@@ -32,8 +32,11 @@ export const metadata = {
 큐는 먼저 집어넣은 원소가 먼저 나오는 구조입니다. 이 문제에서는 큐를 배열로 표현하며, 원소가 배열 앞쪽에 있을수록 먼저 집어넣은 원소임을 의미합니다. 즉, pop을 하면 배열의 첫 번째 원소가 추출되며, insert를 하면 배열의 끝에 원소가 추가됩니다. 예를 들어 큐 [1, 2, 3, 4]가 주어졌을 때, pop을 하면 맨 앞에 있는 원소 1이 추출되어 [2, 3, 4]가 되며, 이어서 5를 insert하면 [2, 3, 4, 5]가 됩니다.
 
 다음은 두 큐를 나타내는 예시입니다.
+
+```text
 queue1 = [3, 2, 7, 2]
 queue2 = [4, 6, 5, 1]
+```
 
 두 큐에 담긴 모든 원소의 합은 30입니다. 따라서, 각 큐의 합을 15로 만들어야 합니다. 예를 들어, 다음과 같이 2가지 방법이 있습니다.
 
@@ -97,8 +100,28 @@ class Solution {
         int L = queue1.length;
         int[] arr = new int[L*2];
         
-        for (int i=0; ihalf && s=L) continue;
-                if (s=L){
+        for (int i=0; i<L; i++){
+            total += queue1[i];
+            total += queue2[i];
+            arr[i] = queue1[i];
+            arr[i+L] = queue2[i];
+        }
+        
+        long half = total/2;
+        long cnt = 0L;
+        
+        int s = 0;
+        
+        for (int e=0; e<2*L; e++){
+            cnt += arr[e];
+            while (cnt>half && s<e){
+                cnt -= arr[s++];
+            }
+            
+            if (cnt == half){
+                System.out.println("HERE: "+s + " "+e);
+                // if (e-s>=L) continue;
+                if (s<L && e>=L){
                     int k = s + (e-L+1);
                     answer = Math.min(answer, k);
                     System.out.println("CASE1: "+s + " "+e+" "+answer);
@@ -132,6 +155,7 @@ class Solution {
 연결된 원형 큐
 배열 붙이고 첫 배열을 뒤에 한번 더 붙여야할까? NO. 어차피 절반 찾기라 뒤에서 나올 집합은 이미 앞에서 나옴
 
+
 15 만들기
 3 2 7 2 4 6 5 1
 
@@ -143,6 +167,7 @@ class Solution {
 6 5 1 3 (s=1, e=4) -> 4-4+1+1 = 2
 1 3 2 7 2 (s=3, e=7) 4-7+1+3 = 1
 
+
 10 만들기
 
 1 10 1 2 1 2 1 2
@@ -151,13 +176,23 @@ class Solution {
 
 무조건 나온 값을 왼쪽 큐에 배치해야 최적
 
+
 1 5 5 2  2 2 2 1
 5 5 (s=1, e=2) -> 3번 이동 + 5번 이동
 
 2 2 2 1 1 5 5 2
 5 5 (s=5, e=6)
 
-if (s=L) = L) << 다 뒤쪽 큐에 위치한 경우
+
+if (s<L && e>=L) << 양쪽에 위치한 경우
+    L-e+1만큼 뒤에서 밀고 s만큼 앞에서 밀고
+if (s, e <L) << 다 앞쪽 큐에 위치한 경우
+    if (e == L-1) << 끝나는 점이 맨 뒤인 경우
+        s만큼 앞에서 밀기
+    else << 끝나는 점이 맨 뒤가 아닌 경우
+        e+1번 이동 + L+s번 이동
+    
+if (s, e >= L) << 다 뒤쪽 큐에 위치한 경우
     s-L, e-L 해서 바로 다 앞이라 치고 풀기
 
 */

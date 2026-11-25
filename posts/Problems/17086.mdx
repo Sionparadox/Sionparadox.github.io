@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Silver II] 아기 상어 2 - 17086',
-  date: '2025-07-20 07:35:39',
-  tags: ['그래프 이론', '브루트포스 알고리즘', '그래프 탐색', '너비 우선 탐색', '격자 그래프'],
-  description: '[Silver II] 아기 상어 2 - 17086',
+  title: "[Silver II] 아기 상어 2 - 17086",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "브루트포스 알고리즘", "그래프 탐색", "너비 우선 탐색", "격자 그래프"],
+  description: "[Silver II] 아기 상어 2 - 17086",
 };
 
 # [Silver II] 아기 상어 2 - 17086 
@@ -60,7 +60,7 @@ while queue:
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=M:
+            if nr<0 or nr>=N or nc<0 or nc>=M:
                 continue
             if board[nr][nc] != 0:
                 continue

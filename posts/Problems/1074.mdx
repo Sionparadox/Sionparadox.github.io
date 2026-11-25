@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] Z - 1074',
-  date: '2026-02-26 07:34:44',
-  tags: ['분할 정복', '재귀'],
-  description: '[Gold V] Z - 1074',
+  title: "[Gold V] Z - 1074",
+  date: "2026-11-25 15:31:23",
+  tags: ["분할 정복", "재귀"],
+  description: "[Gold V] Z - 1074",
 };
 
 # [Gold V] Z - 1074 
@@ -59,7 +59,9 @@ answer = 0
 def find_quarter(r, c, depth):
     global answer
     
-    half = (1= half:
+    half = (1<<(N-depth))
+    res = 0
+    if r >= half:
         res += 2
         r -= half
     if c >= half:
@@ -73,6 +75,7 @@ for d in range(1,N+1):
     r, c = find_quarter(r, c, d)
 
 print(answer)
+
 
 '''
 depth에 따라 R,C를 좌상단으로 오도록 좌표변경 시키며 answer에 누적시키기

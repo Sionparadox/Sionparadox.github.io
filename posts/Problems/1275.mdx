@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 커피숍2 - 1275',
-  date: '2026-04-13 07:14:03',
-  tags: ['세그먼트 트리', '자료 구조'],
-  description: '[Gold I] 커피숍2 - 1275',
+  title: "[Gold I] 커피숍2 - 1275",
+  date: "2026-11-25 15:31:23",
+  tags: ["세그먼트 트리", "자료 구조"],
+  description: "[Gold I] 커피숍2 - 1275",
 };
 
 # [Gold I] 커피숍2 - 1275 
@@ -61,9 +61,18 @@ def init_tree(node, s, e):
     segment_tree[node] = segment_tree[node*2] + segment_tree[node*2+1]
 
 def query(node, s, e, left, right):
-    if right  e:
+    if right < s or left > e:
         return 0
-    if left e:
+    if left <= s and e <= right: 
+        return segment_tree[node]
+    
+    mid = (s+e)//2
+    L = query(node*2, s, mid, left, right)
+    R = query(node*2+1, mid+1, e, left, right)
+    return L+R
+
+def update(node, s, e, idx, value):
+    if idx<s or idx>e:
         return
     
     if s == e:

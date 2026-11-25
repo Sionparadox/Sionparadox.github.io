@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 날카로운 눈 - 1637',
-  date: '2025-08-21 08:38:31',
-  tags: ['이분 탐색', '매개 변수 탐색', '홀짝성'],
-  description: '[Platinum IV] 날카로운 눈 - 1637',
+  title: "[Platinum IV] 날카로운 눈 - 1637",
+  date: "2026-11-25 15:31:23",
+  tags: ["이분 탐색", "매개 변수 탐색", "홀짝성"],
+  description: "[Platinum IV] 날카로운 눈 - 1637",
 };
 
 # [Platinum IV] 날카로운 눈 - 1637 
@@ -53,7 +53,14 @@ def get_cnt(k):
     return res
 
 l, r = 0, MAX+1
-while l MAX:
+while l<r:
+    mid = (l+r)//2
+    if get_cnt(mid) % 2 == 1:
+        r = mid
+    else:
+        l = mid+1
+
+if l > MAX:
     print("NOTHING")
 else:
     print(l, get_cnt(l)-get_cnt(l-1))

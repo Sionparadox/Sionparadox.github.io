@@ -1,0 +1,75 @@
+export const metadata = {
+  title: "[Gold V] 순열장난 - 10597",
+  date: "2026-11-25 15:31:23",
+  tags: ["백트래킹"],
+  description: "[Gold V] 순열장난 - 10597",
+};
+
+# [Gold V] 순열장난 - 10597 
+
+[문제 링크](https://www.acmicpc.net/problem/10597) 
+
+### 성능 요약
+
+메모리: 11952 KB, 시간: 180 ms
+
+### 분류
+
+백트래킹
+
+### 제출 일자
+
+2025년 3월 17일 19:37:08
+
+### 문제 설명
+
+kriii는 1부터 N까지의 수로 이루어진 순열을 파일로 저장해 놓았다. 모든 수는 10진수로 이루어져 있고, 모두 공백으로 분리되어 있다.
+
+그런데 sujin이 그 파일의 모든 공백을 지워버렸다!
+
+kriii가 순열을 복구하도록 도와주자.
+
+### 입력 
+
+ 첫 줄에 공백이 사라진 kriii의 수열이 주어진다.
+
+kriii의 순열은 최소 1개 최대 50개의 수로 이루어져 있다.
+
+### 출력 
+
+ 복구된 수열을 출력한다. 공백을 잊으면 안 된다.
+
+복구한 수열의 경우가 여러 가지 일 경우, 그 중 하나를 출력한다.
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs.readFileSync(0, 'utf-8').toString().trim();
+// const input = fs.readFileSync('input.txt').toString().trim();
+
+const nums = new Set();
+const ans = [];
+const max_N =
+  input.length < 10 ? input.length : Math.floor((input.length - 9) / 2) + 9;
+dfs(0);
+console.log(ans.join(' '));
+
+function dfs(k) {
+  if (k == input.length) return true;
+
+  for (let i = 1; i < 3; i++) {
+    const n = parseInt(input.substring(k, k + i));
+    if (n >= 1 && n <= max_N && !nums.has(n)) {
+      nums.add(n);
+      ans.push(n);
+      if (dfs(k + i)) {
+        return true;
+      }
+
+      nums.delete(n);
+      ans.pop();
+    }
+  }
+  return false;
+}
+```

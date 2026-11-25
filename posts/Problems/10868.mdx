@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 최솟값 - 10868',
-  date: '2026-04-13 05:38:01',
-  tags: ['세그먼트 트리', '희소 배열', '자료 구조'],
-  description: '[Gold I] 최솟값 - 10868',
+  title: "[Gold I] 최솟값 - 10868",
+  date: "2026-11-25 15:31:23",
+  tags: ["세그먼트 트리", "희소 배열", "자료 구조"],
+  description: "[Gold I] 최솟값 - 10868",
 };
 
 # [Gold I] 최솟값 - 10868 
@@ -51,7 +51,7 @@ def init_tree(node, s, e):
     segment_tree[node] = min(segment_tree[node*2], segment_tree[node*2+1])
 
 def query(node, s, e, left, right):
-    if righte:
+    if right<s or left>e:
         return float('inf')
     if left <= s and e <= right:
         return segment_tree[node]

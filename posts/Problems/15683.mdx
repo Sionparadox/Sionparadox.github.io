@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 감시 - 15683',
-  date: '2025-06-26 08:44:13',
-  tags: ['구현', '브루트포스 알고리즘', '시뮬레이션', '백트래킹'],
-  description: '[Gold III] 감시 - 15683',
+  title: "[Gold III] 감시 - 15683",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "브루트포스 알고리즘", "시뮬레이션", "백트래킹"],
+  description: "[Gold III] 감시 - 15683",
 };
 
 # [Gold III] 감시 - 15683 
@@ -211,7 +211,7 @@ def fill(arr, pos, d):
         nr, nc = r, c
         while True:
             nr, nc = nr+dr, nc+dc
-            if nr = N or nc = M:
+            if nr < 0 or nr >= N or nc < 0 or nc >= M:
                 break
             if room[nr][nc] == 6:
                 break

@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 영화 수집 - 3653',
-  date: '2026-04-13 08:33:55',
-  tags: ['자료 구조', '세그먼트 트리'],
-  description: '[Platinum IV] 영화 수집 - 3653',
+  title: "[Platinum IV] 영화 수집 - 3653",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "세그먼트 트리"],
+  description: "[Platinum IV] 영화 수집 - 3653",
 };
 
 # [Platinum IV] 영화 수집 - 3653 
@@ -60,7 +60,7 @@ def init_tree(node, s, e):
     segment_tree[node] = segment_tree[node*2] + segment_tree[node*2+1]
 
 def update(node, s, e, idx, value):
-    if idxe:
+    if idx<s or idx>e:
         return
     if s == e:
         segment_tree[node] = value
@@ -72,7 +72,7 @@ def update(node, s, e, idx, value):
     segment_tree[node] = segment_tree[node*2] + segment_tree[node*2+1]
 
 def query(node, s, e, left, right):
-    if eright:
+    if e<left or s>right:
         return 0
     if left <= s and e <= right:
         return segment_tree[node]
@@ -106,6 +106,7 @@ for _ in range(T):
         top -= 1
    
     print(*answer) 
+
 
 '''
 해당 위치에 있는지 없는지 1,0으로 표시

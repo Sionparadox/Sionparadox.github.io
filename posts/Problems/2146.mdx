@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 다리 만들기 - 2146',
-  date: '2026-02-27 06:55:25',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색'],
-  description: '[Gold III] 다리 만들기 - 2146',
+  title: "[Gold III] 다리 만들기 - 2146",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색"],
+  description: "[Gold III] 다리 만들기 - 2146",
 };
 
 # [Gold III] 다리 만들기 - 2146 
@@ -66,7 +66,7 @@ def find_land(r, c, k):
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=N:
+            if nr<0 or nr>=N or nc<0 or nc>=N:
                 continue
             if indexed[nr][nc] > 0:
                 continue
@@ -97,7 +97,7 @@ while True:
         k = abs(indexed[r][c])
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=N or nc=N:
+            if nr<0 or nr>=N or nc<0 or nc>=N:
                 continue
             if abs(indexed[nr][nc]) == k:
                 continue

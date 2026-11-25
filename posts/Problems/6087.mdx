@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 레이저 통신 - 6087',
-  date: '2025-07-04 07:50:32',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '최단 경로', '데이크스트라', '격자 그래프'],
-  description: '[Gold III] 레이저 통신 - 6087',
+  title: "[Gold III] 레이저 통신 - 6087",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "최단 경로", "데이크스트라", "격자 그래프"],
+  description: "[Gold III] 레이저 통신 - 6087",
 };
 
 # [Gold III] 레이저 통신 - 6087 
@@ -84,7 +84,13 @@ for d in range(4):
 
 while pq:
     val, r, c, dir = heapq.heappop(pq)
-    if dp[r][c][dir] =H or nc=W:
+    if dp[r][c][dir] < val:
+        continue
+    
+    for d in range(4):
+        dr, dc = directions[d]
+        nr, nc = r+dr, c+dc
+        if nr<0 or nr>=H or nc<0 or nc>=W:
             continue
         if room[nr][nc] == '*':
             continue

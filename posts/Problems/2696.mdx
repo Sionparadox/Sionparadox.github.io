@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[Gold II] 중앙값 구하기 - 2696",
-  date: "2026-11-20 13:53:15",
+  date: "2026-11-25 15:31:23",
   tags: ["자료 구조", "우선순위 큐"],
   description: "[Gold II] 중앙값 구하기 - 2696",
 };
@@ -47,8 +47,11 @@ public class Main {
       StringBuilder sb = new StringBuilder();
       int T = Integer.parseInt(br.readLine());
 
-      for (int t=0; t minHeap = new PriorityQueue<>();
-        PriorityQueue maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+      for (int t=0; t<T; t++){
+        int N = Integer.parseInt(br.readLine());
+
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
         int[] answer = new int[N/2+1];
         int cnt = 0;
 

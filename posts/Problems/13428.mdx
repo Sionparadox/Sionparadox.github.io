@@ -1,0 +1,40 @@
+export const metadata = {
+  title: "[D3] 숫자 조작 - 13428",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D3] 숫자 조작 - 13428",
+};
+
+# [D3] 숫자 조작 - 13428 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX4EJPs68IkDFARe) 
+
+### 성능 요약
+
+메모리: 60,032 KB, 시간: 90 ms, 코드길이: 450 Bytes
+
+### 제출 일자
+
+2026-06-21 16:15
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+TC = int(input())
+for tc in range(1, TC+1):
+    N = list(input())
+    L = len(N)
+    max_v = min_v = int(''.join(N))
+    for i in range(L-1):
+        for j in range(i+1, L):
+            if i == 0 and N[j] == '0':
+                continue
+            N[i], N[j] = N[j], N[i]
+            k = int(''.join(N))
+            max_v = max(max_v, k)
+            min_v = min(min_v, k)
+            N[i], N[j] = N[j], N[i]
+    
+    print(f'#{tc} {min_v} {max_v}')
+```

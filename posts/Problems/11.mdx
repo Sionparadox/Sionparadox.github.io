@@ -1,0 +1,63 @@
+export const metadata = {
+  title: "[Gold IV] 별 찍기 - 11 - 2448",
+  date: "2026-11-25 15:31:23",
+  tags: ["재귀"],
+  description: "[Gold IV] 별 찍기 - 11 - 2448",
+};
+
+# [Gold IV] 별 찍기 - 11 - 2448 
+
+[문제 링크](https://www.acmicpc.net/problem/2448) 
+
+### 성능 요약
+
+메모리: 266736 KB, 시간: 1012 ms
+
+### 분류
+
+재귀
+
+### 제출 일자
+
+2025년 3월 25일 17:17:18
+
+### 문제 설명
+
+예제를 보고 규칙을 유추한 뒤에 별을 찍어 보세요.
+
+### 입력 
+
+ 첫째 줄에 N이 주어진다. N은 항상 3×2k 수이다. (3, 6, 12, 24, 48, ...) (0 ≤ k ≤ 10, k는 정수)
+
+### 출력 
+
+ 첫째 줄부터 N번째 줄까지 별을 출력한다.
+
+### 풀이
+```javascript
+const fs = require('fs');
+const input = fs.readFileSync(0, 'utf-8').toString().trim();
+// const input = fs.readFileSync('input.txt').toString().trim();
+const N = parseInt(input);
+
+const output = Array(N)
+  .fill()
+  .map(() => Array(N * 2 - 1).fill(' '));
+
+draw(0, N - 1, N);
+console.log(output.map((o) => o.join('')).join('\n'));
+
+function draw(x, y, k) {
+  if (k == 3) {
+    output[x][y] = '*';
+    output[x + 1][y - 1] = '*';
+    output[x + 1][y + 1] = '*';
+    output[x + 2].splice(y - 2, 5, '*', '*', '*', '*', '*');
+    return;
+  }
+  const size = parseInt(k / 2);
+  draw(x, y, size);
+  draw(x + size, y + size, size);
+  draw(x + size, y - size, size);
+}
+```

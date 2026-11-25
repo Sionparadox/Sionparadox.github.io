@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 물통 문제 - 14881',
-  date: '2026-03-21 14:14:39',
-  tags: ['수학', '정수론', '유클리드 호제법'],
-  description: '[Gold IV] 물통 문제 - 14881',
+  title: "[Gold IV] 물통 문제 - 14881",
+  date: "2026-11-25 15:31:23",
+  tags: ["수학", "정수론", "유클리드 호제법"],
+  description: "[Gold IV] 물통 문제 - 14881",
 };
 
 # [Gold IV] 물통 문제 - 14881 
@@ -50,7 +50,13 @@ T = int(input())
 for _ in range(T):
     a, b, c = map(int, input().split())
     
-    if c  (5, 3, 2, 1, 4, 8, 7, 6)
+    if c <= max(a,b) and c % GCD(a, b) == 0:
+        print("YES")
+    else:
+        print("NO")
+        
+'''
+5, 3 -> (5, 3, 2, 1, 4, 8, 7, 6)
 6, 3 -> (3, 6, 9)
 6, 8 -> (6, 8, 2, 4, 10, 12, 14)
 gcd의 배수?

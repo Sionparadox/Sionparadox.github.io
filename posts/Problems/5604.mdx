@@ -1,0 +1,42 @@
+export const metadata = {
+  title: "[D4] [Professional] 구간 합 - 5604",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D4] [Professional] 구간 합 - 5604",
+};
+
+# [D4] [Professional] 구간 합 - 5604 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGGNB6cnEDFAUo) 
+
+### 성능 요약
+
+메모리: 52,736 KB, 시간: 65 ms, 코드길이: 401 Bytes
+
+### 제출 일자
+
+2026-06-23 16:05
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+def solve(n):
+    if n < 0: return 0
+    res = 0
+    i = 1
+    while n > 0:
+        r = n % 10
+        n = n // 10
+        s = sum(int(x) for x in str(n))
+        tmp = r*(r+1)//2 + s*(r+1) + 45*(n)
+        res += tmp * i
+        i *= 10
+        n -= 1
+    return res
+        
+TC = int(input())
+for tc in range(1, TC+1):
+    A, B = map(int, input().split())
+    print(f'#{tc} {solve(B) - solve(A-1)}')
+```

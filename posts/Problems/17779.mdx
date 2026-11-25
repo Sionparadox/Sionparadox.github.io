@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 게리맨더링 2 - 17779',
-  date: '2025-07-23 08:11:39',
-  tags: ['구현', '브루트포스 알고리즘', '시뮬레이션'],
-  description: '[Gold II] 게리맨더링 2 - 17779',
+  title: "[Gold II] 게리맨더링 2 - 17779",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "브루트포스 알고리즘", "시뮬레이션"],
+  description: "[Gold II] 게리맨더링 2 - 17779",
 };
 
 # [Gold II] 게리맨더링 2 - 17779 
@@ -29,7 +29,7 @@ export const metadata = {
 
 선거구를 나누는 방법은 다음과 같다.
 
-	기준점 (x, y)와 경계의 길이 d1, d2를 정한다. (d1, d2 ≥ 1, 1 ≤ x 1+d2 ≤ N, 1 ≤ y-d1 2 ≤ N)
+	기준점 (x, y)와 경계의 길이 d1, d2를 정한다. (d1, d2 ≥ 1, 1 ≤ x \< x+d1+d2 ≤ N, 1 ≤ y-d1 \< y \< y+d2 ≤ N)
 	다음 칸은 경계선이다.
 	
 		1번 경계선: (x, y), (x+1, y-1), ..., (x+d1, y-d1)
@@ -41,10 +41,10 @@ export const metadata = {
 	경계선과 경계선의 안에 포함되어있는 곳은 5번 선거구이다.
 	5번 선거구에 포함되지 않은 구역 (r, c)의 선거구 번호는 다음 기준을 따른다.
 	
-		1번 선거구: 1 ≤ r 1, 1 ≤ c ≤ y, 1번 경계선의 왼쪽 위
-		2번 선거구: 1 ≤ r ≤ x+d2, y 
-		3번 선거구: x+d1 ≤ r ≤ N, 1 ≤ c 1+d2, 3번 경계선의 왼쪽 아래
-		4번 선거구: x+d2 1+d2 ≤ c ≤ N, 4번 경계선의 오른쪽 아래
+		1번 선거구: 1 ≤ r \< x+d1, 1 ≤ c ≤ y, 1번 경계선의 왼쪽 위
+		2번 선거구: 1 ≤ r ≤ x+d2, y \< c ≤ N, 2번 경계선의 오른쪽 위
+		3번 선거구: x+d1 ≤ r ≤ N, 1 ≤ c \< y-d1+d2, 3번 경계선의 왼쪽 아래
+		4번 선거구: x+d2 \< r ≤ N, y-d1+d2 ≤ c ≤ N, 4번 경계선의 오른쪽 아래
 	
 	
 
@@ -96,7 +96,9 @@ def calc(x, y, d1, d2):
     cnt = [0]*5
     for r in range(N):
         for c in range(N):
-            if r y and c-r > y-x:
+            if r < x+d1 and c<=y and r+c < x+y:
+                cnt[0] += population[r][c]
+            elif r<=x+d2 and c>y and c-r > y-x:
                 cnt[1] += population[r][c]
             elif c>=y-d1+d2 and r+c > x+y+d2*2:
                 cnt[2] += population[r][c]

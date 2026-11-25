@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 도로 네트워크 - 3176',
-  date: '2026-03-31 09:10:28',
-  tags: ['자료 구조', '트리', '최소 공통 조상', '희소 배열'],
-  description: '[Platinum IV] 도로 네트워크 - 3176',
+  title: "[Platinum IV] 도로 네트워크 - 3176",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "트리", "최소 공통 조상", "희소 배열"],
+  description: "[Platinum IV] 도로 네트워크 - 3176",
 };
 
 # [Platinum IV] 도로 네트워크 - 3176 
@@ -50,6 +50,7 @@ from collections import deque
 input = sys.stdin.readline
 INF = float('inf')
 
+
 N = int(input())
 graph = [[] for _ in range(N+1)]
 for _ in range(N-1):
@@ -88,6 +89,7 @@ for k in range(1, LOG):
         min_dist[k][i] = min(min_dist[k-1][i], min_dist[k-1][node])
         max_dist[k][i] = max(max_dist[k-1][i], max_dist[k-1][node])
 
+
 def lca(u, v):
     if depth[u] > depth[v]:
         u, v = v, u
@@ -119,6 +121,9 @@ K = int(input())
 for _ in range(K):
     u, v = map(int, input().split())
     print(*lca(u, v))
+
+
+
 
 '''
 트리 형태

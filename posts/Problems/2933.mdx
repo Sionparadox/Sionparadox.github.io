@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold I] 미네랄 - 2933',
-  date: '2025-08-01 06:21:24',
-  tags: ['구현', '그래프 이론', '그래프 탐색', '시뮬레이션', '너비 우선 탐색'],
-  description: '[Gold I] 미네랄 - 2933',
+  title: "[Gold I] 미네랄 - 2933",
+  date: "2026-11-25 15:31:23",
+  tags: ["구현", "그래프 이론", "그래프 탐색", "시뮬레이션", "너비 우선 탐색"],
+  description: "[Gold I] 미네랄 - 2933",
 };
 
 # [Gold I] 미네랄 - 2933 
@@ -72,7 +72,7 @@ def findCluster(r, c):
         r, c = queue.popleft()
         for dr, dc in directions:
             nr, nc = r+dr, c+dc
-            if nr=R or nc=C:
+            if nr<0 or nr>=R or nc<0 or nc>=C:
                 continue
             if visited[nr][nc] or cave[nr][nc] == '.':
                 continue
@@ -97,7 +97,22 @@ def fall(cluster, bottom):
         cave[r][c] = '.'
     for r, c in cluster:
         dist = 0
-        while r+dist+1=R or nc=C:
+        while r+dist+1<R and cave[r+dist+1][c] == '.':
+            dist += 1
+        minDist = min(minDist, dist)
+    for r, c in cluster:
+        cave[r+minDist][c] = 'x'
+
+d = 1
+for height in heights:
+    r, c = throw(height, d)
+    d *= -1
+    if r == None:
+        continue
+    visited = [[False]*C for _ in range(R)]
+    for dr, dc in directions:
+        nr, nc = r+dr, c+dc
+        if nr<0 or nr>=R or nc<0 or nc>=C:
             continue
         if visited[nr][nc] or cave[nr][nc] == '.':
             continue

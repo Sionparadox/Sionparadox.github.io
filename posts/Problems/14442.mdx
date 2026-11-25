@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold III] 벽 부수고 이동하기 2 - 14442',
-  date: '2025-08-25 09:35:28',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '격자 그래프'],
-  description: '[Gold III] 벽 부수고 이동하기 2 - 14442',
+  title: "[Gold III] 벽 부수고 이동하기 2 - 14442",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "격자 그래프"],
+  description: "[Gold III] 벽 부수고 이동하기 2 - 14442",
 };
 
 # [Gold III] 벽 부수고 이동하기 2 - 14442 
@@ -62,7 +62,7 @@ while queue:
     
     for dr, dc in directions:
         nr, nc, nk = r+dr, c+dc, k
-        if nr=N or nc=M:
+        if nr<0 or nr>=N or nc<0 or nc>=M:
             continue
         if board[nr][nc] == '1':
             nk += 1

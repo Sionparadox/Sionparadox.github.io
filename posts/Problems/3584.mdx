@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold IV] 가장 가까운 공통 조상 - 3584',
-  date: '2025-08-29 05:37:26',
-  tags: ['그래프 이론', '그래프 탐색', '트리', '깊이 우선 탐색', '최소 공통 조상'],
-  description: '[Gold IV] 가장 가까운 공통 조상 - 3584',
+  title: "[Gold IV] 가장 가까운 공통 조상 - 3584",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "트리", "깊이 우선 탐색", "최소 공통 조상"],
+  description: "[Gold IV] 가장 가까운 공통 조상 - 3584",
 };
 
 # [Gold IV] 가장 가까운 공통 조상 - 3584 
@@ -54,7 +54,11 @@ sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
 def LCA(u, v):
-    if depth[u] = 2**i:
+    if depth[u] < depth[v]:
+        u, v = v, u
+    
+    for i in range(K-1, -1, -1):
+        if depth[u]-depth[v] >= 2**i:
             u = parent[i][u]
     
     if u == v:

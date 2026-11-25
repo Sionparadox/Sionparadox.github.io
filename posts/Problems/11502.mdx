@@ -1,0 +1,89 @@
+export const metadata = {
+  title: "[Silver IV] 세 개의 소수 문제 - 11502",
+  date: "2026-11-25 15:31:23",
+  tags: ["브루트포스 알고리즘", "수학", "정수론", "소수 판정", "에라토스테네스의 체"],
+  description: "[Silver IV] 세 개의 소수 문제 - 11502",
+};
+
+# [Silver IV] 세 개의 소수 문제 - 11502 
+
+[문제 링크](https://www.acmicpc.net/problem/11502) 
+
+### 성능 요약
+
+메모리: 32412 KB, 시간: 36 ms
+
+### 분류
+
+브루트포스 알고리즘, 수학, 정수론, 소수 판정, 에라토스테네스의 체
+
+### 제출 일자
+
+2025년 5월 18일 18:47:40
+
+### 문제 설명
+
+정수론(수학)에서, 세 개의 소수 문제(3-primes problem) 는 다음과 같은 추측을 말한다.
+
+'5보다 큰 임의의 홀수는 정확히 세 개의 소수들의 합으로 나타낼 수 있다. 물론 하나의 소수를 여러 번 더할 수도 있다.'
+
+예를 들면,
+
+	7 = 2 + 2 + 3
+	11 = 2 + 2 + 7
+	25 = 7 + 7 + 11
+
+5보다 큰 임의의 홀수를 입력받아서, 그 홀수가 어떻게 세 소수의 합으로 표현될 수 있는지 (또는 불가능한지) 알아보는 프로그램을 작성하시오.
+
+### 입력 
+
+ 첫째 줄에 T(Test Case의 수를 의미함)가 주어진다.
+
+입력은 T개의 Test Case로 이루어진다.
+
+각 Test Case는 하나의 정수 K (7 ≤ K \< 1,000, K는 홀수)로 구성된다.
+
+### 출력 
+
+ T줄에 걸쳐서, 각 줄에 K가 어떻게 세 소수의 합으로 표현되는지 출력해야 한다.
+
+가능하다면 그 세 소수를 오름차순 정렬하여 출력하면 된다.
+
+여러 개의 답이 가능하다면 그 중 하나만 출력하면 되고, 만약 불가능하다면 0을 출력한다.
+
+### 풀이
+```python
+import sys
+input = sys.stdin.readline
+isPrime = [True]*1001
+isPrime[0] = isPrime[1] = False
+for i in range(2,int(1000 ** 0.5)+1):
+    if isPrime[i]:
+        for j in range(i**2, 1001, i):
+            isPrime[j] = False
+primes = []
+primeSet = set()
+for i in range(3,1001):
+    if isPrime[i]:
+        primes.append(i)
+        primeSet.add(i)
+L = len(primes)
+
+def canPrimeSum(n):
+    for i in range(L):
+        if primes[i]>=N : break
+        for j in range(i, L):
+            if n-primes[i]-primes[j] in primeSet:
+                print(primes[i], primes[j], n-primes[i]-primes[j])
+                return True
+    return False
+
+T = int(input())
+for _ in range(T):
+    N = int(input())
+    if N-4 in primeSet:
+        print(2,2,N-4)
+        continue
+    if not canPrimeSum(N):
+        print(0)
+```

@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum IV] 1-3 트리 - 25561',
-  date: '2026-03-22 09:56:43',
-  tags: ['애드 혹', '트리'],
-  description: '[Platinum IV] 1-3 트리 - 25561',
+  title: "[Platinum IV] 1-3 트리 - 25561",
+  date: "2026-11-25 15:31:23",
+  tags: ["애드 혹", "트리"],
+  description: "[Platinum IV] 1-3 트리 - 25561",
 };
 
 # [Platinum IV] 1-3 트리 - 25561 
@@ -65,12 +65,31 @@ def solve():
     left = arr[0]
     for i in range(1, N):
         left -= 2*arr[i]
-        if left arr[i-1]:
+        if left<0:
+            return False
+        if arr[i] > arr[i-1]:
             return False
         
         left += arr[i]
     
-    if N>1 and arr[-2] 남는 간선에 노드를 배치할 때 반복문 돌아야함 : 불가능
+    if N>1 and arr[-2]<2:
+        return False
+    return left == 2
+    
+        
+
+for _ in range(T):
+    N = int(input())
+    arr = list(map(int, input().split()))
+    print("YES" if solve() else "NO")
+
+
+'''
+N의 합이 100만까지기 때문에 O(N)만 가능?
+N번 노드는 1,2개밖에 안됨
+
+역순으로 노드를 배치하며 남는 간선이 몇개인지 기록하며 가능 여부 판단 x
+-> 남는 간선에 노드를 배치할 때 반복문 돌아야함 : 불가능
  
 k번 노드는 k미만 노드와 2개 연결되어야함. (k==N일때 동일 노드 연결 가능 그 외 상위 노드와 연결)
 1번 노드부터 2개씩 상위 노드에 연결.

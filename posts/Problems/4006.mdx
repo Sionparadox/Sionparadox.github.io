@@ -1,0 +1,56 @@
+export const metadata = {
+  title: "[D4] [Professional] 고속도로 건설 2 - 4006",
+  date: "2026-11-25 15:31:23",
+  tags: [],
+  description: "[D4] [Professional] 고속도로 건설 2 - 4006",
+};
+
+# [D4] [Professional] 고속도로 건설 2 - 4006 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWId0sqahOUDFAVH) 
+
+### 성능 요약
+
+메모리: 104,180 KB, 시간: 1,926 ms, 코드길이: 719 Bytes
+
+### 제출 일자
+
+2026-06-21 14:33
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
+
+### 풀이
+```python
+import heapq
+INF = float('inf')
+
+TC = int(input())
+for tc in range(1, TC+1):
+    N = int(input())
+    M = int(input())
+    edges = [[] for _ in range(N+1)]
+    for _ in range(M):
+        s, e, c = map(int, input().split())
+        edges[s].append((e, c))
+        edges[e].append((s, c))
+    
+    visited = [False]*(N+1)
+    pq = [(0, 1)]
+    answer = 0
+    cnt = 0
+    while pq and cnt < N:
+        cost, curr = heapq.heappop(pq)
+        
+        if visited[curr]:
+            continue
+        
+        visited[curr] = True
+        answer += cost
+        cnt += 1
+        
+        for nxt, c in edges[curr]:
+            if not visited[nxt]:
+                heapq.heappush(pq, (c, nxt))
+    
+    print(f'#{tc} {answer}')
+```

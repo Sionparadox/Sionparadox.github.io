@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[level 3] 정수 삼각형 - 43105",
-  date: "2026-08-14 13:53:24",
+  date: "2026-11-25 15:31:23",
   tags: [],
   description: "[level 3] 정수 삼각형 - 43105",
 };
@@ -53,15 +53,10 @@ result
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
 
 ### 풀이
-```java
-class Solution {
-    public int solution(int[][] triangle) {
-        for (int i=triangle.length-1; i>0;i--){
-            for (int j=0; j<triangle[i].length-1; j++){
-                triangle[i-1][j] += Math.max(triangle[i][j], triangle[i][j+1]);
-            }
-        }
-        return triangle[0][0];
-    }
-}
+```python
+def solution(triangle):
+    for d in range(len(triangle)-2,-1,-1):
+        for i in range(d+1):
+            triangle[d][i] += max(triangle[d+1][i], triangle[d+1][i+1])
+    return triangle[0][0]
 ```

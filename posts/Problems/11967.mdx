@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold II] 불켜기 - 11967',
-  date: '2025-07-01 09:49:10',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색'],
-  description: '[Gold II] 불켜기 - 11967',
+  title: "[Gold II] 불켜기 - 11967",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색"],
+  description: "[Gold II] 불켜기 - 11967",
 };
 
 # [Gold II] 불켜기 - 11967 
@@ -68,7 +68,7 @@ while queue:
             answer += 1
             for dr, dc in directions:
                 nr, nc = gr+dr, gc+dc
-                if nrN or ncN:
+                if nr<1 or nr>N or nc<1 or nc>N:
                     continue
                 if visited[nr][nc]:
                     queue.append((gr, gc))
@@ -77,7 +77,7 @@ while queue:
     
     for dr, dc in directions:
         nr, nc = r+dr, c+dc
-        if nrN or ncN:
+        if nr<1 or nr>N or nc<1 or nc>N:
             continue
         if not visited[nr][nc] and light[nr][nc]:
             queue.append((nr, nc))

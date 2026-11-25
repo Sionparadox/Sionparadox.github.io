@@ -1,6 +1,6 @@
 export const metadata = {
   title: "[Gold III] 디스크 트리 - 7432",
-  date: "2026-11-20 14:36:38",
+  date: "2026-11-25 15:31:23",
   tags: ["자료 구조", "집합과 맵", "문자열", "트리", "트라이"],
   description: "[Gold III] 디스크 트리 - 7432",
 };
@@ -43,7 +43,7 @@ import java.util.*;
 import java.io.*;
 
 class Node {
-  TreeMap children = new TreeMap<>();
+  TreeMap<String, Node> children = new TreeMap<>();
   
 }
 
@@ -89,6 +89,7 @@ public class Main {
       trie.print();
 
     }
+
 
 }
 

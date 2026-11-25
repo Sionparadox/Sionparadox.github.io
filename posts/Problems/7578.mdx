@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Platinum V] 공장 - 7578',
-  date: '2025-09-06 07:41:34',
-  tags: ['자료 구조', '세그먼트 트리'],
-  description: '[Platinum V] 공장 - 7578',
+  title: "[Platinum V] 공장 - 7578",
+  date: "2026-11-25 15:31:23",
+  tags: ["자료 구조", "세그먼트 트리"],
+  description: "[Platinum V] 공장 - 7578",
 };
 
 # [Platinum V] 공장 - 7578 
@@ -60,9 +60,18 @@ arr = [mapper[x] for x in list(map(int, input().split()))]
 segment_tree = [0]*(4*N)
 
 def query(node, s, e, left, right):
-    if right  e:
+    if right < s or left > e:
         return 0
-    if left  e:
+    if left <= s and e <= right:
+        return segment_tree[node]
+    
+    mid = (s+e)//2
+    L = query(node*2, s, mid, left, right)
+    R = query(node*2+1, mid+1, e, left, right)
+    return L+R
+
+def update(node, s, e, idx, value):
+    if idx < s or idx > e:
         return
     if s == e:
         segment_tree[node] = value
@@ -73,6 +82,7 @@ def query(node, s, e, left, right):
     update(node*2+1, mid+1, e, idx, value)
     segment_tree[node] = segment_tree[node*2]+segment_tree[node*2+1]
 
+
 answer = 0
 for k in arr:
     answer += query(1, 0, N-1, k+1, N-1)
@@ -80,6 +90,7 @@ for k in arr:
     update(1, 0, N-1, k, 1)        
     
 print(answer)
+
 
 '''
 i 가 들어왔을 때 이미 있는 i보다 큰 개수를 세기

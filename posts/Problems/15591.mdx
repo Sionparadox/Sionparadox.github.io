@@ -1,8 +1,8 @@
 export const metadata = {
-  title: '[Gold V] MooTube (Silver) - 15591',
-  date: '2025-06-27 09:21:48',
-  tags: ['그래프 이론', '그래프 탐색', '너비 우선 탐색', '깊이 우선 탐색'],
-  description: '[Gold V] MooTube (Silver) - 15591',
+  title: "[Gold V] MooTube (Silver) - 15591",
+  date: "2026-11-25 15:31:23",
+  tags: ["그래프 이론", "그래프 탐색", "너비 우선 탐색", "깊이 우선 탐색"],
+  description: "[Gold V] MooTube (Silver) - 15591",
 };
 
 # [Gold V] MooTube (Silver) - 15591 
@@ -64,7 +64,29 @@ def union(u, v):
     rootV = find(v)
     if rootU == rootV:
         return
-    if size[rootU] =k:
+    if size[rootU] < size[rootV]:
+        rootU, rootV = rootV, rootU
+    parent[rootV] = rootU
+    size[rootU] += size[rootV]
+
+graph = []
+for _ in range(N-1):
+    u, v, w = map(int, input().split())
+    graph.append((w, u, v))
+
+graph.sort(reverse=True)
+    
+question = []
+for i in range(Q):
+    k, v = map(int, input().split())
+    question.append((k, v, i))
+
+question.sort(reverse=True)
+
+answer = [0]*Q
+idx = 0
+for k, v, i in question:
+    while idx<N-1 and graph[idx][0]>=k:
         _, a, b = graph[idx]
         union(a, b)
         idx += 1
@@ -72,6 +94,7 @@ def union(u, v):
     
 for ans in answer:
     print(ans)   
+
 
 '''
 import sys
