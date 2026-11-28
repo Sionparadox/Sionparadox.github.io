@@ -1,25 +1,25 @@
 export const metadata = {
   title: "[Gold V] 매직 스타 - 3967",
-  date: "2026-11-25 15:31:23",
-  tags: ["구현", "브루트포스 알고리즘", "백트래킹"],
+  date: "2026-11-28 07:47:37",
+  tags: ["백트래킹", "브루트포싱", "구현"],
   description: "[Gold V] 매직 스타 - 3967",
 };
 
 # [Gold V] 매직 스타 - 3967 
 
-[문제 링크](https://www.acmicpc.net/problem/3967) 
+[문제 링크](https://acmicpc.net/problem/3967) 
 
 ### 성능 요약
 
-메모리: 32412 KB, 시간: 3940 ms
+메모리: 17612 KB, 시간: 289 ms
 
 ### 분류
 
-구현, 브루트포스 알고리즘, 백트래킹
+백트래킹, 브루트포싱, 구현
 
 ### 제출 일자
 
-2026년 3월 1일 16:05:39
+2026년 11월 28일 16:46:29
 
 ### 문제 설명
 
@@ -47,54 +47,91 @@ export const metadata = {
  매직 스타를 만들 수 있는 방법 중에 사전 순으로 가장 앞서는 방법을 출력한다. (모든 줄을 순서대로 붙여서 하나의 문자열로 만든 뒤, 사전 순으로 비교한다.) 항상 정답이 존재하는 경우만 입력으로 주어진다.
 
 ### 풀이
-```python
-import sys
-input = sys.stdin.readline
+```java
+import java.util.*;
+import java.io.*;
 
-arr = []
-for _ in range(5):
-    for c in input().rstrip():
-        if c == '.':
-            continue
-        if c == 'x':
-            arr.append(0)
-        else:
-            arr.append(ord(c)-ord('A')+1)
+public class Main {
+  static int[][] lines = new int[][] {{0, 2, 5, 7}, {0, 3, 6, 10}, {1, 2, 3, 4}, {1, 5, 8, 11}, {4, 6, 9, 11}, {7, 8, 9, 10}};
+  static int[] star;
+  static boolean flag;
 
-lines = [(0,2,5,7), (0,3,6,10), (1,2,3,4), (1,5,8,11), (4,6,9,11), (7,8,9,10)]
-fixed = set()
-visited = [False]*13
-for i in range(12):
-    if arr[i] > 0:
-        visited[arr[i]] = True
-        fixed.add(i)
-
-def can_magic():
-    for a,b,c,d in lines:
-        if arr[a]+arr[b]+arr[c]+arr[d] != 26:
-            return False
-    return True
-
-def backTrack(idx):
-    if idx in fixed:
-        backTrack(idx+1)
-        return
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    int idx = 0;
+    star = new int[12];
+    int mask = 0;
+    for (int i=0; i<5; i++){
+      String line = br.readLine();
+      for (char c:line.toCharArray()){
+        if (c == '.') continue;
+        if (c != 'x') {
+          star[idx] = c-'A'+1;
+          mask |= (1<<star[idx]);
+        }
+        idx++;
+      }
+    }
     
-    if idx == 12:
-        if can_magic():
-            chars = [chr(x + ord('A') - 1) for x in arr]
-            print("....{}....\n.{}.{}.{}.{}.\n..{}...{}..\n.{}.{}.{}.{}.\n....{}....".format(*chars))
-            exit(0)
-        return
-    
-    for i in range(1, 13):
-        if visited[i]:
-            continue
-        visited[i] = True
-        arr[idx] = i
-        backTrack(idx+1)
-        arr[idx] = 0
-        visited[i] = False
-    
-backTrack(0)
+    backTrack(0, mask);
+  }
+
+  private static void backTrack(int pos, int mask){
+    if(flag) return;
+    if(pos == 12){
+      if(check()){
+        flag = true;
+        print();
+      }
+      return;
+    }
+    if(star[pos] > 0) {
+      backTrack(pos+1, mask);
+      return;
+    }
+
+    for (int v=1; v<=12; v++){
+      if((mask & (1<<v)) > 0) continue;
+      star[pos] = v;
+      backTrack(pos+1, mask|(1<<v));
+      star[pos] = 0;
+    }
+  }
+
+  private static boolean check(){
+    for (int[] line:lines){
+      int cnt = 0;
+      for (int v:line) cnt += star[v];
+      if(cnt != 26) return false;
+    }
+    return true;
+  }
+
+  private static void print(){
+    StringBuilder sb = new StringBuilder();
+    sb.append("....").append(toChar(star[0])).append("....").append("\n");
+    sb.append(".").append(toChar(star[1])).append(".").append(toChar(star[2])).append(".").append(toChar(star[3])).append(".").append(toChar(star[4])).append(".").append("\n");
+    sb.append("..").append(toChar(star[5])).append("...").append(toChar(star[6])).append("..").append("\n");
+    sb.append(".").append(toChar(star[7])).append(".").append(toChar(star[8])).append(".").append(toChar(star[9])).append(".").append(toChar(star[10])).append(".").append("\n");
+    sb.append("....").append(toChar(star[11])).append("....").append("\n");
+    System.out.println(sb);
+  }
+
+  private static char toChar(int x){
+    return (char) (x+'A'-1);
+  }
+}
+
+/*
+   0
+1 2 3 4
+ 5   6
+7 8 9 10
+   11
+
+mask ; 2^13
+
+각 인덱스가 속하는 라인 인덱스를 구하고
+해당 라인의 합을 구하며 가지치기하면 성능 향상 가능
+*/
 ```
